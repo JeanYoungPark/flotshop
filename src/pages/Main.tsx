@@ -17,34 +17,61 @@ export const Main = () => {
     return (
         <>
             <nav id="header">
-                <h1>logo</h1>
-                <ul>
-                    <li><span>의류</span></li>
+                <h1 className="logo">logo</h1>
+                <ul className="menu">
+                    <li>
+                        <span>의류</span>
+                        <dl className="subMenu">
+                            <dt><span>전체상품</span></dt>
+                            <dt><span>민소매/나시</span></dt>
+                            <dt><span>티셔츠</span></dt>
+                            <dt><span>후드</span></dt>
+                            <dt><span>아우터</span></dt>
+                            <dt><span>악세사리</span></dt>
+                        </dl>
+                    </li>
                     <li><span>산책</span></li>
                     <li><span>리빙</span></li>
                     <li><span>EVENT</span></li>
                     <li><span>COLLECTION</span></li>
-                    <li><span>COMMUNITY</span></li>
-                    <li><span>ABOUT</span></li>
+                    <li>
+                        <span>COMMUNITY</span>
+                        <dl className="subMenu">
+                            <dt><span>공지사항</span></dt>
+                            <dt><span>자주묻는질문</span></dt>
+                            <dt><span>협업문의</span></dt>
+                            <dt><span>상품후기</span></dt>
+                            <dt><span>문의하기</span></dt>
+                        </dl>
+                    </li>
+                    <li>
+                        <span>ABOUT</span>
+                        <dl className="subMenu">
+                            <dt><span>회사소개</span></dt>
+                            <dt><span>영상소개</span></dt>
+                            <dt><span>오프라인 스토어</span></dt>
+                        </dl>
+                    </li>
                 </ul>
-                <div>
+                <div className="icons">
                     <span>돋보기</span>
                     <span>장바구니</span>
                     <span>메뉴</span>
                 </div>
             </nav>
             <ReactFullpage
+                licenseKey = {'YOUR_KEY_HERE'}
                 credits={credits}
-                render={(comp: any) => (
+                render={({ state, fullpageApi }) => (
                     <ReactFullpage.Wrapper>
-                        <div className="section">
-                            <h1>1</h1>
+                         <div className="section">
+                            <p>Section 1 (welcome to fullpage.js)</p>
+                            <button onClick={() => fullpageApi.moveSectionDown()}>
+                            Click me to move down
+                            </button>
                         </div>
                         <div className="section">
-                            <h1>2</h1>
-                        </div>
-                        <div className="section">
-                            <h1>3</h1>
+                            <p>Section 2</p>
                         </div>
                     </ReactFullpage.Wrapper>
                 )}
