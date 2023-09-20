@@ -16,7 +16,7 @@ ul, li, dl, dt {
   padding: 0;
 }
 
-nav {
+#header {
   display: flex;
   align-items: center;
   position: fixed;
@@ -28,8 +28,9 @@ nav {
   padding: 0 120px;
   box-sizing: border-box;
   font-family: "GmarketSansMedium", "Noto Sans KR", sans-serif, "맑은 고딕", "Malgun Gothic";
+  color: #fff;
 }
-nav .logo {
+#header .logo {
   position: absolute;
   left: 85px;
   width: 107px;
@@ -39,28 +40,28 @@ nav .logo {
   cursor: pointer;
   transition: opacity 0.25s ease;
 }
-nav .logo:hover {
+#header .logo:hover {
   opacity: 0.7;
 }
-nav .menu {
+#header .menu {
   display: flex;
   width: 100%;
   height: 100%;
   padding-left: 120px;
   box-sizing: border-box;
 }
-nav .menu li {
+#header .menu li {
   display: flex;
   align-items: center;
   position: relative;
   height: 100%;
 }
-nav .menu li > span {
+#header .menu li > span {
   padding: 0 25px;
   font-size: 19px;
   cursor: pointer;
 }
-nav .menu li .subMenu {
+#header .menu li .subMenu {
   position: absolute;
   left: 0;
   top: 90%;
@@ -72,20 +73,50 @@ nav .menu li .subMenu {
   border-radius: 6px;
   padding: 12px 0;
 }
-nav .menu li .subMenu dt {
+#header .menu li .subMenu dt {
   padding: 10px 27px;
   font-size: 15px;
   transition: all 0.25s ease;
   cursor: pointer;
 }
-nav .menu li .subMenu dt:hover {
+#header .menu li .subMenu dt:hover {
   color: #999;
 }
-nav .menu li:hover .subMenu {
+#header .menu li:hover .subMenu {
   visibility: visible;
   opacity: 1;
 }
-nav .icons {
+#header .icons {
   position: absolute;
   right: 85px;
+}
+
+#fullpage .bannerWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#fullpage .slide {
+  width: 100%;
+  height: 100%;
+}
+#fullpage .banner01 {
+  background-image: url("../images/mainBg01_1.jpg");
+}
+#fullpage .banner02 {
+  background-image: url("../images/mainBg01_2.jpg");
+}
+#fullpage .secContent {
+  display: flex;
+}
+#fullpage .secContent > div {
+  width: 50%;
+}
+#fullpage .secContent .left .product {
+  position: relative;
+  padding: 0 11% 20px;
+  margin: 0 20%;
+  min-width: 350px;
 }

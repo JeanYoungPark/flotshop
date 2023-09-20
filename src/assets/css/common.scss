@@ -9,7 +9,7 @@
 h1, h2, h3, h4, h5, h6 {margin: 0;}
 ul, li, dl, dt {list-style: none;margin: 0;padding: 0;}
 
-nav {
+#header {
     display: flex;
     align-items: center;
     position: fixed;
@@ -21,7 +21,12 @@ nav {
     padding: 0 120px;
     box-sizing: border-box;
     font-family: "GmarketSansMedium", 'Noto Sans KR', sans-serif, '맑은 고딕','Malgun Gothic';
+    color: #fff;
     
+    // .bgOff {
+    //     transition: background 0.25s ease, padding 0.7s ease;
+    // }
+
     .logo {
         position:absolute;
         left: 85px;
@@ -90,5 +95,45 @@ nav {
     .icons {
         position: absolute;
         right: 85px;
+    }
+}
+
+#fullpage {
+    .bannerWrap {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .banner01 {
+        background-image: url("../images/mainBg01_1.jpg");
+    }
+
+    .banner02 {
+        background-image: url("../images/mainBg01_2.jpg");
+    }
+
+    .secContent {
+        display:flex;
+
+        > div {
+            width: 50%;
+        }
+
+        .left {
+            .product {
+                position: relative;
+                padding: 0 11% 20px;
+                margin: 0 20%;
+                min-width: 350px;
+            }
+        }
     }
 }

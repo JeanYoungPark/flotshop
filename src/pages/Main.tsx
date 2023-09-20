@@ -1,16 +1,19 @@
 import "../assets/css/common.css";
 import ReactFullpage from "@fullpage/react-fullpage";
+import Slider  from "react-slick";
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import pd01 from '../assets/images/mainBg02_1.jpg';
 
 export const Main = () => {
     type Credits = {
         enabled?: boolean;
-        label?: string;
         position?: "left" | "right";
     };
 
     const credits: Credits = {
         enabled: true,
-        label: "my custom",
         position: "left",
     };
 
@@ -62,19 +65,36 @@ export const Main = () => {
             <ReactFullpage
                 licenseKey = {'YOUR_KEY_HERE'}
                 credits={credits}
-                render={({ state, fullpageApi }) => (
-                    <ReactFullpage.Wrapper>
-                         <div className="section">
-                            <p>Section 1 (welcome to fullpage.js)</p>
-                            <button onClick={() => fullpageApi.moveSectionDown()}>
-                            Click me to move down
-                            </button>
-                        </div>
-                        <div className="section">
-                            <p>Section 2</p>
-                        </div>
-                    </ReactFullpage.Wrapper>
-                )}
+                navigation
+                render={({ state, fullpageApi }) => {
+                    return (
+                        <ReactFullpage.Wrapper>
+                            <div className="section">1</div>
+                            <div className="section">
+                                <div className="secContent">
+                                    <div className="left">
+                                        <div className="product">
+                                            <Slider
+                                                dots={true}
+                                                arrows={true}
+                                                infinite={true}
+                                                slidesToShow={3}
+                                                slidesToScroll={1}
+                                            >
+                                                <div><img src={pd01} alt="product 1"/></div>
+                                                <div>Slide 2</div>
+                                                <div>Slide 3</div>
+                                                <div>Slide 4</div>
+                                                <div>Slide 5</div>
+                                            </Slider>
+                                        </div>
+                                    </div>
+                                    <div className="right">2</div>
+                                </div>
+                            </div>
+                        </ReactFullpage.Wrapper>
+                    );
+                }}
             />
         </>
     )
