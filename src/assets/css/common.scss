@@ -241,6 +241,18 @@ ul, li, dl, dt {list-style: none;margin: 0;padding: 0;}
                         padding-top: 8px;
                     }
                 }
+
+                .custom-dot {
+                    span {
+                        padding: 5px 12px;
+                        border: 1px solid #ddd;
+                        border-radius: 30px;
+                        font-size: 15px;
+                        color:#999;
+                        font-weight: 400;
+                        transition: color 0.25s ease;
+                    }
+                }
             }
         }
     }

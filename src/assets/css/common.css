@@ -216,3 +216,12 @@ ul, li, dl, dt {
   font-size: 19px;
   padding-top: 8px;
 }
+#fullpage .secContent .left .products .custom-dot span {
+  padding: 5px 12px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 15px;
+  color: #999;
+  font-weight: 400;
+  transition: color 0.25s ease;
+}

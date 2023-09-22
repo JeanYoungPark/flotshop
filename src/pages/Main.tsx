@@ -90,6 +90,7 @@ export const Main = () => {
                                     <div className="left">
                                         <div className="products">
                                             <div className="arrow prev"><BsArrowLeft/></div>
+                                            <div className="arrow next"><BsArrowRight/></div>
                                             <Slider {...settings}>
                                                 <div className="product">
                                                     <div className="description">
@@ -105,10 +106,9 @@ export const Main = () => {
                                                 </div>
                                                 <div className="product"><img src={pd02} alt="product 2"/></div>
                                             </Slider>
-                                            <div className="arrow next"><BsArrowRight/></div>
-                                        </div>
-                                        <div className="custom-dot">
-                                            {currentPage}/3
+                                            <div className="custom-dot">
+                                                <span>{currentPage}/3</span>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="right">2</div>
