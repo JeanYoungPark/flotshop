@@ -1,10 +1,12 @@
 import "../assets/css/common.css";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Slider  from "react-slick";
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import pd01 from '../assets/images/mainBg02_1.jpg';
+import pd01 from '../assets/images/mainBg02_1.jpg'; 
+import pd02 from '../assets/images/mainBg02_2.jpg'; 
+import { useState } from "react";
 
 export const Main = () => {
     type Credits = {
@@ -15,7 +17,20 @@ export const Main = () => {
     const credits: Credits = {
         enabled: true,
         position: "left",
-    };
+    };      
+
+    const [currentPage, setCurrentPage] = useState(1);
+
+    const settings = {
+        arrows: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        beforeChange: (current: number, next: number) => {
+            setCurrentPage(next + 1); // 페이지 변경 시 현재 페이지 업데이트
+        },
+      };
 
     return (
         <>
@@ -73,20 +88,27 @@ export const Main = () => {
                             <div className="section">
                                 <div className="secContent">
                                     <div className="left">
-                                        <div className="product">
-                                            <Slider
-                                                dots={true}
-                                                arrows={true}
-                                                infinite={true}
-                                                slidesToShow={3}
-                                                slidesToScroll={1}
-                                            >
-                                                <div><img src={pd01} alt="product 1"/></div>
-                                                <div>Slide 2</div>
-                                                <div>Slide 3</div>
-                                                <div>Slide 4</div>
-                                                <div>Slide 5</div>
+                                        <div className="products">
+                                            <div className="arrow prev"><BsArrowLeft/></div>
+                                            <Slider {...settings}>
+                                                <div className="product">
+                                                    <div className="description">
+                                                        <div className="reviewCount">리뷰 0</div>
+                                                        <strong className="name">플로트 데일리버튼티셔츠 레드 강아지옷</strong>
+                                                        <span className="brand">FLOT</span>
+                                                        <span className="price">26,000원</span>
+                                                        <div className="icons">
+
+                                                        </div>
+                                                    </div>
+                                                    <img src={pd01} alt="product 1"/>
+                                                </div>
+                                                <div className="product"><img src={pd02} alt="product 2"/></div>
                                             </Slider>
+                                            <div className="arrow next"><BsArrowRight/></div>
+                                        </div>
+                                        <div className="custom-dot">
+                                            {currentPage}/3
                                         </div>
                                     </div>
                                     <div className="right">2</div>

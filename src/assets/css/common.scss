@@ -1,4 +1,5 @@
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+@import url(//fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Outfit&display=swap);
 @font-face {
     font-family: 'GmarketSansMedium';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
@@ -6,6 +7,7 @@
     font-style: normal;
 }
 
+body {font: 0.80em 'Outfit','Noto Sans KR','맑은 고딕','Malgun Gothic',Verdana,Dotum,AppleGothic,sans-serif}
 h1, h2, h3, h4, h5, h6 {margin: 0;}
 ul, li, dl, dt {list-style: none;margin: 0;padding: 0;}
 
@@ -128,11 +130,117 @@ ul, li, dl, dt {list-style: none;margin: 0;padding: 0;}
         }
 
         .left {
-            .product {
+            .products {
                 position: relative;
                 padding: 0 11% 20px;
                 margin: 0 20%;
-                min-width: 350px;
+                max-width: 350px;
+
+                .product {
+                    position: relative;
+                    margin: 22px 0 10px;
+                    cursor:pointer;
+    
+                    img {
+                        width: 100%;
+                        border-radius: 16px;
+                    }
+
+                    &:hover .description {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+    
+                .arrow {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: absolute;
+                    width: 50px;
+                    height: 50px;
+                    top: 50%;
+                    margin-top: -25px;
+                    border-radius: 50px;
+                    transition: transform 0.95s ease, opacity 0.25s ease, color 0.25s ease, background 0.25s ease;
+                    box-shadow: 0 1px 4px rgba(0,0,0,0.19);
+                    opacity: 0;
+                    color: #222;
+                    background: #fff;
+                    text-align: center;
+                    cursor: pointer;
+    
+                    svg {
+                        width: 23px;
+                        height: 23px;
+                    }
+    
+                    &.next {
+                        right: 0;
+                    }
+    
+                    &.prev {
+                        left: 0;
+                    }
+                }
+
+                &:hover .arrow {
+                    color: #fff;
+                    background: #222;
+                    opacity: 1;
+
+                    &.prev {
+                        transform: translate(30px, 0);
+                    }
+
+                    &.next {
+                        transform: translate(-30px, 0);
+                    }
+                }
+
+                .description {
+                    position:absolute;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    width: 100%;
+                    height: 100%;
+                    padding: 10px 20px;
+                    background: rgba(255, 255, 255, 0.93);
+                    box-sizing: border-box;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.25s ease, visibility 0.25s ease;
+
+                    .reviewCount {
+                        border: 1px solid #e7e7e7;
+                        padding: 6px 9px;
+                        font-size: 13px;
+                        font-weight: 400;
+                        border-radius: 6px;
+                    }
+
+                    .name {
+                        font-size:19px;
+                        font-weight:bold;
+                        text-align:center;
+                        font-weight: bold;
+                        padding-top: 12px;
+                    }
+
+                    .brand {
+                        font-size: 19px;
+                        font-weight: 400;
+                        padding-top: 10px;
+                    }
+
+                    .price {
+                        font-weight: bold;
+                        font-size: 19px;
+                        padding-top: 8px;
+                    }
+                }
             }
         }
     }
