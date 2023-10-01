@@ -115,6 +115,7 @@ ul, li, dl, dt {
 }
 #fullpage .secContent {
   display: flex;
+  align-items: center;
 }
 #fullpage .secContent > div {
   width: 50%;
@@ -166,9 +167,11 @@ ul, li, dl, dt {
 #fullpage .secContent .left .products .arrow.prev {
   left: 0;
 }
-#fullpage .secContent .left .products:hover .arrow {
-  color: #fff;
+#fullpage .secContent .left .products .arrow:not(.disable):hover {
   background: #222;
+  color: #fff;
+}
+#fullpage .secContent .left .products:hover .arrow {
   opacity: 1;
 }
 #fullpage .secContent .left .products:hover .arrow.prev {
@@ -176,6 +179,9 @@ ul, li, dl, dt {
 }
 #fullpage .secContent .left .products:hover .arrow.next {
   transform: translate(-30px, 0);
+}
+#fullpage .secContent .left .products:hover .arrow.disable {
+  opacity: 0.35;
 }
 #fullpage .secContent .left .products .description {
   position: absolute;
@@ -250,4 +256,21 @@ ul, li, dl, dt {
   color: #999;
   font-weight: 400;
   transition: color 0.25s ease;
+}
+#fullpage .secContent .right span {
+  display: inline-block;
+  font-size: 23px;
+  font-weight: 300;
+  padding-bottom: 30px;
+  font-family: "GmarketSansMedium";
+}
+#fullpage .secContent .right h2 {
+  font-size: 72px;
+  font-weight: 600;
+}
+#fullpage .secContent .right p {
+  padding-top: 50px;
+  font-size: 24px;
+  font-weight: 300;
+  font-family: "GmarketSansMedium", "Noto Sans KR", sans-serif, "맑은 고딕", "Malgun Gothic";
 }

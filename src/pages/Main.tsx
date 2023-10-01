@@ -36,11 +36,12 @@ export const Main = () => {
     };
 
     const prevSlide = useCallback(() => {
-        sliderRef.current?.slickPrev(); 
-    }, []);
+        if(currentPage !== 1) sliderRef.current?.slickPrev(); 
+    }, [currentPage]);
+
     const nextSlide = useCallback(() => {
-        sliderRef.current?.slickNext(); // slickNext 메서드 호출
-    }, []);
+        if(currentPage !== 3) sliderRef.current?.slickNext(); // slickNext 메서드 호출
+    }, [currentPage]);
 
     return (
         <>
@@ -99,8 +100,8 @@ export const Main = () => {
                                 <div className="secContent">
                                     <div className="left">
                                         <div className="products">
-                                            <div className="arrow prev" onClick={prevSlide}><BsArrowLeft/></div>
-                                            <div className="arrow next" onClick={nextSlide}><BsArrowRight/></div>
+                                            <div className={`arrow prev ${currentPage === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
+                                            <div className={`arrow next ${currentPage === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
                                             <Slider ref={sliderRef} {...settings}>
                                                 <div className="product">
                                                     <div className="description">
@@ -127,7 +128,14 @@ export const Main = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="right">2</div>
+                                    <div className="right">
+                                        <span>#플로트 F/W 추천</span>
+                                        <h2>견체공학으로 편안한</h2>
+                                        <p>
+                                            플로트의 견체공학으로 편안한<br/>
+                                            간절기에 딱 좋은 스타일을 추천합니다.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </ReactFullpage.Wrapper>
