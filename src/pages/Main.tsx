@@ -1,25 +1,28 @@
 import "../assets/css/common.css";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Slider  from "react-slick";
-import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight, BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import pd01 from '../assets/images/mainBg02_1.jpg'; 
-import pd02 from '../assets/images/mainBg02_2.jpg'; 
-import { useState } from "react";
+import pd02 from '../assets/images/mainBg02_2.jpg';
+import pd03 from '../assets/images/mainBg02_3.jpg';
+import { Ref, useCallback, useEffect, useRef, useState } from "react";
 
-export const Main = () => {
-    type Credits = {
-        enabled?: boolean;
-        position?: "left" | "right";
-    };
+type Credits = {
+    enabled?: boolean;
+    position?: "left" | "right";
+};
 
-    const credits: Credits = {
-        enabled: true,
-        position: "left",
-    };      
+const credits: Credits = {
+    enabled: true,
+    position: "left",
+};
 
+export const Main = () => {      
     const [currentPage, setCurrentPage] = useState(1);
+
+    const sliderRef = useRef<Slider>(null);
 
     const settings = {
         arrows: false,
@@ -29,8 +32,15 @@ export const Main = () => {
         slidesToScroll: 1,
         beforeChange: (current: number, next: number) => {
             setCurrentPage(next + 1); // 페이지 변경 시 현재 페이지 업데이트
-        },
-      };
+        }
+    };
+
+    const prevSlide = useCallback(() => {
+        sliderRef.current?.slickPrev(); 
+    }, []);
+    const nextSlide = useCallback(() => {
+        sliderRef.current?.slickNext(); // slickNext 메서드 호출
+    }, []);
 
     return (
         <>
@@ -89,22 +99,28 @@ export const Main = () => {
                                 <div className="secContent">
                                     <div className="left">
                                         <div className="products">
-                                            <div className="arrow prev"><BsArrowLeft/></div>
-                                            <div className="arrow next"><BsArrowRight/></div>
-                                            <Slider {...settings}>
+                                            <div className="arrow prev" onClick={prevSlide}><BsArrowLeft/></div>
+                                            <div className="arrow next" onClick={nextSlide}><BsArrowRight/></div>
+                                            <Slider ref={sliderRef} {...settings}>
                                                 <div className="product">
                                                     <div className="description">
-                                                        <div className="reviewCount">리뷰 0</div>
-                                                        <strong className="name">플로트 데일리버튼티셔츠 레드 강아지옷</strong>
-                                                        <span className="brand">FLOT</span>
-                                                        <span className="price">26,000원</span>
+                                                        <span className="likes">Like <span className="count">0</span></span>
+                                                        <>
+                                                            <div className="reviewCount">리뷰 0</div>
+                                                            <strong className="name">플로트 데일리버튼티셔츠 레드 강아지옷</strong>
+                                                            <span className="brand">FLOT</span>
+                                                            <span className="price">26,000원</span>
+                                                        </>
                                                         <div className="icons">
-
+                                                            <BsSuitHeart/>
+                                                            <BsHandbag />
+                                                            <BsWindowSplit />
                                                         </div>
                                                     </div>
                                                     <img src={pd01} alt="product 1"/>
                                                 </div>
                                                 <div className="product"><img src={pd02} alt="product 2"/></div>
+                                                <div className="product"><img src={pd03} alt="product 3"/></div>
                                             </Slider>
                                             <div className="custom-dot">
                                                 <span>{currentPage}/3</span>

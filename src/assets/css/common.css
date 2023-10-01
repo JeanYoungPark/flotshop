@@ -216,6 +216,32 @@ ul, li, dl, dt {
   font-size: 19px;
   padding-top: 8px;
 }
+#fullpage .secContent .left .products .description .likes {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 25px;
+  background: #fff;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+#fullpage .secContent .left .products .description .likes .count {
+  padding-left: 3px;
+  color: #999;
+}
+#fullpage .secContent .left .products .description .icons {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+#fullpage .secContent .left .products .description .icons svg {
+  width: 20px;
+  height: 20px;
+  color: #999;
+  border: 1px solid #e8e8e8;
+  padding: 5px;
+}
 #fullpage .secContent .left .products .custom-dot span {
   padding: 5px 12px;
   border: 1px solid #ddd;
