@@ -1,12 +1,7 @@
 @charset "UTF-8";
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 @import url(//fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Outfit&display=swap);
-@font-face {
-  font-family: "GmarketSansMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
+@import url(//webfontworld.github.io/gmarket/GmarketSans.css);
 body {
   font: 0.8em "Outfit", "Noto Sans KR", "맑은 고딕", "Malgun Gothic", Verdana, Dotum, AppleGothic, sans-serif;
 }
@@ -21,6 +16,10 @@ ul, li, dl, dt {
   padding: 0;
 }
 
+p {
+  margin: 0;
+}
+
 #header {
   display: flex;
   align-items: center;
@@ -32,7 +31,7 @@ ul, li, dl, dt {
   height: 120px;
   padding: 0 120px;
   box-sizing: border-box;
-  font-family: "GmarketSansMedium", "Noto Sans KR", sans-serif, "맑은 고딕", "Malgun Gothic";
+  font-family: "GmarketSans";
   color: #fff;
 }
 #header .logo {
@@ -96,50 +95,45 @@ ul, li, dl, dt {
   right: 85px;
 }
 
-#fullpage .bannerWrap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+#fullpage .section.second.active .content .left .products {
+  transform: translate(0, 0);
+  opacity: 1;
 }
-#fullpage .slide {
-  width: 100%;
-  height: 100%;
+#fullpage .section.second.active .content .right span, #fullpage .section.second.active .content .right h2, #fullpage .section.second.active .content .right p {
+  transform: translate(0, 0);
+  opacity: 1;
 }
-#fullpage .banner01 {
-  background-image: url("../images/mainBg01_1.jpg");
-}
-#fullpage .banner02 {
-  background-image: url("../images/mainBg01_2.jpg");
-}
-#fullpage .secContent {
+#fullpage .section.second .content {
   display: flex;
   align-items: center;
 }
-#fullpage .secContent > div {
+#fullpage .section.second .content > div {
   width: 50%;
 }
-#fullpage .secContent .left .products {
+#fullpage .section.second .content .left .products {
   position: relative;
   padding: 0 11% 20px;
   margin: 0 20%;
   max-width: 350px;
+  transform: translate(0, 40px);
+  opacity: 0;
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  transition-delay: 0.7s;
 }
-#fullpage .secContent .left .products .product {
+#fullpage .section.second .content .left .products .product {
   position: relative;
   margin: 22px 0 10px;
   cursor: pointer;
 }
-#fullpage .secContent .left .products .product img {
+#fullpage .section.second .content .left .products .product img {
   width: 100%;
   border-radius: 16px;
 }
-#fullpage .secContent .left .products .product:hover .description {
+#fullpage .section.second .content .left .products .product:hover .description {
   opacity: 1;
   visibility: visible;
 }
-#fullpage .secContent .left .products .arrow {
+#fullpage .section.second .content .left .products .arrow {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -157,33 +151,33 @@ ul, li, dl, dt {
   text-align: center;
   cursor: pointer;
 }
-#fullpage .secContent .left .products .arrow svg {
+#fullpage .section.second .content .left .products .arrow svg {
   width: 23px;
   height: 23px;
 }
-#fullpage .secContent .left .products .arrow.next {
+#fullpage .section.second .content .left .products .arrow.next {
   right: 0;
 }
-#fullpage .secContent .left .products .arrow.prev {
+#fullpage .section.second .content .left .products .arrow.prev {
   left: 0;
 }
-#fullpage .secContent .left .products .arrow:not(.disable):hover {
+#fullpage .section.second .content .left .products .arrow:not(.disable):hover {
   background: #222;
   color: #fff;
 }
-#fullpage .secContent .left .products:hover .arrow {
+#fullpage .section.second .content .left .products:hover .arrow {
   opacity: 1;
 }
-#fullpage .secContent .left .products:hover .arrow.prev {
+#fullpage .section.second .content .left .products:hover .arrow.prev {
   transform: translate(30px, 0);
 }
-#fullpage .secContent .left .products:hover .arrow.next {
+#fullpage .section.second .content .left .products:hover .arrow.next {
   transform: translate(-30px, 0);
 }
-#fullpage .secContent .left .products:hover .arrow.disable {
+#fullpage .section.second .content .left .products:hover .arrow.disable {
   opacity: 0.35;
 }
-#fullpage .secContent .left .products .description {
+#fullpage .section.second .content .left .products .description {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -198,31 +192,31 @@ ul, li, dl, dt {
   visibility: hidden;
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
-#fullpage .secContent .left .products .description .reviewCount {
+#fullpage .section.second .content .left .products .description .reviewCount {
   border: 1px solid #e7e7e7;
   padding: 6px 9px;
   font-size: 13px;
   font-weight: 400;
   border-radius: 6px;
 }
-#fullpage .secContent .left .products .description .name {
+#fullpage .section.second .content .left .products .description .name {
   font-size: 19px;
   font-weight: bold;
   text-align: center;
   font-weight: bold;
   padding-top: 12px;
 }
-#fullpage .secContent .left .products .description .brand {
+#fullpage .section.second .content .left .products .description .brand {
   font-size: 19px;
   font-weight: 400;
   padding-top: 10px;
 }
-#fullpage .secContent .left .products .description .price {
+#fullpage .section.second .content .left .products .description .price {
   font-weight: bold;
   font-size: 19px;
   padding-top: 8px;
 }
-#fullpage .secContent .left .products .description .likes {
+#fullpage .section.second .content .left .products .description .likes {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -232,23 +226,23 @@ ul, li, dl, dt {
   padding: 8px 12px;
   font-size: 13px;
 }
-#fullpage .secContent .left .products .description .likes .count {
+#fullpage .section.second .content .left .products .description .likes .count {
   padding-left: 3px;
   color: #999;
 }
-#fullpage .secContent .left .products .description .icons {
+#fullpage .section.second .content .left .products .description .icons {
   position: absolute;
   right: 10px;
   bottom: 10px;
 }
-#fullpage .secContent .left .products .description .icons svg {
+#fullpage .section.second .content .left .products .description .icons svg {
   width: 20px;
   height: 20px;
   color: #999;
   border: 1px solid #e8e8e8;
   padding: 5px;
 }
-#fullpage .secContent .left .products .custom-dot span {
+#fullpage .section.second .content .left .products .custom-dot span {
   padding: 5px 12px;
   border: 1px solid #ddd;
   border-radius: 30px;
@@ -257,20 +251,34 @@ ul, li, dl, dt {
   font-weight: 400;
   transition: color 0.25s ease;
 }
-#fullpage .secContent .right span {
+#fullpage .section.second .content .right span {
   display: inline-block;
   font-size: 23px;
   font-weight: 300;
   padding-bottom: 30px;
-  font-family: "GmarketSansMedium";
+  font-family: "GmarketSans";
+  line-height: 1.6;
+  transform: translate(-25px, 0);
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  opacity: 0;
+  transition-delay: 1.75s;
 }
-#fullpage .secContent .right h2 {
+#fullpage .section.second .content .right h2 {
   font-size: 72px;
   font-weight: 600;
+  line-height: 1.45;
+  transform: translate(-25px, 0);
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  opacity: 0;
+  transition-delay: 3s;
 }
-#fullpage .secContent .right p {
+#fullpage .section.second .content .right p {
   padding-top: 50px;
   font-size: 24px;
   font-weight: 300;
-  font-family: "GmarketSansMedium", "Noto Sans KR", sans-serif, "맑은 고딕", "Malgun Gothic";
+  font-family: "GmarketSans";
+  line-height: 1.9;
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  opacity: 0;
+  transition-delay: 4s;
 }

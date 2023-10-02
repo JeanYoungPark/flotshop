@@ -7,7 +7,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import pd01 from '../assets/images/mainBg02_1.jpg'; 
 import pd02 from '../assets/images/mainBg02_2.jpg';
 import pd03 from '../assets/images/mainBg02_3.jpg';
-import { Ref, useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 
 type Credits = {
     enabled?: boolean;
@@ -19,9 +19,8 @@ const credits: Credits = {
     position: "left",
 };
 
-export const Main = () => {      
+export const Main = () => {
     const [currentPage, setCurrentPage] = useState(1);
-
     const sliderRef = useRef<Slider>(null);
 
     const settings = {
@@ -40,7 +39,7 @@ export const Main = () => {
     }, [currentPage]);
 
     const nextSlide = useCallback(() => {
-        if(currentPage !== 3) sliderRef.current?.slickNext(); // slickNext 메서드 호출
+        if(currentPage !== 3) sliderRef.current?.slickNext();
     }, [currentPage]);
 
     return (
@@ -96,8 +95,8 @@ export const Main = () => {
                     return (
                         <ReactFullpage.Wrapper>
                             <div className="section">1</div>
-                            <div className="section">
-                                <div className="secContent">
+                            <div className="section second">
+                                <div className="content">
                                     <div className="left">
                                         <div className="products">
                                             <div className={`arrow prev ${currentPage === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
