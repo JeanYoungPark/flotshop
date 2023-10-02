@@ -1,11 +1,11 @@
 @charset "UTF-8";
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
-@font-face {
-  font-family: "GmarketSansMedium";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
+@import url(//fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Outfit&display=swap);
+@import url(//webfontworld.github.io/gmarket/GmarketSans.css);
+body {
+  font: 0.8em "Outfit", "Noto Sans KR", "맑은 고딕", "Malgun Gothic", Verdana, Dotum, AppleGothic, sans-serif;
 }
+
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
@@ -16,7 +16,11 @@ ul, li, dl, dt {
   padding: 0;
 }
 
-nav {
+p {
+  margin: 0;
+}
+
+#header {
   display: flex;
   align-items: center;
   position: fixed;
@@ -27,9 +31,10 @@ nav {
   height: 120px;
   padding: 0 120px;
   box-sizing: border-box;
-  font-family: "GmarketSansMedium", "Noto Sans KR", sans-serif, "맑은 고딕", "Malgun Gothic";
+  font-family: "GmarketSans";
+  color: #fff;
 }
-nav .logo {
+#header .logo {
   position: absolute;
   left: 85px;
   width: 107px;
@@ -39,28 +44,28 @@ nav .logo {
   cursor: pointer;
   transition: opacity 0.25s ease;
 }
-nav .logo:hover {
+#header .logo:hover {
   opacity: 0.7;
 }
-nav .menu {
+#header .menu {
   display: flex;
   width: 100%;
   height: 100%;
   padding-left: 120px;
   box-sizing: border-box;
 }
-nav .menu li {
+#header .menu li {
   display: flex;
   align-items: center;
   position: relative;
   height: 100%;
 }
-nav .menu li > span {
+#header .menu li > span {
   padding: 0 25px;
   font-size: 19px;
   cursor: pointer;
 }
-nav .menu li .subMenu {
+#header .menu li .subMenu {
   position: absolute;
   left: 0;
   top: 90%;
@@ -72,20 +77,208 @@ nav .menu li .subMenu {
   border-radius: 6px;
   padding: 12px 0;
 }
-nav .menu li .subMenu dt {
+#header .menu li .subMenu dt {
   padding: 10px 27px;
   font-size: 15px;
   transition: all 0.25s ease;
   cursor: pointer;
 }
-nav .menu li .subMenu dt:hover {
+#header .menu li .subMenu dt:hover {
   color: #999;
 }
-nav .menu li:hover .subMenu {
+#header .menu li:hover .subMenu {
   visibility: visible;
   opacity: 1;
 }
-nav .icons {
+#header .icons {
   position: absolute;
   right: 85px;
+}
+
+#fullpage .section.second.active .content .left .products {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+#fullpage .section.second.active .content .right span, #fullpage .section.second.active .content .right h2, #fullpage .section.second.active .content .right p {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+#fullpage .section.second .content {
+  display: flex;
+  align-items: center;
+}
+#fullpage .section.second .content > div {
+  width: 50%;
+}
+#fullpage .section.second .content .left .products {
+  position: relative;
+  padding: 0 11% 20px;
+  margin: 0 20%;
+  max-width: 350px;
+  transform: translate(0, 40px);
+  opacity: 0;
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  transition-delay: 0.7s;
+}
+#fullpage .section.second .content .left .products .product {
+  position: relative;
+  margin: 22px 0 10px;
+  cursor: pointer;
+}
+#fullpage .section.second .content .left .products .product img {
+  width: 100%;
+  border-radius: 16px;
+}
+#fullpage .section.second .content .left .products .product:hover .description {
+  opacity: 1;
+  visibility: visible;
+}
+#fullpage .section.second .content .left .products .arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  margin-top: -25px;
+  border-radius: 50px;
+  transition: transform 0.95s ease, opacity 0.25s ease, color 0.25s ease, background 0.25s ease;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19);
+  opacity: 0;
+  color: #222;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+}
+#fullpage .section.second .content .left .products .arrow svg {
+  width: 23px;
+  height: 23px;
+}
+#fullpage .section.second .content .left .products .arrow.next {
+  right: 0;
+}
+#fullpage .section.second .content .left .products .arrow.prev {
+  left: 0;
+}
+#fullpage .section.second .content .left .products .arrow:not(.disable):hover {
+  background: #222;
+  color: #fff;
+}
+#fullpage .section.second .content .left .products:hover .arrow {
+  opacity: 1;
+}
+#fullpage .section.second .content .left .products:hover .arrow.prev {
+  transform: translate(30px, 0);
+}
+#fullpage .section.second .content .left .products:hover .arrow.next {
+  transform: translate(-30px, 0);
+}
+#fullpage .section.second .content .left .products:hover .arrow.disable {
+  opacity: 0.35;
+}
+#fullpage .section.second .content .left .products .description {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.93);
+  box-sizing: border-box;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+#fullpage .section.second .content .left .products .description .reviewCount {
+  border: 1px solid #e7e7e7;
+  padding: 6px 9px;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 6px;
+}
+#fullpage .section.second .content .left .products .description .name {
+  font-size: 19px;
+  font-weight: bold;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 12px;
+}
+#fullpage .section.second .content .left .products .description .brand {
+  font-size: 19px;
+  font-weight: 400;
+  padding-top: 10px;
+}
+#fullpage .section.second .content .left .products .description .price {
+  font-weight: bold;
+  font-size: 19px;
+  padding-top: 8px;
+}
+#fullpage .section.second .content .left .products .description .likes {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 25px;
+  background: #fff;
+  padding: 8px 12px;
+  font-size: 13px;
+}
+#fullpage .section.second .content .left .products .description .likes .count {
+  padding-left: 3px;
+  color: #999;
+}
+#fullpage .section.second .content .left .products .description .icons {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+#fullpage .section.second .content .left .products .description .icons svg {
+  width: 20px;
+  height: 20px;
+  color: #999;
+  border: 1px solid #e8e8e8;
+  padding: 5px;
+}
+#fullpage .section.second .content .left .products .custom-dot span {
+  padding: 5px 12px;
+  border: 1px solid #ddd;
+  border-radius: 30px;
+  font-size: 15px;
+  color: #999;
+  font-weight: 400;
+  transition: color 0.25s ease;
+}
+#fullpage .section.second .content .right span {
+  display: inline-block;
+  font-size: 23px;
+  font-weight: 300;
+  padding-bottom: 30px;
+  font-family: "GmarketSans";
+  line-height: 1.6;
+  transform: translate(-25px, 0);
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  opacity: 0;
+  transition-delay: 1.75s;
+}
+#fullpage .section.second .content .right h2 {
+  font-size: 72px;
+  font-weight: 600;
+  line-height: 1.45;
+  transform: translate(-25px, 0);
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  opacity: 0;
+  transition-delay: 3s;
+}
+#fullpage .section.second .content .right p {
+  padding-top: 50px;
+  font-size: 24px;
+  font-weight: 300;
+  font-family: "GmarketSans";
+  line-height: 1.9;
+  transition: transform 2.5s ease, opacity 2.5s ease;
+  opacity: 0;
+  transition-delay: 4s;
 }
