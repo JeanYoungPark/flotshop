@@ -118,29 +118,24 @@ p {margin: 0}
     //     background-image: url("../images/mainBg01_2.jpg");
     // }
 
-    .section.second {    
-        &.active .content {
-            .left .products {
-                transform: translate(0,0);
-                opacity: 1;
-            }
-
-            .right {
-                span, h2, p {
-                    transform: translate(0,0);
-                    opacity: 1;
+    .section {
+        &.second {
+            &.active {
+                .content {
+                    .left .products {
+                        transform: translate(0,0);
+                        opacity: 1;
+                    }
+        
+                    .right {
+                        span, h2, p {
+                            transform: translate(0,0);
+                            opacity: 1;
+                        }
+                    }
                 }
             }
-        }
 
-        .content {
-            display: flex;
-            align-items: center;
-
-            > div {
-                width: 50%;
-            }
-    
             .left {
                 .products {
                     position: relative;
@@ -345,6 +340,64 @@ p {margin: 0}
                     opacity: 0;
                     transition-delay: 4s;
                 }
+            }
+        }
+
+        &.third {
+            height: 100%;
+
+            .fp-overflow {
+                height: 100%;
+            }
+
+            .content {
+                height: 100%;
+                
+                .left {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    height: 100%;
+                    background: url("../images/mainBg03.jpg") center center/cover no-repeat;
+                    padding: 0 100px 40px;
+                    box-sizing: border-box;
+
+                    span {
+                        display:inline-block;
+                        padding-bottom: 48px;
+                        color: #fff;
+                        font-size: 23px;
+                        font-weight: 300;
+                        line-height: 1.5;
+                        font-family: GmarketSans;
+                    }
+
+                    h2 {
+                        color: #fff;
+                        font-size: 72px;
+                        font-weight: 700;
+                        line-height: 1.3;
+                        font-family: GmarketSans;
+                    }
+                    
+                    p {
+                        padding-top: 35px;
+                        color: #fff;
+                        font-size: 24px;
+                        font-weight: 300;
+                        line-height: 1.8;
+                        font-family: GmarketSans;
+                    }
+                }
+            }
+        }
+
+        .content {
+            display: flex;
+            align-items: center;
+
+            > div {
+                width: 50%;
             }
         }   
     }

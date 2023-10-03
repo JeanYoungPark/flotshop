@@ -103,14 +103,7 @@ p {
   transform: translate(0, 0);
   opacity: 1;
 }
-#fullpage .section.second .content {
-  display: flex;
-  align-items: center;
-}
-#fullpage .section.second .content > div {
-  width: 50%;
-}
-#fullpage .section.second .content .left .products {
+#fullpage .section.second .left .products {
   position: relative;
   padding: 0 11% 20px;
   margin: 0 20%;
@@ -120,20 +113,20 @@ p {
   transition: transform 2.5s ease, opacity 2.5s ease;
   transition-delay: 0.7s;
 }
-#fullpage .section.second .content .left .products .product {
+#fullpage .section.second .left .products .product {
   position: relative;
   margin: 22px 0 10px;
   cursor: pointer;
 }
-#fullpage .section.second .content .left .products .product img {
+#fullpage .section.second .left .products .product img {
   width: 100%;
   border-radius: 16px;
 }
-#fullpage .section.second .content .left .products .product:hover .description {
+#fullpage .section.second .left .products .product:hover .description {
   opacity: 1;
   visibility: visible;
 }
-#fullpage .section.second .content .left .products .arrow {
+#fullpage .section.second .left .products .arrow {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -151,33 +144,33 @@ p {
   text-align: center;
   cursor: pointer;
 }
-#fullpage .section.second .content .left .products .arrow svg {
+#fullpage .section.second .left .products .arrow svg {
   width: 23px;
   height: 23px;
 }
-#fullpage .section.second .content .left .products .arrow.next {
+#fullpage .section.second .left .products .arrow.next {
   right: 0;
 }
-#fullpage .section.second .content .left .products .arrow.prev {
+#fullpage .section.second .left .products .arrow.prev {
   left: 0;
 }
-#fullpage .section.second .content .left .products .arrow:not(.disable):hover {
+#fullpage .section.second .left .products .arrow:not(.disable):hover {
   background: #222;
   color: #fff;
 }
-#fullpage .section.second .content .left .products:hover .arrow {
+#fullpage .section.second .left .products:hover .arrow {
   opacity: 1;
 }
-#fullpage .section.second .content .left .products:hover .arrow.prev {
+#fullpage .section.second .left .products:hover .arrow.prev {
   transform: translate(30px, 0);
 }
-#fullpage .section.second .content .left .products:hover .arrow.next {
+#fullpage .section.second .left .products:hover .arrow.next {
   transform: translate(-30px, 0);
 }
-#fullpage .section.second .content .left .products:hover .arrow.disable {
+#fullpage .section.second .left .products:hover .arrow.disable {
   opacity: 0.35;
 }
-#fullpage .section.second .content .left .products .description {
+#fullpage .section.second .left .products .description {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -192,31 +185,31 @@ p {
   visibility: hidden;
   transition: opacity 0.25s ease, visibility 0.25s ease;
 }
-#fullpage .section.second .content .left .products .description .reviewCount {
+#fullpage .section.second .left .products .description .reviewCount {
   border: 1px solid #e7e7e7;
   padding: 6px 9px;
   font-size: 13px;
   font-weight: 400;
   border-radius: 6px;
 }
-#fullpage .section.second .content .left .products .description .name {
+#fullpage .section.second .left .products .description .name {
   font-size: 19px;
   font-weight: bold;
   text-align: center;
   font-weight: bold;
   padding-top: 12px;
 }
-#fullpage .section.second .content .left .products .description .brand {
+#fullpage .section.second .left .products .description .brand {
   font-size: 19px;
   font-weight: 400;
   padding-top: 10px;
 }
-#fullpage .section.second .content .left .products .description .price {
+#fullpage .section.second .left .products .description .price {
   font-weight: bold;
   font-size: 19px;
   padding-top: 8px;
 }
-#fullpage .section.second .content .left .products .description .likes {
+#fullpage .section.second .left .products .description .likes {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -226,23 +219,23 @@ p {
   padding: 8px 12px;
   font-size: 13px;
 }
-#fullpage .section.second .content .left .products .description .likes .count {
+#fullpage .section.second .left .products .description .likes .count {
   padding-left: 3px;
   color: #999;
 }
-#fullpage .section.second .content .left .products .description .icons {
+#fullpage .section.second .left .products .description .icons {
   position: absolute;
   right: 10px;
   bottom: 10px;
 }
-#fullpage .section.second .content .left .products .description .icons svg {
+#fullpage .section.second .left .products .description .icons svg {
   width: 20px;
   height: 20px;
   color: #999;
   border: 1px solid #e8e8e8;
   padding: 5px;
 }
-#fullpage .section.second .content .left .products .custom-dot span {
+#fullpage .section.second .left .products .custom-dot span {
   padding: 5px 12px;
   border: 1px solid #ddd;
   border-radius: 30px;
@@ -251,7 +244,7 @@ p {
   font-weight: 400;
   transition: color 0.25s ease;
 }
-#fullpage .section.second .content .right span {
+#fullpage .section.second .right span {
   display: inline-block;
   font-size: 23px;
   font-weight: 300;
@@ -263,7 +256,7 @@ p {
   opacity: 0;
   transition-delay: 1.75s;
 }
-#fullpage .section.second .content .right h2 {
+#fullpage .section.second .right h2 {
   font-size: 72px;
   font-weight: 600;
   line-height: 1.45;
@@ -272,7 +265,7 @@ p {
   opacity: 0;
   transition-delay: 3s;
 }
-#fullpage .section.second .content .right p {
+#fullpage .section.second .right p {
   padding-top: 50px;
   font-size: 24px;
   font-weight: 300;
@@ -281,4 +274,53 @@ p {
   transition: transform 2.5s ease, opacity 2.5s ease;
   opacity: 0;
   transition-delay: 4s;
+}
+#fullpage .section.third {
+  height: 100%;
+}
+#fullpage .section.third .fp-overflow {
+  height: 100%;
+}
+#fullpage .section.third .content {
+  height: 100%;
+}
+#fullpage .section.third .content .left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  background: url("../images/mainBg03.jpg") center center/cover no-repeat;
+  padding: 0 100px 40px;
+  box-sizing: border-box;
+}
+#fullpage .section.third .content .left span {
+  display: inline-block;
+  padding-bottom: 48px;
+  color: #fff;
+  font-size: 23px;
+  font-weight: 300;
+  line-height: 1.5;
+  font-family: GmarketSans;
+}
+#fullpage .section.third .content .left h2 {
+  color: #fff;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.3;
+  font-family: GmarketSans;
+}
+#fullpage .section.third .content .left p {
+  padding-top: 35px;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: 1.8;
+  font-family: GmarketSans;
+}
+#fullpage .section .content {
+  display: flex;
+  align-items: center;
+}
+#fullpage .section .content > div {
+  width: 50%;
 }
