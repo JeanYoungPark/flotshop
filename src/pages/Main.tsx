@@ -137,6 +137,16 @@ export const Main = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="section third">
+                                <div className="content">
+                                    <div className="left">
+                                        <span>#인기상품</span>
+                                        <h2>이달의 베스트</h2>
+                                        <p>이번달 가장 많이 판매된 상품들 할인 이벤트 시작!</p>
+                                    </div>
+                                    <div className="right"></div>
+                                </div>
+                            </div>
                         </ReactFullpage.Wrapper>
                     );
                 }}
