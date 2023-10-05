@@ -317,6 +317,46 @@ p {
   line-height: 1.8;
   font-family: GmarketSans;
 }
+#fullpage .section.eighth {
+  background: url("../images/mainBg08.jpg") center center/cover no-repeat;
+}
+#fullpage .section.eighth .box {
+  display: flex;
+  flex-direction: column;
+  padding: 0 150px 30px 150px;
+  color: #fff;
+  font-family: GmarketSans;
+}
+#fullpage .section.eighth .box h2 {
+  font-size: 90px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+#fullpage .section.eighth .box p {
+  font-size: 30px;
+  line-height: 1.68;
+  font-weight: 300;
+  margin-top: 20px;
+}
+#fullpage .section.eighth .box span {
+  font-size: 19px;
+  font-weight: 300;
+  line-height: 1.5;
+  margin-top: 8px;
+}
+#fullpage .section.eighth .box .more {
+  margin-top: 34px;
+  padding: 23px 25px;
+  max-width: 135px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #666;
+  background: #fff;
+  border-radius: 50px;
+  text-align: center;
+  font-weight: 400;
+  box-sizing: border-box;
+}
 #fullpage .section .content {
   display: flex;
   align-items: center;
