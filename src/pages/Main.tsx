@@ -10,6 +10,7 @@ import pd03 from '../assets/images/mainBg02_3.jpg';
 import pd04 from '../assets/images/mainBg04_1.jpg';
 import pt05 from '../assets/images/point5.gif';
 import pd06 from '../assets/images/mainBg06_1.jpg';
+import pd07 from '../assets/images/mainBg07.png';
 import { useCallback, useRef, useState } from "react";
 
 type Credits = {
@@ -293,9 +294,9 @@ export const Main = () => {
                                 <div className="viewAll">모두 보기</div>
                             </div>
                             <div className="section seventh">
-                                <h2>인스타그램<span className="subTitle">@flot_official</span></h2>
-                                <div>
-                                    {/* 인스타그램 피드 불러오기 */}
+                                <div className="box">
+                                    <h2>인스타그램<span className="subTitle">@flot_official</span></h2>
+                                    <div className="feed"><img src={pd07} alt="feed" /></div>
                                 </div>
                             </div>
                             <div className="section eighth">

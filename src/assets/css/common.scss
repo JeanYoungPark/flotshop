@@ -392,6 +392,40 @@ p {margin: 0}
             }
         }
 
+        &.seventh {
+            background: rgb(245, 245, 245);
+
+            .box {
+                position: relative;
+                display: flex;
+                padding: 0 15% 0 45%;
+
+                h2 {
+                    position:absolute;
+                    top: 50%;
+                    left: 12%;
+                    font-size: 63px;
+                    font-weight: 700;
+                    color: #000;
+                    font-family: "GmarketSans";
+                    transform: translate(0,-50%);
+    
+                    span {
+                        display: block;
+                        padding-top: 10px;
+                        font-size: 28px;
+                        color:#222;
+                        font-weight: 300;
+                    }
+                }
+    
+                .feed {
+                    max-width: 1000px;
+                    overflow: hidden;
+                }
+            }
+        }
+
         &.eighth {
             background: url("../images/mainBg08.jpg") center center/cover no-repeat;
 
