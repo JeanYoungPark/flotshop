@@ -395,12 +395,20 @@ p {margin: 0}
         &.eighth {
             background: url("../images/mainBg08.jpg") center center/cover no-repeat;
 
+            &.active .box {
+                transform: translate(0,0);
+                opacity: 1;
+            }
+
             .box {
                 display: flex;
                 flex-direction: column;
                 padding: 0 150px 30px 150px;
                 color: #fff;
                 font-family: GmarketSans;
+                transform: translate(0,-70px);
+                opacity: 0;
+                transition: transform 1.5s ease,opacity 1.5s ease;
 
                 h2 {
                     font-size: 90px;
