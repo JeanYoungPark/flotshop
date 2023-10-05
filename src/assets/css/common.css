@@ -114,6 +114,54 @@ a {
   cursor: pointer;
 }
 
+.slides {
+  position: relative;
+}
+.slides .arrow {
+  width: 50px;
+  height: 50px;
+  top: 50%;
+  margin-top: -25px;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  color: #222;
+  background: #fff;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19);
+  opacity: 0;
+  transition: transform 0.95s ease, opacity 0.25s ease, color 0.25s ease, background 0.25s ease;
+}
+.slides .arrow svg {
+  width: 23px;
+  height: 23px;
+}
+.slides .arrow.next {
+  right: 0;
+}
+.slides .arrow.prev {
+  left: 0;
+}
+.slides .arrow:not(.disable):hover {
+  background: #222;
+  color: #fff;
+}
+.slides:hover .arrow {
+  opacity: 1;
+}
+.slides:hover .arrow.prev {
+  transform: translate(30px, 0);
+}
+.slides:hover .arrow.next {
+  transform: translate(-30px, 0);
+}
+.slides:hover .arrow.disable {
+  opacity: 0.35;
+}
+
 #fullpage .section.second.active .content .left .products {
   transform: translate(0, 0);
   opacity: 1;
@@ -123,7 +171,6 @@ a {
   opacity: 1;
 }
 #fullpage .section.second .left .products {
-  position: relative;
   padding: 0 11% 20px;
   margin: 0 20%;
   max-width: 350px;
@@ -144,50 +191,6 @@ a {
 #fullpage .section.second .left .products .product:hover .description {
   opacity: 1;
   visibility: visible;
-}
-#fullpage .section.second .left .products .arrow {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  top: 50%;
-  margin-top: -25px;
-  border-radius: 50px;
-  transition: transform 0.95s ease, opacity 0.25s ease, color 0.25s ease, background 0.25s ease;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.19);
-  opacity: 0;
-  color: #222;
-  background: #fff;
-  text-align: center;
-  cursor: pointer;
-}
-#fullpage .section.second .left .products .arrow svg {
-  width: 23px;
-  height: 23px;
-}
-#fullpage .section.second .left .products .arrow.next {
-  right: 0;
-}
-#fullpage .section.second .left .products .arrow.prev {
-  left: 0;
-}
-#fullpage .section.second .left .products .arrow:not(.disable):hover {
-  background: #222;
-  color: #fff;
-}
-#fullpage .section.second .left .products:hover .arrow {
-  opacity: 1;
-}
-#fullpage .section.second .left .products:hover .arrow.prev {
-  transform: translate(30px, 0);
-}
-#fullpage .section.second .left .products:hover .arrow.next {
-  transform: translate(-30px, 0);
-}
-#fullpage .section.second .left .products:hover .arrow.disable {
-  opacity: 0.35;
 }
 #fullpage .section.second .left .products .description {
   position: absolute;
@@ -335,154 +338,6 @@ a {
   font-weight: 300;
   line-height: 1.8;
   font-family: GmarketSans;
-}
-#fullpage .section.seventh {
-  background: rgb(245, 245, 245);
-}
-#fullpage .section.seventh .box {
-  position: relative;
-  display: flex;
-  padding: 0 15% 0 45%;
-}
-#fullpage .section.seventh .box h2 {
-  position: absolute;
-  top: 50%;
-  left: 12%;
-  font-size: 63px;
-  font-weight: 700;
-  color: #000;
-  font-family: "GmarketSans";
-  transform: translate(0, -50%);
-}
-#fullpage .section.seventh .box h2 span {
-  display: block;
-  padding-top: 10px;
-  font-size: 28px;
-  color: #222;
-  font-weight: 300;
-}
-#fullpage .section.seventh .box .feed {
-  max-width: 1000px;
-  overflow: hidden;
-}
-#fullpage .section.eighth {
-  background: url("../images/mainBg08.jpg") center center/cover no-repeat;
-}
-#fullpage .section.eighth.active .box {
-  transform: translate(0, 0);
-  opacity: 1;
-}
-#fullpage .section.eighth .box {
-  display: flex;
-  flex-direction: column;
-  padding: 0 150px 30px 150px;
-  color: #fff;
-  font-family: GmarketSans;
-  transform: translate(0, -70px);
-  opacity: 0;
-  transition: transform 1.5s ease, opacity 1.5s ease;
-}
-#fullpage .section.eighth .box h2 {
-  font-size: 90px;
-  line-height: 1.2;
-  font-weight: 700;
-}
-#fullpage .section.eighth .box p {
-  font-size: 30px;
-  line-height: 1.68;
-  font-weight: 300;
-  margin-top: 20px;
-}
-#fullpage .section.eighth .box span {
-  font-size: 19px;
-  font-weight: 300;
-  line-height: 1.5;
-  margin-top: 8px;
-}
-#fullpage .section.eighth .box .more {
-  margin-top: 34px;
-  padding: 23px 25px;
-  max-width: 135px;
-  font-size: 15px;
-  line-height: 1.5;
-  color: #666;
-  background: #fff;
-  border-radius: 50px;
-  text-align: center;
-  font-weight: 400;
-  box-sizing: border-box;
-}
-#fullpage .section.footer {
-  height: auto;
-  padding-bottom: 90px;
-}
-#fullpage .section.footer .box {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  padding: 30px 85px 0 85px;
-}
-#fullpage .section.footer .box .cs {
-  padding-bottom: 50px;
-}
-#fullpage .section.footer .box .cs h3 {
-  font-size: 21px;
-  font-weight: 600;
-  padding-bottom: 5px;
-}
-#fullpage .section.footer .box .cs .call {
-  font-size: 38px;
-  font-weight: 600;
-  padding: 3px 0 7px 0;
-}
-#fullpage .section.footer .box .cs .call span {
-  font-size: 17px;
-  color: #999;
-  padding-left: 10px;
-}
-#fullpage .section.footer .box .cs .account {
-  font-size: 17px;
-}
-#fullpage .section.footer .box .utilMenu li {
-  color: #222;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5;
-  padding: 3px 0;
-}
-#fullpage .section.footer .box .copyright {
-  font-size: 16px;
-  color: #222;
-  line-height: 1.8;
-}
-#fullpage .section.footer .box .sns {
-  display: flex;
-  flex-direction: row-reverse;
-  padding-bottom: 100px;
-}
-#fullpage .section.footer .box .sns li {
-  padding-left: 40px;
-  font-size: 45px;
-  color: #222;
-  cursor: pointer;
-}
-#fullpage .section.footer .box .sns li.facebook svg:hover {
-  color: #3b5998;
-}
-#fullpage .section.footer .box .sns li.instagram svg:hover {
-  color: #3897f0;
-}
-#fullpage .section.footer .box .sns li.youtube svg:hover {
-  color: #ff0000;
-}
-#fullpage .section.footer .box .address {
-  text-align: right;
-  font-size: 16px;
-  color: #222;
-  line-height: 1.8;
-}
-#fullpage .section.footer .box .address span {
-  padding-left: 8px;
 }
 #fullpage .section .content {
   display: flex;

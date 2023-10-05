@@ -26,19 +26,25 @@ const credits: Credits = {
 };
 
 export const Main = () => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [slickCurrentPage1, setSlickCurrentPage1] = useState(1);
     const sliderRef = useRef<Slider>(null);
 
-    const settings = {
+    const slickSetting1 = {
         arrows: false,
         infinite: false,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         beforeChange: (current: number, next: number) => {
-            setCurrentPage(next + 1); // 페이지 변경 시 현재 페이지 업데이트
+            setSlickCurrentPage1(next + 1); // 페이지 변경 시 현재 페이지 업데이트
         }
     };
+    const slickSetting2 = {
+        arrows: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 2
+    }
 
     const slickSettings3 = {
         dots: true,
@@ -49,12 +55,12 @@ export const Main = () => {
     }
 
     const prevSlide = useCallback(() => {
-        if(currentPage !== 1) sliderRef.current?.slickPrev(); 
-    }, [currentPage]);
+        if(slickCurrentPage1 !== 1) sliderRef.current?.slickPrev(); 
+    }, [slickCurrentPage1]);
 
     const nextSlide = useCallback(() => {
-        if(currentPage !== 3) sliderRef.current?.slickNext();
-    }, [currentPage]);
+        if(slickCurrentPage1 !== 3) sliderRef.current?.slickNext();
+    }, [slickCurrentPage1]);
 
     return (
         <>
@@ -112,10 +118,10 @@ export const Main = () => {
                             <div className="section second">
                                 <div className="content">
                                     <div className="left">
-                                        <div className="products">
-                                            <div className={`arrow prev ${currentPage === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
-                                            <div className={`arrow next ${currentPage === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
-                                            <Slider ref={sliderRef} {...settings}>
+                                        <div className="slides products">
+                                            <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
+                                            <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
+                                            <Slider ref={sliderRef} {...slickSetting1}>
                                                 <div className="product">
                                                     <div className="description">
                                                         <span className="likes">Like <span className="count">0</span></span>
@@ -137,7 +143,7 @@ export const Main = () => {
                                                 <div className="product"><img src={pd03} alt="product 3"/></div>
                                             </Slider>
                                             <div className="custom-dot">
-                                                <span>{currentPage}/3</span>
+                                                <span>{slickCurrentPage1}/3</span>
                                             </div>
                                         </div>
                                     </div>
@@ -158,7 +164,33 @@ export const Main = () => {
                                         <h2>이달의 베스트</h2>
                                         <p>이번달 가장 많이 판매된 상품들 할인 이벤트 시작!</p>
                                     </div>
-                                    <div className="right"></div>
+                                    <div className="right">
+                                        <div className="box">
+                                            <h3>MONTH BEST</h3>
+                                            <div className="slides products">
+                                                <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
+                                                <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
+                                                <Slider {...slickSetting2}>
+                                                    <div>
+                                                        <div><img src={pd01} alt="product 1"/></div>
+                                                        <div className="timeSale"></div>
+                                                        <div className="description">
+                                                            <div className="reviewCount">리뷰 0</div>
+                                                            <strong className="name">플로트X제로퍼제로 스탠다드 강아지 목줄&리드줄 세트 2COLOR</strong>
+                                                            <span className="price">30,000원</span>
+                                                            <span className="discountPrice">22,500원 <span className="discount">25%</span></span>
+                                                        </div>
+                                                    </div>
+                                                    <div>2</div>
+                                                    <div>3</div>
+                                                    <div>4</div>
+                                                </Slider>
+                                                <div className="custom-dot">
+                                                    <span>0/3</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div className="section fourth">
@@ -223,8 +255,8 @@ export const Main = () => {
                             <div className="section fifth">
                                 <h2>상품 후기</h2>
                                 <div className="reviews">
-                                    <div className={`arrow prev ${currentPage === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${currentPage === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
+                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
+                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
                                     <Slider {...slickSettings3}>
                                         <div className="review">
                                             <div><img src={pd04} alt="review"/></div>
@@ -281,8 +313,8 @@ export const Main = () => {
                             <div className="section sixth">
                                 <h2>이벤트 / 뉴스</h2>
                                 <div className="events">
-                                    <div className={`arrow prev ${currentPage === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${currentPage === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
+                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
+                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
                                     <Slider {...slickSettings3}>
                                         <div className="event">
                                             <div><img src={pd06} alt="event"/></div>
