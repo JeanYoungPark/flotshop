@@ -481,3 +481,24 @@ a {
 #fullpage .section .content > div {
   width: 50%;
 }
+
+#fp-nav ul li a span {
+  background: #999 !important;
+  border-radius: 2px !important;
+  width: 6px !important;
+  height: 6px !important;
+  margin: -3px 0 0 -3px !important;
+}
+
+#fp-nav ul li a:hover span {
+  width: 10px !important;
+  height: 10px !important;
+  margin: -5px 0 0 -5px !important;
+}
+
+#fp-nav ul li a.active span {
+  width: 12px !important;
+  height: 12px !important;
+  margin: -6px 0 0 -6px !important;
+  background: #000 !important;
+}
