@@ -1,8 +1,9 @@
 import "../assets/css/common.css";
 import ReactFullpage from "@fullpage/react-fullpage";
 import Slider  from "react-slick";
-import { BsArrowLeft, BsArrowRight, BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs";
+import { BsArrowLeft, BsArrowRight, BsSuitHeart, BsHandbag, BsWindowSplit, BsBag } from "react-icons/bs";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
+import { RiSearch2Line, RiMenuFill } from "react-icons/ri";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import pd01 from '../assets/images/mainBg02_1.jpg'; 
@@ -95,9 +96,9 @@ export const Main = () => {
                     </li>
                 </ul>
                 <div className="icons">
-                    <span>돋보기</span>
-                    <span>장바구니</span>
-                    <span>메뉴</span>
+                    <span><RiSearch2Line/></span>
+                    <span><BsBag/></span>
+                    <span><RiMenuFill/></span>
                 </div>
             </nav>
             <ReactFullpage

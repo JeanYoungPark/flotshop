@@ -38,7 +38,7 @@ a {
   z-index: 1;
   width: 100%;
   height: 120px;
-  padding: 0 120px;
+  padding: 0 240px;
   box-sizing: border-box;
   font-family: "GmarketSans";
   color: #fff;
@@ -61,7 +61,6 @@ a {
   display: flex;
   width: 100%;
   height: 100%;
-  padding-left: 120px;
   box-sizing: border-box;
 }
 #header .menu li {
@@ -103,6 +102,16 @@ a {
 #header .icons {
   position: absolute;
   right: 85px;
+  font-size: 28px;
+  color: #fff;
+}
+#header .icons span {
+  display: inline-block;
+  width: 45px;
+  text-align: center;
+}
+#header .icons span svg {
+  cursor: pointer;
 }
 
 #fullpage .section.second.active .content .left .products {
