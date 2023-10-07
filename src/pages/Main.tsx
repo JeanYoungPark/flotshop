@@ -171,19 +171,56 @@ export const Main = () => {
                                                 <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
                                                 <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
                                                 <Slider {...slickSetting2}>
-                                                    <div>
-                                                        <div><img src={pd01} alt="product 1"/></div>
-                                                        <div className="timeSale"></div>
+                                                    <div className="product">
+                                                        <div className="img">
+                                                            <span className="likes">Like <span className="count">0</span></span>
+                                                            <div className="icons">
+                                                                <BsSuitHeart/>
+                                                                <BsHandbag />
+                                                                <BsWindowSplit />
+                                                            </div>
+                                                            <img src={pd01} alt="product 1"/>
+                                                        </div>
+                                                        <div className="timeSale">남은시간 1120일 03:24:16</div>
+                                                        <div className="description">
+                                                            <strong className="name">플로트X제로퍼제로 스탠다드 강아지 목줄&리드줄 세트 2COLOR</strong>
+                                                            <div className="reviewCount">리뷰 0</div>
+                                                            <span className="price line">30,000원</span>
+                                                            <span className="discountPrice">22,500원 <span className="discount">(25%)</span></span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="product">
+                                                        <div className="img">
+                                                            <span className="likes">Like <span className="count">0</span></span>
+                                                            <div className="icons">
+                                                                <BsSuitHeart/>
+                                                                <BsHandbag />
+                                                                <BsWindowSplit />
+                                                            </div>
+                                                            <img src={pd01} alt="product 1"/>
+                                                        </div>
                                                         <div className="description">
                                                             <div className="reviewCount">리뷰 0</div>
                                                             <strong className="name">플로트X제로퍼제로 스탠다드 강아지 목줄&리드줄 세트 2COLOR</strong>
                                                             <span className="price">30,000원</span>
-                                                            <span className="discountPrice">22,500원 <span className="discount">25%</span></span>
                                                         </div>
                                                     </div>
-                                                    <div>2</div>
-                                                    <div>3</div>
-                                                    <div>4</div>
+                                                    <div className="product">
+                                                        <div className="img">
+                                                            <span className="likes">Like <span className="count">0</span></span>
+                                                            <div className="icons">
+                                                                <BsSuitHeart/>
+                                                                <BsHandbag />
+                                                                <BsWindowSplit />
+                                                            </div>
+                                                            <img src={pd01} alt="product 1"/>
+                                                        </div>
+                                                        <div className="description">
+                                                            <div className="reviewCount">리뷰 0</div>
+                                                            <strong className="name">플로트X제로퍼제로 스탠다드 강아지 목줄&리드줄 세트 2COLOR</strong>
+                                                            <span className="price">30,000원</span>
+                                                        </div>
+                                                    </div>
                                                 </Slider>
                                                 <div className="custom-dot">
                                                     <span>0/3</span>

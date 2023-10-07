@@ -2,7 +2,7 @@
 @import url(//fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Outfit&display=swap);
 @import url(//webfontworld.github.io/gmarket/GmarketSans.css);
 
-body {font: 0.80em 'Outfit','Noto Sans KR','맑은 고딕','Malgun Gothic',Verdana,Dotum,AppleGothic,sans-serif}
+body {background: #fff; font: 0.80em 'Outfit','Noto Sans KR','맑은 고딕','Malgun Gothic',Verdana,Dotum,AppleGothic,sans-serif}
 h1, h2, h3, h4, h5, h6 {margin: 0;}
 ul, li, dl, dt {list-style: none;margin: 0;padding: 0;}
 p {margin: 0}
@@ -163,6 +163,72 @@ a {color: #222; text-decoration: none;}
             opacity: .35;
         }
     }
+
+    .product {
+        position: relative;
+        cursor:pointer;
+        box-sizing: border-box;
+
+        img {
+            width: 100%;
+            border-radius: 16px;
+        }
+    }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .reviewCount {
+        border: 1px solid #e7e7e7;
+        padding: 6px 9px;
+        font-size: 13px;
+        font-weight: 400;
+        border-radius: 6px;
+    }
+
+    .likes {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        border: 1px solid #e8e8e8;
+        border-radius: 25px;
+        background: #fff;
+        padding: 8px 12px;
+        font-size: 13px;
+
+        .count {
+            padding-left: 3px;
+            color:#999;
+        }
+    }
+
+    .icons {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+
+        svg {
+            width: 20px;
+            height: 20px;
+            color: #999;
+            border: 1px solid #e8e8e8;
+            padding: 5px;
+        }
+    }
+
+    .custom-dot {
+        span {
+            display: inline-block;
+            padding: 5px 12px;
+            border: 1px solid #ddd;
+            border-radius: 30px;
+            font-size: 15px;
+            color:#999;
+            font-weight: 400;
+        }
+    }
 }
 
 #fullpage {
@@ -216,14 +282,7 @@ a {color: #222; text-decoration: none;}
                     transition-delay: 0.7s;
     
                     .product {
-                        position: relative;
                         margin: 22px 0 10px;
-                        cursor:pointer;
-        
-                        img {
-                            width: 100%;
-                            border-radius: 16px;
-                        }
     
                         &:hover .description {
                             opacity: 1;
@@ -233,8 +292,6 @@ a {color: #222; text-decoration: none;}
     
                     .description {
                         position:absolute;
-                        display: flex;
-                        flex-direction: column;
                         align-items: center;
                         justify-content: center;
                         width: 100%;
@@ -245,74 +302,29 @@ a {color: #222; text-decoration: none;}
                         opacity: 0;
                         visibility: hidden;
                         transition: opacity 0.25s ease, visibility 0.25s ease;
-    
-                        .reviewCount {
-                            border: 1px solid #e7e7e7;
-                            padding: 6px 9px;
-                            font-size: 13px;
-                            font-weight: 400;
-                            border-radius: 6px;
-                        }
-    
+
                         .name {
                             font-size:19px;
                             font-weight:bold;
                             text-align:center;
-                            font-weight: bold;
                             padding-top: 12px;
                         }
-    
+                
                         .brand {
                             font-size: 19px;
                             font-weight: 400;
                             padding-top: 10px;
                         }
-    
+                
                         .price {
                             font-weight: bold;
                             font-size: 19px;
                             padding-top: 8px;
                         }
-    
-                        .likes {
-                            position: absolute;
-                            top: 10px;
-                            right: 10px;
-                            border: 1px solid #e8e8e8;
-                            border-radius: 25px;
-                            background: #fff;
-                            padding: 8px 12px;
-                            font-size: 13px;
-    
-                            .count {
-                                padding-left: 3px;
-                                color:#999;
-                            }
-                        }
-    
-                        .icons {
-                            position: absolute;
-                            right: 10px;
-                            bottom: 10px;
-    
-                            svg {
-                                width: 20px;
-                                height: 20px;
-                                color: #999;
-                                border: 1px solid #e8e8e8;
-                                padding: 5px;
-                            }
-                        }
                     }
     
                     .custom-dot {
                         span {
-                            padding: 5px 12px;
-                            border: 1px solid #ddd;
-                            border-radius: 30px;
-                            font-size: 15px;
-                            color:#999;
-                            font-weight: 400;
                             transition: color 0.25s ease;
                         }
                     }
@@ -413,6 +425,86 @@ a {color: #222; text-decoration: none;}
                             font-weight: 300;
                             padding-bottom: 10px;
                             font-family: GmarketSans;
+                        }
+
+                        .slides {
+                            .slick-slider .slick-track {
+                                margin-left: -17px;
+                            }
+
+                            .product {
+                                padding: 22px 17px 0 17px;
+
+                                &:hover .img .likes, &:hover .img .icons{
+                                    opacity: 1;
+                                }
+                                
+                                .img {
+                                    position: relative;
+
+                                    .likes, .icons {
+                                        transition: opacity 0.50s ease;
+                                        opacity: 0;
+                                    }                                    
+                                }
+
+                                .timeSale {
+                                    background: #fcfcfc;
+                                    padding: 15px;
+                                    margin-top: 15px;
+                                    border: 1px solid #eee;
+                                    border-radius: 10px;
+                                    font-size: 16px;
+                                    color:#777;
+                                    text-align: cetner;
+                                    line-height: 1.6em;
+                                }
+
+                                .description {
+                                    position: relative;
+                                    margin-top: 15px;
+                                    padding-right: 64px;
+
+                                    .reviewCount {
+                                        position: absolute;
+                                        right: 0;
+                                        top: 2px;
+                                    }
+                                    
+                                    .name {
+                                        font-size: 19px;
+                                        color:#222;
+                                        font-weight: 600;
+                                    }
+
+                                    .price {
+                                        padding-top: 10px;
+                                        font-size: 19px;
+                                        font-weight: 700;
+                                        color: #222;
+
+                                        &.line {
+                                            color: #999;
+                                            text-decoration: line-through;
+                                        }
+                                    }
+
+                                    .discountPrice {
+                                        font-size: 19px;
+                                        color: #222;
+                                        font-weight: 700;
+
+                                        span {
+                                            padding-left: 4px;
+                                            font-weight: 400;
+                                        }
+                                    }
+                                }
+                            }
+
+                            .custom-dot {
+                                margin-top: 20px;
+                            }
                         }
                     }
                 }
