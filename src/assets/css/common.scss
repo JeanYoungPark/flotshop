@@ -432,6 +432,16 @@ a {color: #222; text-decoration: none;}
                                 margin-left: -17px;
                             }
 
+                            .arrow {
+                                &.prev {
+                                    left: -110px;
+                                }
+                                &.next {
+                                    right: -80px;
+                                }
+
+                            }
+
                             .product {
                                 padding: 22px 17px 0 17px;
 
@@ -445,7 +455,21 @@ a {color: #222; text-decoration: none;}
                                     .likes, .icons {
                                         transition: opacity 0.50s ease;
                                         opacity: 0;
-                                    }                                    
+                                    }
+                                    
+                                    .discountRate {
+                                        position: absolute;
+                                        left: 0;
+                                        bottom: 0;
+                                        width: 100px;
+                                        height: 48px;
+                                        line-height: 48px;
+                                        font-size: 15px;
+                                        color: #fff;
+                                        text-align: center;
+                                        background-color: #24344f;
+                                        border-radius: 0 12px 0 0;
+                                    }
                                 }
 
                                 .timeSale {

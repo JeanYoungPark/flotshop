@@ -27,7 +27,9 @@ const credits: Credits = {
 
 export const Main = () => {
     const [slickCurrentPage1, setSlickCurrentPage1] = useState(1);
-    const sliderRef = useRef<Slider>(null);
+    const [slickCurrentPage2, setSlickCurrentPage2] = useState(1);
+    const sliderRef1 = useRef<Slider>(null);
+    const sliderRef2 = useRef<Slider>(null);
 
     const slickSetting1 = {
         arrows: false,
@@ -43,7 +45,12 @@ export const Main = () => {
         arrows: false,
         infinite: false,
         speed: 500,
-        slidesToShow: 2
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        beforeChange: (current: number, next: number) => {
+            //페이징 작업 필요..
+            setSlickCurrentPage2(next + 1); // 페이지 변경 시 현재 페이지 업데이트
+        }
     }
 
     const slickSettings3 = {
@@ -54,13 +61,21 @@ export const Main = () => {
         slidesToShow: 4,
     }
 
-    const prevSlide = useCallback(() => {
-        if(slickCurrentPage1 !== 1) sliderRef.current?.slickPrev(); 
+    const prevSlide1 = useCallback(() => {
+        if(slickCurrentPage1 !== 1) sliderRef1.current?.slickPrev(); 
     }, [slickCurrentPage1]);
 
-    const nextSlide = useCallback(() => {
-        if(slickCurrentPage1 !== 3) sliderRef.current?.slickNext();
+    const nextSlide1 = useCallback(() => {
+        if(slickCurrentPage1 !== 3) sliderRef1.current?.slickNext();
     }, [slickCurrentPage1]);
+
+    const prevSlide2 = useCallback(() => {
+        if(slickCurrentPage2 !== 1) sliderRef2.current?.slickPrev(); 
+    }, [slickCurrentPage2]);
+
+    const nextSlide2 = useCallback(() => {
+        if(slickCurrentPage2 !== 3) sliderRef2.current?.slickNext();
+    }, [slickCurrentPage2]);
 
     return (
         <>
@@ -119,9 +134,9 @@ export const Main = () => {
                                 <div className="content">
                                     <div className="left">
                                         <div className="slides products">
-                                            <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
-                                            <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
-                                            <Slider ref={sliderRef} {...slickSetting1}>
+                                            <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide1}><BsArrowLeft/></div>
+                                            <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide1}><BsArrowRight/></div>
+                                            <Slider ref={sliderRef1} {...slickSetting1}>
                                                 <div className="product">
                                                     <div className="description">
                                                         <span className="likes">Like <span className="count">0</span></span>
@@ -168,9 +183,9 @@ export const Main = () => {
                                         <div className="box">
                                             <h3>MONTH BEST</h3>
                                             <div className="slides products">
-                                                <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
-                                                <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
-                                                <Slider {...slickSetting2}>
+                                                <div className={`arrow prev ${slickCurrentPage2 === 1 && 'disable'}`} onClick={prevSlide2}><BsArrowLeft/></div>
+                                                <div className={`arrow next ${slickCurrentPage2 === 3 && 'disable'}`} onClick={nextSlide2}><BsArrowRight/></div>
+                                                <Slider ref={sliderRef2} {...slickSetting2}>
                                                     <div className="product">
                                                         <div className="img">
                                                             <span className="likes">Like <span className="count">0</span></span>
@@ -180,6 +195,7 @@ export const Main = () => {
                                                                 <BsWindowSplit />
                                                             </div>
                                                             <img src={pd01} alt="product 1"/>
+                                                            <div className="discountRate">25% OFF</div>
                                                         </div>
                                                         <div className="timeSale">남은시간 1120일 03:24:16</div>
                                                         <div className="description">
@@ -221,9 +237,41 @@ export const Main = () => {
                                                             <span className="price">30,000원</span>
                                                         </div>
                                                     </div>
+                                                    <div className="product">
+                                                        <div className="img">
+                                                            <span className="likes">Like <span className="count">0</span></span>
+                                                            <div className="icons">
+                                                                <BsSuitHeart/>
+                                                                <BsHandbag />
+                                                                <BsWindowSplit />
+                                                            </div>
+                                                            <img src={pd01} alt="product 1"/>
+                                                        </div>
+                                                        <div className="description">
+                                                            <div className="reviewCount">리뷰 0</div>
+                                                            <strong className="name">플로트X제로퍼제로 스탠다드 강아지 목줄&리드줄 세트 2COLOR</strong>
+                                                            <span className="price">30,000원</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="product">
+                                                        <div className="img">
+                                                            <span className="likes">Like <span className="count">0</span></span>
+                                                            <div className="icons">
+                                                                <BsSuitHeart/>
+                                                                <BsHandbag />
+                                                                <BsWindowSplit />
+                                                            </div>
+                                                            <img src={pd01} alt="product 1"/>
+                                                        </div>
+                                                        <div className="description">
+                                                            <div className="reviewCount">리뷰 0</div>
+                                                            <strong className="name">플로트X제로퍼제로 스탠다드 강아지 목줄&리드줄 세트 2COLOR</strong>
+                                                            <span className="price">30,000원</span>
+                                                        </div>
+                                                    </div>
                                                 </Slider>
                                                 <div className="custom-dot">
-                                                    <span>0/3</span>
+                                                    <span>{slickCurrentPage2}/3</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -292,8 +340,8 @@ export const Main = () => {
                             <div className="section fifth">
                                 <h2>상품 후기</h2>
                                 <div className="reviews">
-                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
+                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide2}><BsArrowLeft/></div>
+                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide2}><BsArrowRight/></div>
                                     <Slider {...slickSettings3}>
                                         <div className="review">
                                             <div><img src={pd04} alt="review"/></div>
@@ -350,8 +398,8 @@ export const Main = () => {
                             <div className="section sixth">
                                 <h2>이벤트 / 뉴스</h2>
                                 <div className="events">
-                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
+                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide2}><BsArrowLeft/></div>
+                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide2}><BsArrowRight/></div>
                                     <Slider {...slickSettings3}>
                                         <div className="event">
                                             <div><img src={pd06} alt="event"/></div>

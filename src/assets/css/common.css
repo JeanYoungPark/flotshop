@@ -360,6 +360,12 @@ a {
 #fullpage .section.third .content .right .box .slides .slick-slider .slick-track {
   margin-left: -17px;
 }
+#fullpage .section.third .content .right .box .slides .arrow.prev {
+  left: -110px;
+}
+#fullpage .section.third .content .right .box .slides .arrow.next {
+  right: -80px;
+}
 #fullpage .section.third .content .right .box .slides .product {
   padding: 22px 17px 0 17px;
 }
@@ -372,6 +378,19 @@ a {
 #fullpage .section.third .content .right .box .slides .product .img .likes, #fullpage .section.third .content .right .box .slides .product .img .icons {
   transition: opacity 0.5s ease;
   opacity: 0;
+}
+#fullpage .section.third .content .right .box .slides .product .img .discountRate {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100px;
+  height: 48px;
+  line-height: 48px;
+  font-size: 15px;
+  color: #fff;
+  text-align: center;
+  background-color: #24344f;
+  border-radius: 0 12px 0 0;
 }
 #fullpage .section.third .content .right .box .slides .product .timeSale {
   background: #fcfcfc;
