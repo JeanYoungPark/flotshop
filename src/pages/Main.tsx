@@ -286,9 +286,9 @@ export const Main = () => {
                                 </div>
                             </div>
                             <div className="section fourth">
-                                <h2>프로덕트</h2>
-                                <>
-                                    <ul className="products">
+                                <div className="box">
+                                    <h2>프로덕트</h2>
+                                    <ul className="slides products">
                                         <li className="product">
                                             <div className="description">
                                                 <span className="likes">Like <span className="count">0</span></span>
@@ -341,8 +341,8 @@ export const Main = () => {
                                             <img src={pd01} alt="product 1"/>
                                         </li>
                                     </ul>
-                                    <div className="viewAll">모두 보기</div>
-                                </>
+                                    <div className="viewAll"><span>모두 보기</span></div>
+                                </div>
                             </div>
                             <div className="section fifth">
                                 <h2>상품 후기</h2>
