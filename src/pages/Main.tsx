@@ -345,62 +345,66 @@ export const Main = () => {
                                 </div>
                             </div>
                             <div className="section fifth">
-                                <h2>상품 후기</h2>
-                                <div className="reviews">
-                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide2}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide2}><BsArrowRight/></div>
-                                    <Slider {...slickSettings3}>
-                                        <div className="review">
-                                            <div><img src={pd04} alt="review"/></div>
-                                            <div className="info">
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span><img src={pt05} alt="5점"/></span>
+                                <div className="box">
+                                    <h2>상품 후기</h2>
+                                    <div className="slides products">
+                                        <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide2}><BsArrowLeft/></div>
+                                        <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide2}><BsArrowRight/></div>
+                                        <Slider {...slickSettings3}>
+                                            <div className="product">
+                                                <div className="wrap">
+                                                    <div><img src={pd04} alt="review"/></div>
+                                                    <div className="info">
+                                                        <span className="title">사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                        <span className="contents">사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                        <span className="starts"><img src={pt05} alt="5점"/></span>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="review">
-                                            <div><img src={pd04} alt="review"/></div>
-                                            <div className="info">
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span><img src={pt05} alt="5점"/></span>
+                                            <div className="product">
+                                                <div><img src={pd04} alt="review"/></div>
+                                                <div className="info">
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span><img src={pt05} alt="5점"/></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="review">
-                                            <div><img src={pd04} alt="review"/></div>
-                                            <div className="info">
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span><img src={pt05} alt="5점"/></span>
+                                            <div className="product">
+                                                <div><img src={pd04} alt="review"/></div>
+                                                <div className="info">
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span><img src={pt05} alt="5점"/></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="review">
-                                            <div><img src={pd04} alt="review"/></div>
-                                            <div className="info">
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span><img src={pt05} alt="5점"/></span>
+                                            <div className="product">
+                                                <div><img src={pd04} alt="review"/></div>
+                                                <div className="info">
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span><img src={pt05} alt="5점"/></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="review">
-                                            <div><img src={pd04} alt="review"/></div>
-                                            <div className="info">
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span><img src={pt05} alt="5점"/></span>
+                                            <div className="product">
+                                                <div><img src={pd04} alt="review"/></div>
+                                                <div className="info">
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span><img src={pt05} alt="5점"/></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div className="review">
-                                            <div><img src={pd04} alt="review"/></div>
-                                            <div className="info">
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
-                                                <span><img src={pt05} alt="5점"/></span>
+                                            <div className="product">
+                                                <div><img src={pd04} alt="review"/></div>
+                                                <div className="info">
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span>사무실 데리고갈때 입힐 출근복으로 샀는데 너무 단정하고 의젓해보이고 예뻐요ㅜㅜ</span>
+                                                    <span><img src={pt05} alt="5점"/></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Slider>
+                                        </Slider>
+                                    </div>
+                                    <div className="viewAll">모두 보기</div>
                                 </div>
-                                <div className="viewAll">모두 보기</div>
                             </div>
                             <div className="section sixth">
                                 <h2>이벤트 / 뉴스</h2>

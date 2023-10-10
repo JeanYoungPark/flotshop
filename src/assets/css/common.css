@@ -521,6 +521,59 @@ a {
 #fullpage .section.fourth .box .viewAll:hover span {
   background-color: #eee;
 }
+#fullpage .section.fifth .box {
+  padding: 0 16%;
+}
+#fullpage .section.fifth h2 {
+  text-align: center;
+  padding: 30px 0;
+  font-weight: 300;
+  font-size: 31px;
+  color: #000;
+  font-family: "GmarketSans";
+}
+#fullpage .section.fifth .product {
+  padding-right: 15px;
+}
+#fullpage .section.fifth .product .wrap {
+  border: 1px solid #e7e7e7;
+}
+#fullpage .section.fifth .product .wrap img {
+  border-radius: 0;
+}
+#fullpage .section.fifth .product .wrap .info {
+  padding: 24px 30px 25px;
+}
+#fullpage .section.fifth .product .wrap .info .title {
+  display: inline-block;
+  width: 100%;
+  font-weight: 400;
+  font-size: 18px;
+  color: #222;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+}
+#fullpage .section.fifth .product .wrap .info .contents {
+  display: -webkit-box;
+  font-size: 15px;
+  font-weight: 400;
+  color: #999;
+  margin-top: 12px;
+  height: 50px;
+  line-height: 25px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  word-wrap: normal;
+  box-sizing: border-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+#fullpage .section.fifth .product .wrap .info .starts {
+  display: inline-block;
+  padding-top: 15px;
+}
 #fullpage .section.seventh {
   background: rgb(245, 245, 245);
 }

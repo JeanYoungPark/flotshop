@@ -633,6 +633,70 @@ a {color: #222; text-decoration: none;}
             }
         }
 
+        &.fifth {
+            .box {
+                padding: 0 16%;
+            }
+
+            h2 {
+                text-align: center;
+                padding: 30px 0;
+                font-weight: 300;
+                font-size: 31px;
+                color: #000;
+                font-family: "GmarketSans";
+            }
+
+            .product {
+                padding-right: 15px;
+
+                .wrap {
+                    border: 1px solid #e7e7e7;
+
+                    img {
+                        border-radius: 0;
+                    }
+
+                    .info {
+                        padding: 24px 30px 25px;
+
+                        .title {
+                            display: inline-block;
+                            width: 100%;
+                            font-weight: 400;
+                            font-size: 18px;
+                            color: #222;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            word-wrap: normal;
+                        }
+
+                        .contents {
+                            display: -webkit-box;
+                            font-size: 15px;
+                            font-weight: 400;
+                            color: #999;
+                            margin-top: 12px;
+                            height: 50px;
+                            line-height: 25px;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            word-wrap: normal;
+                            box-sizing: border-box;
+                            -webkit-box-orient:vertical;
+                            -webkit-line-clamp: 2;
+                        }
+
+                        .starts {
+                            display: inline-block;
+                            padding-top: 15px;
+                        }
+                    }
+                }
+            }
+        }
+
         &.seventh {
             background: rgb(245, 245, 245);
 
