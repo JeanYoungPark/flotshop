@@ -36,21 +36,16 @@ export const Main = () => {
         infinite: false,
         speed: 500,
         slidesToShow: 1,
-        slidesToScroll: 1,
-        beforeChange: (current: number, next: number) => {
-            setSlickCurrentPage1(next + 1); // 페이지 변경 시 현재 페이지 업데이트
-        }
+        slidesToScroll: 1
     };
+
     const slickSetting2 = {
         arrows: false,
         infinite: false,
         speed: 500,
         slidesToShow: 2,
         slidesToScroll: 2,
-        beforeChange: (current: number, next: number) => {
-            //페이징 작업 필요..
-            setSlickCurrentPage2(next + 1); // 페이지 변경 시 현재 페이지 업데이트
-        }
+        adaptiveHeight: true
     }
 
     const slickSettings3 = {
@@ -62,19 +57,31 @@ export const Main = () => {
     }
 
     const prevSlide1 = useCallback(() => {
-        if(slickCurrentPage1 !== 1) sliderRef1.current?.slickPrev(); 
+        if(slickCurrentPage1 !== 1) {
+            sliderRef1.current?.slickPrev();
+            setSlickCurrentPage1(slickCurrentPage1 - 1);
+        }
     }, [slickCurrentPage1]);
 
     const nextSlide1 = useCallback(() => {
-        if(slickCurrentPage1 !== 3) sliderRef1.current?.slickNext();
+        if(slickCurrentPage1 !== 3) {
+            sliderRef1.current?.slickNext();
+            setSlickCurrentPage1(slickCurrentPage1 + 1);
+        }
     }, [slickCurrentPage1]);
 
     const prevSlide2 = useCallback(() => {
-        if(slickCurrentPage2 !== 1) sliderRef2.current?.slickPrev(); 
+        if(slickCurrentPage2 !== 1){
+            sliderRef2.current?.slickPrev(); 
+            setSlickCurrentPage2(slickCurrentPage2 - 1);
+        }
     }, [slickCurrentPage2]);
 
     const nextSlide2 = useCallback(() => {
-        if(slickCurrentPage2 !== 3) sliderRef2.current?.slickNext();
+        if(slickCurrentPage2 !== 3) {
+            sliderRef2.current?.slickNext();
+            setSlickCurrentPage2(slickCurrentPage2 + 1);
+        }
     }, [slickCurrentPage2]);
 
     return (

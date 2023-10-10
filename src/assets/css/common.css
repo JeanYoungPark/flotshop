@@ -357,6 +357,9 @@ a {
   padding-bottom: 10px;
   font-family: GmarketSans;
 }
+#fullpage .section.third .content .right .box .slides .slick-slider .slick-list {
+  transition-duration: 700ms;
+}
 #fullpage .section.third .content .right .box .slides .slick-slider .slick-track {
   margin-left: -17px;
 }

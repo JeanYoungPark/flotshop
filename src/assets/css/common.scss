@@ -428,8 +428,14 @@ a {color: #222; text-decoration: none;}
                         }
 
                         .slides {
-                            .slick-slider .slick-track {
-                                margin-left: -17px;
+                            .slick-slider {
+                                .slick-list {
+                                    transition-duration: 700ms;
+                                }
+
+                                .slick-track {
+                                    margin-left: -17px;
+                                }
                             }
 
                             .arrow {
