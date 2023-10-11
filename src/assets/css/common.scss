@@ -232,28 +232,91 @@ a {color: #222; text-decoration: none;}
 }
 
 #fullpage {
-    // .bannerWrap {
-    //     position: absolute;
-    //     top: 0;
-    //     left: 0;
-    //     width: 100%;
-    //     height: 100%;
-    // }
-
-    // .slide {
-    //     width: 100%;
-    //     height: 100%;
-    // }
-
-    // .banner01 {
-    //     background-image: url("../images/mainBg01_1.jpg");
-    // }
-
-    // .banner02 {
-    //     background-image: url("../images/mainBg01_2.jpg");
-    // }
-
     .section {
+        &.first {
+            .fp-overflow {
+                height: 100%;
+
+                .slides {
+                    height: 100%;
+
+                    &:hover .arrow {
+                        opacity: 1;
+                    }
+
+                    .arrow {
+                        z-index: 1;
+                        color: #fff;
+                        background: transparent;
+
+                        &.prev {
+                            left: 130px;
+                        }
+
+                        &.next {
+                            right: 130px;
+                        }
+
+                        &:hover {
+                            background-color: #222;
+                        }
+                    }
+
+                    .slick-slider {
+                        height: 100%;
+
+                        .slick-list {
+                            height: 100%;
+
+                            .slick-track {
+                                height: 100%;
+
+                                .slick-slide > div {
+                                    height: 100%;
+
+                                    .banner {
+                                        background-position: center;
+                                        background-repeat: no-repeat;
+                                        background-size: cover;
+                                        height:100%;
+                        
+                                        &.banner01 {
+                                            background-image: url("../images/mainBg01_1.jpg");
+                                        }
+
+                                        &.banner02 {
+                                            background-image: url("../images/mainBg01_2.jpg");
+                                        }
+
+                                        &.banner03 {
+                                            background-image: url("../images/mainBg01_3.jpg");
+                                        }
+
+                                        &.banner04 {
+                                            background-image: url("../images/mainBg01_4.jpg");
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .custom-dot {
+                        position:absolute;
+                        left: 50%;
+                        bottom: 30px;
+                        transform: translate(-50%, 0);
+                        
+                        span {
+                            border: none;
+                            font-size: 19px;
+                            color: #fff;
+                        }
+                    }
+                }
+            }
+        }
+
         &.second {
             &.active {
                 .content {
@@ -761,7 +824,6 @@ a {color: #222; text-decoration: none;}
                 }
             }
         }
-
 
         &.sixth {
             .box {

@@ -218,6 +218,70 @@ a {
   font-weight: 400;
 }
 
+#fullpage .section.first .fp-overflow {
+  height: 100%;
+}
+#fullpage .section.first .fp-overflow .slides {
+  height: 100%;
+}
+#fullpage .section.first .fp-overflow .slides:hover .arrow {
+  opacity: 1;
+}
+#fullpage .section.first .fp-overflow .slides .arrow {
+  z-index: 1;
+  color: #fff;
+  background: transparent;
+}
+#fullpage .section.first .fp-overflow .slides .arrow.prev {
+  left: 130px;
+}
+#fullpage .section.first .fp-overflow .slides .arrow.next {
+  right: 130px;
+}
+#fullpage .section.first .fp-overflow .slides .arrow:hover {
+  background-color: #222;
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider {
+  height: 100%;
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list {
+  height: 100%;
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list .slick-track {
+  height: 100%;
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list .slick-track .slick-slide > div {
+  height: 100%;
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list .slick-track .slick-slide > div .banner {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list .slick-track .slick-slide > div .banner.banner01 {
+  background-image: url("../images/mainBg01_1.jpg");
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list .slick-track .slick-slide > div .banner.banner02 {
+  background-image: url("../images/mainBg01_2.jpg");
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list .slick-track .slick-slide > div .banner.banner03 {
+  background-image: url("../images/mainBg01_3.jpg");
+}
+#fullpage .section.first .fp-overflow .slides .slick-slider .slick-list .slick-track .slick-slide > div .banner.banner04 {
+  background-image: url("../images/mainBg01_4.jpg");
+}
+#fullpage .section.first .fp-overflow .slides .custom-dot {
+  position: absolute;
+  left: 50%;
+  bottom: 30px;
+  transform: translate(-50%, 0);
+}
+#fullpage .section.first .fp-overflow .slides .custom-dot span {
+  border: none;
+  font-size: 19px;
+  color: #fff;
+}
 #fullpage .section.second.active .content .left .products {
   transform: translate(0, 0);
   opacity: 1;

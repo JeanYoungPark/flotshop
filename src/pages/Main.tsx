@@ -26,14 +26,25 @@ const credits: Credits = {
 };
 
 export const Main = () => {
+    const [slickCurrentPage, setSlickCurrentPage] = useState(1);
     const [slickCurrentPage1, setSlickCurrentPage1] = useState(1);
     const [slickCurrentPage2, setSlickCurrentPage2] = useState(1);
     const [slickCurrentPage3, setSlickCurrentPage3] = useState(1);
     const [slickCurrentPage4, setSlickCurrentPage4] = useState(1);
+    const sliderRef = useRef<Slider>(null);
     const sliderRef1 = useRef<Slider>(null);
     const sliderRef2 = useRef<Slider>(null);
     const sliderRef3 = useRef<Slider>(null);
     const sliderRef4 = useRef<Slider>(null);
+
+    const slickSetting = {
+        autoplay: true,
+        arrows: false,
+        fade: true,
+        speed: 1000,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     const slickSetting1 = {
         arrows: false,
@@ -81,6 +92,20 @@ export const Main = () => {
         },
         dotsClass: "custom-slick-dots",
     }
+
+    const prevSlide = useCallback(() => {
+        if(slickCurrentPage !== 1) {
+            sliderRef.current?.slickPrev();
+            setSlickCurrentPage(slickCurrentPage - 1);
+        }
+    }, [slickCurrentPage]);
+
+    const nextSlide = useCallback(() => {
+        if(slickCurrentPage !== 4) {
+        sliderRef.current?.slickNext();
+            setSlickCurrentPage(slickCurrentPage + 1);
+        }
+    }, [slickCurrentPage]);
 
     const prevSlide1 = useCallback(() => {
         if(slickCurrentPage1 !== 1) {
@@ -190,7 +215,21 @@ export const Main = () => {
                 render={({ state, fullpageApi }) => {
                     return (
                         <ReactFullpage.Wrapper>
-                            <div className="section">1</div>
+                            <div className="section first">
+                                <div className="slides">
+                                    <div className={`arrow prev ${slickCurrentPage === 1 && 'disable'}`} onClick={prevSlide}><BsArrowLeft/></div>
+                                    <div className={`arrow next ${slickCurrentPage === 4 && 'disable'}`} onClick={nextSlide}><BsArrowRight/></div>
+                                    <Slider ref={sliderRef} {...slickSetting}>
+                                        <div className="banner banner01"></div>
+                                        <div className="banner banner02"></div>
+                                        <div className="banner banner03"></div>
+                                        <div className="banner banner04"></div>
+                                    </Slider>
+                                    <div className="custom-dot">
+                                        <span>{slickCurrentPage}/4</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div className="section second">
                                 <div className="content">
                                     <div className="left">
