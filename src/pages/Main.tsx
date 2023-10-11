@@ -29,9 +29,11 @@ export const Main = () => {
     const [slickCurrentPage1, setSlickCurrentPage1] = useState(1);
     const [slickCurrentPage2, setSlickCurrentPage2] = useState(1);
     const [slickCurrentPage3, setSlickCurrentPage3] = useState(1);
+    const [slickCurrentPage4, setSlickCurrentPage4] = useState(1);
     const sliderRef1 = useRef<Slider>(null);
     const sliderRef2 = useRef<Slider>(null);
     const sliderRef3 = useRef<Slider>(null);
+    const sliderRef4 = useRef<Slider>(null);
 
     const slickSetting1 = {
         arrows: false,
@@ -50,13 +52,28 @@ export const Main = () => {
         adaptiveHeight: true
     }
 
-    const slickSettings3 = {
+    const slickSetting3 = {
         dots: true,
         arrows: false,
         infinite: false,
         speed: 500,
         slidesToShow: 4,
         slidesToScroll: 4,
+        customPaging: (i:number) => {
+            return (
+                <span>{i}</span>
+            )
+        },
+        dotsClass: "custom-slick-dots",
+    }
+
+    const slickSetting4 = {
+        dots: true,
+        arrows: false,
+        infinite: false,
+        speed: 500,
+        slidesToShow: 3,
+        slidesToScroll: 3,
         customPaging: (i:number) => {
             return (
                 <span>{i}</span>
@@ -106,6 +123,20 @@ export const Main = () => {
             setSlickCurrentPage3(slickCurrentPage3 + 1);
         }
     }, [slickCurrentPage3]);
+
+    const prevSlide4 = useCallback(() => {
+        if(slickCurrentPage4 !== 1){
+            sliderRef4.current?.slickPrev(); 
+            setSlickCurrentPage4(slickCurrentPage4 - 1);
+        }
+    }, [slickCurrentPage4]);
+
+    const nextSlide4 = useCallback(() => {
+        if(slickCurrentPage4 !== 3) {
+            sliderRef4.current?.slickNext();
+            setSlickCurrentPage4(slickCurrentPage4 + 1);
+        }
+    }, [slickCurrentPage4]);
 
     return (
         <>
@@ -373,7 +404,7 @@ export const Main = () => {
                                     <div className="slides products">
                                         <div className={`arrow prev ${slickCurrentPage3 === 1 && 'disable'}`} onClick={prevSlide3}><BsArrowLeft/></div>
                                         <div className={`arrow next ${slickCurrentPage3 === 3 && 'disable'}`} onClick={nextSlide3}><BsArrowRight/></div>
-                                        <Slider ref={sliderRef3} {...slickSettings3}>
+                                        <Slider ref={sliderRef3} {...slickSetting3}>
                                             <div className="product">
                                                 <div className="wrap">
                                                     <div><img src={pd04} alt="review"/></div>
@@ -450,21 +481,52 @@ export const Main = () => {
                                 </div>
                             </div>
                             <div className="section sixth">
-                                <h2>이벤트 / 뉴스</h2>
-                                <div className="events">
-                                    <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={prevSlide2}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={nextSlide2}><BsArrowRight/></div>
-                                    <Slider {...slickSettings3}>
-                                        <div className="event">
-                                            <div><img src={pd06} alt="event"/></div>
-                                            <div className="info">
-                                                <span>추석맞이 20% 쿠폰 </span>
-                                                <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
+                                <div className="box">
+                                    <h2>이벤트 / 뉴스</h2>
+                                    <div className="slides events">
+                                        <div className={`arrow prev ${slickCurrentPage4 === 1 && 'disable'}`} onClick={prevSlide4}><BsArrowLeft/></div>
+                                        <div className={`arrow next ${slickCurrentPage4 === 3 && 'disable'}`} onClick={nextSlide4}><BsArrowRight/></div>
+                                        <Slider ref={sliderRef4} {...slickSetting4}>
+                                            <div className="product">
+                                                <div className="wrap">
+                                                    <div><img src={pd06} alt="event"/></div>
+                                                    <div className="info">
+                                                        <strong>추석맞이 20% 쿠폰 </strong>
+                                                        <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </Slider>
+                                            <div className="product">
+                                                <div className="wrap">
+                                                    <div><img src={pd06} alt="event"/></div>
+                                                    <div className="info">
+                                                        <strong>추석맞이 20% 쿠폰 </strong>
+                                                        <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="product">
+                                                <div className="wrap">
+                                                    <div><img src={pd06} alt="event"/></div>
+                                                    <div className="info">
+                                                        <strong>추석맞이 20% 쿠폰 </strong>
+                                                        <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="product">
+                                                <div className="wrap">
+                                                    <div><img src={pd06} alt="event"/></div>
+                                                    <div className="info">
+                                                        <strong>추석맞이 20% 쿠폰 </strong>
+                                                        <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Slider>
+                                    </div>
+                                    <div className="viewAll"><span>모두 보기</span></div>
                                 </div>
-                                <div className="viewAll">모두 보기</div>
                             </div>
                             <div className="section seventh">
                                 <div className="box">
