@@ -372,6 +372,10 @@ a {
 #fullpage .section.third {
   height: 100%;
 }
+#fullpage .section.third.active .content .left .box {
+  transform: translate(0, 0);
+  opacity: 1;
+}
 #fullpage .section.third .fp-overflow {
   height: 100%;
 }
@@ -387,7 +391,12 @@ a {
   padding: 0 100px 40px;
   box-sizing: border-box;
 }
-#fullpage .section.third .content .left span {
+#fullpage .section.third .content .left .box {
+  opacity: 0;
+  transform: translate(70px, 0);
+  transition: transform 1.5s ease, opacity 1.5s ease;
+}
+#fullpage .section.third .content .left .box span {
   display: inline-block;
   padding-bottom: 48px;
   color: #fff;
@@ -396,14 +405,14 @@ a {
   line-height: 1.5;
   font-family: GmarketSans;
 }
-#fullpage .section.third .content .left h2 {
+#fullpage .section.third .content .left .box h2 {
   color: #fff;
   font-size: 72px;
   font-weight: 700;
   line-height: 1.3;
   font-family: GmarketSans;
 }
-#fullpage .section.third .content .left p {
+#fullpage .section.third .content .left .box p {
   padding-top: 35px;
   color: #fff;
   font-size: 24px;
