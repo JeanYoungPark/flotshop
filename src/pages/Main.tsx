@@ -26,6 +26,7 @@ const credits: Credits = {
 };
 
 export const Main = () => {
+    const [headerClass, setHeaderClass] = useState(true);
     const [slickCurrentPage, setSlickCurrentPage] = useState(1);
     const [slickCurrentPage1, setSlickCurrentPage1] = useState(1);
     const [slickCurrentPage2, setSlickCurrentPage2] = useState(1);
@@ -162,10 +163,18 @@ export const Main = () => {
             setSlickCurrentPage4(slickCurrentPage4 + 1);
         }
     }, [slickCurrentPage4]);
+    
+    const leaveSection = useCallback((origin: any, destination: any, direction: any) => {
+        if(destination.index === 0) {
+            setHeaderClass(true);
+        }else{
+            setHeaderClass(false);
+        }
+    }, []);
 
     return (
         <>
-            <nav id="header">
+            <nav id="header" className={`${headerClass ? 'active' : ""}`}>
                 <h1 className="logo">logo</h1>
                 <ul className="menu">
                     <li>
@@ -212,6 +221,7 @@ export const Main = () => {
                 licenseKey = {'YOUR_KEY_HERE'}
                 credits={credits}
                 navigation
+                onLeave={leaveSection}
                 render={({ state, fullpageApi }) => {
                     return (
                         <ReactFullpage.Wrapper>

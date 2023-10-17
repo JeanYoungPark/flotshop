@@ -21,7 +21,16 @@ a {color: #222; text-decoration: none;}
     padding: 0 240px;
     box-sizing: border-box;
     font-family: "GmarketSans";
-    color: #fff;
+    color: #222;
+    transition: color 0.25s ease;
+
+    &.active {
+        color: #fff;
+
+        .icons {
+            color: #fff;
+        }
+    }
 
     .logo {
         position:absolute;
@@ -92,7 +101,8 @@ a {color: #222; text-decoration: none;}
         position: absolute;
         right: 85px;
         font-size: 28px;
-        color: #fff;
+        color: #222;
+        transition: color 0.25s ease;
 
         span {
             display: inline-block;

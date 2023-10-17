@@ -42,6 +42,13 @@ a {
   padding: 0 240px;
   box-sizing: border-box;
   font-family: "GmarketSans";
+  color: #222;
+  transition: color 0.25s ease;
+}
+#header.active {
+  color: #fff;
+}
+#header.active .icons {
   color: #fff;
 }
 #header .logo {
@@ -104,7 +111,8 @@ a {
   position: absolute;
   right: 85px;
   font-size: 28px;
-  color: #fff;
+  color: #222;
+  transition: color 0.25s ease;
 }
 #header .icons span {
   display: inline-block;
