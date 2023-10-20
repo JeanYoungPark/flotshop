@@ -504,9 +504,11 @@ fieldset, input {
   transform: translate(0, 0);
   opacity: 1;
 }
+#fullpage .section.second .left {
+  display: flex;
+  justify-content: center;
+}
 #fullpage .section.second .left .products {
-  padding: 0 11% 20px;
-  margin: 0 20%;
   max-width: 350px;
   transform: translate(0, 40px);
   opacity: 0;
@@ -551,6 +553,12 @@ fieldset, input {
 }
 #fullpage .section.second .left .products .custom-dot span {
   transition: color 0.25s ease;
+}
+#fullpage .section.second .left .products .arrow.prev {
+  left: -110px;
+}
+#fullpage .section.second .left .products .arrow.next {
+  right: -110px;
 }
 #fullpage .section.second .right span {
   display: inline-block;

@@ -569,9 +569,10 @@ fieldset, input {margin: 0; padding: 0; border: none;}
             }
 
             .left {
+                display: flex;
+                justify-content: center;
+
                 .products {
-                    padding: 0 11% 20px;
-                    margin: 0 20%;
                     max-width: 350px;
                     transform: translate(0, 40px);
                     opacity: 0;
@@ -623,6 +624,16 @@ fieldset, input {margin: 0; padding: 0; border: none;}
                     .custom-dot {
                         span {
                             transition: color 0.25s ease;
+                        }
+                    }
+
+                    .arrow {
+                        &.prev {
+                            left: -110px;
+                        }
+
+                        &.next {
+                            right: -110px;
                         }
                     }
                 }
