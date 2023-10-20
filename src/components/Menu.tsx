@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { CommonContext } from '../context/CommonProvider';
 import { RiCloseFill } from "react-icons/ri";
+import { CommonContext } from 'contexts/CommonProvider';
 
 export const Menu = () => {
     const CommonData = useContext(CommonContext);

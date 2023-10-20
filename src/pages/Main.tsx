@@ -1,9 +1,9 @@
-import "../assets/css/common.css";
+import "assets/css/common.css";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { CommonProvider } from "../context/CommonProvider";
-import { MainComponent } from "../components/Main/MainComponent";
-import { MainProvider } from "../context/MainProvider";
+import { MainComponent } from "components/Main/MainComponent";
+import { CommonProvider } from "contexts/CommonProvider";
+import { MainProvider } from "contexts/MainProvider";
 
 
 export const Main = () => {

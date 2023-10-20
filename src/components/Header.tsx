@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { BsBag } from "react-icons/bs";
 import { RiSearch2Line, RiMenuFill } from "react-icons/ri";
-import { CommonContext } from '../context/CommonProvider';
+import { CommonContext } from 'contexts/CommonProvider';
 
 export const Header = () => {
     const CommonData = useContext(CommonContext);

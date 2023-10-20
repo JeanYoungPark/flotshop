@@ -1,21 +1,20 @@
-import React, { useContext } from 'react'
-import pd01 from '../../assets/images/mainBg02_1.jpg'; 
-import pd02 from '../../assets/images/mainBg02_2.jpg';
-import pd03 from '../../assets/images/mainBg02_3.jpg';
-import pd04 from '../../assets/images/mainBg04_1.jpg';
-import pt05 from '../../assets/images/point5.gif';
-import pd06 from '../../assets/images/mainBg06_1.jpg';
-import pd07 from '../../assets/images/mainBg07.png';
-import { useCallback, useRef, useState } from "react";
+import React, { useContext, useCallback, useRef } from 'react';
 import ReactFullpage from "@fullpage/react-fullpage";
 import Slider  from "react-slick";
 import { BsArrowLeft, BsArrowRight, BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
-import { Header } from '../Header';
-import { CommonContext } from '../../context/CommonProvider';
-import { Search } from '../Search';
-import { Menu } from '../Menu';
-import { MainContext } from '../../context/MainProvider';
+import { Header } from 'components/Header';
+import { Search } from 'components/Search';
+import { Menu } from 'components/Menu';
+import { CommonContext } from 'contexts/CommonProvider';
+import { MainContext } from 'contexts/MainProvider';
+import pd01 from 'assets/images/mainBg02_1.jpg'; 
+import pd02 from 'assets/images/mainBg02_2.jpg';
+import pd03 from 'assets/images/mainBg02_3.jpg';
+import pd04 from 'assets/images/mainBg04_1.jpg';
+import pt05 from 'assets/images/point5.gif';
+import pd06 from 'assets/images/mainBg06_1.jpg';
+import pd07 from 'assets/images/mainBg07.png';
 
 type Credits = {
     enabled?: boolean;

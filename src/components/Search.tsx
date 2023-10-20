@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { CommonContext } from '../context/CommonProvider';
 import { RiSearchLine, RiCloseFill } from "react-icons/ri";
+import { CommonContext } from 'contexts/CommonProvider';
 
 export const Search = () => {
     const CommonData = useContext(CommonContext);
