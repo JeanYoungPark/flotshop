@@ -32,87 +32,11 @@ export const MainComponent = () => {
     const commonData = useContext(CommonContext);
     const mainData = useContext(MainContext);
 
-    const [slickCurrentPage, setSlickCurrentPage] = useState(1);
-    const [slickCurrentPage1, setSlickCurrentPage1] = useState(1);
-    const [slickCurrentPage2, setSlickCurrentPage2] = useState(1);
-    const [slickCurrentPage3, setSlickCurrentPage3] = useState(1);
-    const [slickCurrentPage4, setSlickCurrentPage4] = useState(1);
     const sliderRef = useRef<Slider>(null);
     const sliderRef1 = useRef<Slider>(null);
     const sliderRef2 = useRef<Slider>(null);
     const sliderRef3 = useRef<Slider>(null);
     const sliderRef4 = useRef<Slider>(null);
-
-    const slickSetting = {
-        autoplay: true,
-        arrows: false,
-        fade: true,
-        speed: 1000,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        beforeChange: (currentSlide: number, nextSlide: number) => {
-            setSlickCurrentPage(nextSlide+1);
-        }
-    };
-
-    const slickSetting1 = {
-        arrows: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        beforeChange: (currentSlide: number, nextSlide: number) => {
-            setSlickCurrentPage1(nextSlide+1);
-        }
-    };
-
-    const slickSetting2 = {
-        arrows: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        adaptiveHeight: true,
-        beforeChange: (currentSlide: number, nextSlide: number) => {
-            setSlickCurrentPage2(Math.ceil(nextSlide / 2) + 1);
-        }
-    }
-
-    const slickSetting3 = {
-        dots: true,
-        arrows: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        customPaging: (i:number) => {
-            return (
-                <span>{i}</span>
-            )
-        },
-        dotsClass: "custom-slick-dots",
-        beforeChange: (currentSlide: number, nextSlide: number) => {
-            setSlickCurrentPage3(nextSlide+1);
-        }
-    }
-
-    const slickSetting4 = {
-        dots: true,
-        arrows: false,
-        infinite: false,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 3,
-        customPaging: (i:number) => {
-            return (
-                <span>{i}</span>
-            )
-        },
-        dotsClass: "custom-slick-dots",
-        beforeChange: (currentSlide: number, nextSlide: number) => {
-            setSlickCurrentPage4(nextSlide+1);
-        }
-    }
 
     const leaveSection = useCallback((origin: any, destination: any, direction: any) => {
         if(destination.index === 0) {
@@ -137,16 +61,16 @@ export const MainComponent = () => {
                     <ReactFullpage.Wrapper>
                         <div className="section first">
                             <div className="slides">
-                                <div className={`arrow prev ${slickCurrentPage === 1 && 'disable'}`} onClick={() => mainData?.prevInfiniteSlide(sliderRef)}><BsArrowLeft/></div>
-                                <div className={`arrow next ${slickCurrentPage === 4 && 'disable'}`} onClick={() => mainData?.nextInfiniteSlide(sliderRef)}><BsArrowRight/></div>
-                                <Slider ref={sliderRef} {...slickSetting}>
+                                <div className={`arrow prev ${mainData?.pages.slickCurrentPage === 1 && 'disable'}`} onClick={() => mainData?.prevInfiniteSlide(sliderRef)}><BsArrowLeft/></div>
+                                <div className={`arrow next ${mainData?.pages.slickCurrentPage === 4 && 'disable'}`} onClick={() => mainData?.nextInfiniteSlide(sliderRef)}><BsArrowRight/></div>
+                                <Slider ref={sliderRef} {...mainData?.settings.slickSetting}>
                                     <div className="banner banner01"></div>
                                     <div className="banner banner02"></div>
                                     <div className="banner banner03"></div>
                                     <div className="banner banner04"></div>
                                 </Slider>
                                 <div className="custom-dot">
-                                    <span>{slickCurrentPage}/4</span>
+                                    <span>{mainData?.pages.slickCurrentPage}/4</span>
                                 </div>
                             </div>
                         </div>
@@ -154,9 +78,9 @@ export const MainComponent = () => {
                             <div className="content">
                                 <div className="left">
                                     <div className="slides products">
-                                        <div className={`arrow prev ${slickCurrentPage1 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef1, slickCurrentPage1)}><BsArrowLeft/></div>
-                                        <div className={`arrow next ${slickCurrentPage1 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef1, slickCurrentPage1)}><BsArrowRight/></div>
-                                        <Slider ref={sliderRef1} {...slickSetting1}>
+                                        <div className={`arrow prev ${mainData?.pages.slickCurrentPage1 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef1, mainData?.pages.slickCurrentPage1)}><BsArrowLeft/></div>
+                                        <div className={`arrow next ${mainData?.pages.slickCurrentPage1 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef1, mainData?.pages.slickCurrentPage1)}><BsArrowRight/></div>
+                                        <Slider ref={sliderRef1} {...mainData?.settings.slickSetting1}>
                                             <div className="product">
                                                 <div className="description">
                                                     <span className="likes">Like <span className="count">0</span></span>
@@ -178,7 +102,7 @@ export const MainComponent = () => {
                                             <div className="product"><img src={pd03} alt="product 3"/></div>
                                         </Slider>
                                         <div className="custom-dot">
-                                            <span>{slickCurrentPage1}/3</span>
+                                            <span>{mainData?.pages.slickCurrentPage1}/3</span>
                                         </div>
                                     </div>
                                 </div>
@@ -205,9 +129,9 @@ export const MainComponent = () => {
                                     <div className="box">
                                         <h3>MONTH BEST</h3>
                                         <div className="slides products">
-                                            <div className={`arrow prev ${slickCurrentPage2 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef2, slickCurrentPage2)}><BsArrowLeft/></div>
-                                            <div className={`arrow next ${slickCurrentPage2 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef2, slickCurrentPage2)}><BsArrowRight/></div>
-                                            <Slider ref={sliderRef2} {...slickSetting2}>
+                                            <div className={`arrow prev ${mainData?.pages.slickCurrentPage2 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef2, mainData?.pages.slickCurrentPage2)}><BsArrowLeft/></div>
+                                            <div className={`arrow next ${mainData?.pages.slickCurrentPage2 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef2, mainData?.pages.slickCurrentPage2)}><BsArrowRight/></div>
+                                            <Slider ref={sliderRef2} {...mainData?.settings.slickSetting2}>
                                                 <div className="product">
                                                     <div className="img">
                                                         <span className="likes">Like <span className="count">0</span></span>
@@ -293,7 +217,7 @@ export const MainComponent = () => {
                                                 </div>
                                             </Slider>
                                             <div className="custom-dot">
-                                                <span>{slickCurrentPage2}/3</span>
+                                                <span>{mainData?.pages.slickCurrentPage2}/3</span>
                                             </div>
                                         </div>
                                     </div>
@@ -363,9 +287,9 @@ export const MainComponent = () => {
                             <div className="box">
                                 <h2>상품 후기</h2>
                                 <div className="slides products">
-                                    <div className={`arrow prev ${slickCurrentPage3 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef3, slickCurrentPage3)}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${slickCurrentPage3 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef3, slickCurrentPage3)}><BsArrowRight/></div>
-                                    <Slider ref={sliderRef3} {...slickSetting3}>
+                                    <div className={`arrow prev ${mainData?.pages.slickCurrentPage3 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef3, mainData?.pages.slickCurrentPage3)}><BsArrowLeft/></div>
+                                    <div className={`arrow next ${mainData?.pages.slickCurrentPage3 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef3, mainData?.pages.slickCurrentPage3)}><BsArrowRight/></div>
+                                    <Slider ref={sliderRef3} {...mainData?.settings.slickSetting3}>
                                         <div className="product">
                                             <div className="wrap">
                                                 <div><img src={pd04} alt="review"/></div>
@@ -445,9 +369,9 @@ export const MainComponent = () => {
                             <div className="box">
                                 <h2>이벤트 / 뉴스</h2>
                                 <div className="slides events">
-                                    <div className={`arrow prev ${slickCurrentPage4 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef4, slickCurrentPage4)}><BsArrowLeft/></div>
-                                    <div className={`arrow next ${slickCurrentPage4 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef4, slickCurrentPage4)}><BsArrowRight/></div>
-                                    <Slider ref={sliderRef4} {...slickSetting4}>
+                                    <div className={`arrow prev ${mainData?.pages.slickCurrentPage4 === 1 && 'disable'}`} onClick={() => mainData?.prevSlide(sliderRef4, mainData?.pages.slickCurrentPage4)}><BsArrowLeft/></div>
+                                    <div className={`arrow next ${mainData?.pages.slickCurrentPage4 === 3 && 'disable'}`} onClick={() => mainData?.nextSlide(sliderRef4, mainData?.pages.slickCurrentPage4)}><BsArrowRight/></div>
+                                    <Slider ref={sliderRef4} {...mainData?.settings.slickSetting4}>
                                         <div className="product">
                                             <div className="wrap">
                                                 <div><img src={pd06} alt="event"/></div>
