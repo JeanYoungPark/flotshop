@@ -10,7 +10,12 @@
   font-weight: 400;
   font-family: "GmarketSans";
 }
+.container .top ul {
+  display: flex;
+  justify-content: center;
+}
 .container .top ul li {
+  margin: 0 7px;
   padding: 15px 0;
   line-height: 1.5;
   text-align: center;
