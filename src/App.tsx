@@ -5,6 +5,7 @@ import { ProductSetting } from 'pages/admin/ProductSetting';
 import { ProductView } from 'pages/ProductView';
 import { Login } from 'pages/admin/Login';
 import { ProductList as adminProductList } from 'pages/admin/ProductList';
+import { Option } from 'pages/admin/Option';
 
 function App() {
     return (
@@ -25,6 +26,7 @@ function App() {
                         <Route path="list" Component={adminProductList} />
                         <Route path="setting" Component={ProductSetting} />
                     </Route>
+                    <Route path='option' Component={Option} />
                 </Route>
             </Routes>
         </BrowserRouter>
