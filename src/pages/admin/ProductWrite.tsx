@@ -2,6 +2,7 @@ import React from 'react'
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
+import { useParams } from 'react-router'
 
 const people = [
     {
@@ -70,13 +71,14 @@ function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
   }
 
-export const ProductSetting = () => {
-    const [selected, setSelected] = useState(people[3])
-
+export const ProductWrite = () => {
+    const { num } = useParams();
+    const [selected, setSelected] = useState(people[3]);
+    
     return (
         <div className='fixed flex w-full h-full justify-center items-center'>
             <form className='space-y-6 min-w-1/3'>
-                <h1 className="text-xl font-semibold leading-10 text-gray-900">상품 등록</h1>
+                <h1 className="text-xl font-semibold leading-10 text-gray-900">{num ? '상품 수정' : '상품 등록'}</h1>
                 <div>
                     <div className='flex'>
                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900 mr-2">새상품</label>

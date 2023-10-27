@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Main } from 'pages/Main';
 import { ProductList } from 'pages/ProductList';
-import { ProductSetting } from 'pages/admin/ProductSetting';
+import { ProductWrite } from 'pages/admin/ProductWrite';
 import { ProductView } from 'pages/ProductView';
 import { Login } from 'pages/admin/Login';
 import { ProductList as adminProductList } from 'pages/admin/ProductList';
@@ -23,8 +23,11 @@ function App() {
                 <Route path="/admin">
                     <Route path="login" Component={Login}/>
                     <Route path="products">
-                        <Route path="list" Component={adminProductList} />
-                        <Route path="setting" Component={ProductSetting} />
+                        <Route path=":category" >
+                            <Route path="" Component={adminProductList}/>
+                            <Route path=":num/modify" Component={ProductWrite} />
+                        </Route>
+                        <Route path="write" Component={ProductWrite} />
                     </Route>
                     <Route path='option' Component={Option} />
                 </Route>
