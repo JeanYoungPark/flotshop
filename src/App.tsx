@@ -4,32 +4,33 @@ import { ProductList } from 'pages/ProductList';
 import { ProductWrite } from 'pages/admin/ProductWrite';
 import { ProductView } from 'pages/ProductView';
 import { Login } from 'pages/admin/Login';
-import { ProductList as adminProductList } from 'pages/admin/ProductList';
+import { ProductList as AdminProductList } from 'pages/admin/ProductList';
 import { Option } from 'pages/admin/Option';
+import { AdminLayout } from 'components/admin/AdminLayout';
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" Component={Main} />
+                <Route path="/" element={<Main/>} />
                 
                 <Route path="/products">
                     <Route path=":category">
-                        <Route path="" Component={ProductList} />
-                        <Route path=":num" Component={ProductView} />
+                        <Route path="" element={<ProductList/>} />
+                        <Route path=":num" element={<ProductView/>} />
                     </Route>
                 </Route>
 
-                <Route path="/admin">
-                    <Route path="login" Component={Login}/>
+                <Route path="/admin" element={<AdminLayout/>}>
+                    <Route path="login" element={<Login/>}/>
                     <Route path="products">
                         <Route path=":category" >
-                            <Route path="" Component={adminProductList}/>
-                            <Route path=":num/modify" Component={ProductWrite} />
+                            <Route path="" element={<AdminProductList/>}/>
+                            <Route path=":num/modify" element={<ProductWrite/>} />
                         </Route>
-                        <Route path="write" Component={ProductWrite} />
+                        <Route path="write" element={<ProductWrite/>} />
                     </Route>
-                    <Route path='option' Component={Option} />
+                    <Route path='option' element={<Option/>} />
                 </Route>
             </Routes>
         </BrowserRouter>
