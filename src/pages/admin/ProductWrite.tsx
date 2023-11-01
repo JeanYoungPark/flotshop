@@ -76,8 +76,8 @@ export const ProductWrite = () => {
     const [selected, setSelected] = useState(people[3]);
     
     return (
-        <div className='fixed flex w-full h-full justify-center items-center'>
-            <form className='space-y-6 min-w-1/3'>
+        <div className='pt-10 flex w-full h-full justify-center items-center'>
+            <form className='space-y-6 min-w-1/2'>
                 <h1 className="text-xl font-semibold leading-10 text-gray-900">{num ? '상품 수정' : '상품 등록'}</h1>
                 <div>
                     <div className='flex'>

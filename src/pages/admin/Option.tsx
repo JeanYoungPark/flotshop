@@ -8,7 +8,7 @@ export const Option = () => {
         <>
             <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
                 <div className="fixed inset-0 bg-black/30 z-20" aria-hidden="true"/>
-                <div className='fixed flex w-full h-full justify-center items-center z-20'>
+                <div className='fixed flex top-0 left-0 w-full h-full justify-center items-center z-20'>
                     <Dialog.Panel className="bg-white p-6 rounded-lg border border-slate-300 border-solid drop-shadow-lg">
                         <div className='space-y-6'>
                             <span className='flex flex-row-reverse'>
@@ -61,8 +61,8 @@ export const Option = () => {
                 </div>
             </Dialog>
 
-            <div className='fixed flex w-full h-full justify-center items-center z-0'>
-                <div className='space-y-6 min-w-1/3 pb-20'>
+            <div className='pt-10 flex w-full z-0 justify-center items-center'>
+                <div className='space-y-6 min-w-1/2 pb-20'>
                     <form className='space-y-4'>
                         <h1 className="text-xl font-semibold leading-10 text-gray-900">옵션 등록</h1>
                         <div className='flex'>

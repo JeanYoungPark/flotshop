@@ -7,6 +7,8 @@ import { Login } from 'pages/admin/Login';
 import { ProductList as AdminProductList } from 'pages/admin/ProductList';
 import { Option } from 'pages/admin/Option';
 import { AdminLayout } from 'components/admin/AdminLayout';
+import { QnAList } from 'pages/admin/QnAList';
+import { ReviewList } from 'pages/admin/ReviewList';
 
 function App() {
     return (
@@ -30,7 +32,9 @@ function App() {
                         </Route>
                         <Route path="write" element={<ProductWrite/>} />
                     </Route>
-                    <Route path='option' element={<Option/>} />
+                    <Route path="option" element={<Option/>} />
+                    <Route path="qna" element={<QnAList/>} />
+                    <Route path="review" element={<ReviewList/>} />
                 </Route>
             </Routes>
         </BrowserRouter>

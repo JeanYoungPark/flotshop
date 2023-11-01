@@ -36,7 +36,7 @@ export const ProductList = () => {
                     <li className='p-4 text-sm hover:bg-indigo-500 hover:text-white'>아우터</li>
                     <li className='p-4 text-sm hover:bg-indigo-500 hover:text-white'>악세사리</li>
                 </ul>
-                <ul className="divide-y divide-gray-100">
+                <ul className="divide-y divide-gray-100 mb-10">
                     {people.map((person) => (
                         <li key={person.id} className="flex justify-between gap-x-6 py-5 ">
                             <div className="flex min-w-0 gap-x-4">
@@ -52,6 +52,9 @@ export const ProductList = () => {
                         </li>
                     ))}
                 </ul>
+                <div className='text-right'>
+                    <button onClick={() => navigate('/admin/products/write')} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>상품 등록</button>
+                </div>
             </div>
         </div>
     )
