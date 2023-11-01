@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Dialog } from '@headlessui/react'
 
 export const Option = () => {
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(false)
 
     return (
         <>
@@ -62,7 +62,7 @@ export const Option = () => {
             </Dialog>
 
             <div className='fixed flex w-full h-full justify-center items-center z-0'>
-                <div className='space-y-6 min-w-1/3'>
+                <div className='space-y-6 min-w-1/3 pb-20'>
                     <form className='space-y-4'>
                         <h1 className="text-xl font-semibold leading-10 text-gray-900">옵션 등록</h1>
                         <div className='flex'>

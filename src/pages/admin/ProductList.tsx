@@ -1,5 +1,4 @@
 import React from 'react'
-import { Tab } from '@headlessui/react'
 import { useNavigate, useParams } from 'react-router'
 
 const people = [
