@@ -7,7 +7,6 @@ export const Header = () => {
     const dispatch = useDispatch();
     const adminMenu = useSelector((state: RootState) => state.adminMenu);
 
-    console.log(adminMenu.name);
     const handleMenuName = useCallback((menu: string) => {
         dispatch({type: 'setName', name: menu});
     }, [dispatch]);
