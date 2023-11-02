@@ -5,6 +5,8 @@
 body {
   background: #fff;
   font: 0.8em "Outfit", "Noto Sans KR", "맑은 고딕", "Malgun Gothic", Verdana, Dotum, AppleGothic, sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {

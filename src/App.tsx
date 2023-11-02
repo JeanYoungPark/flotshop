@@ -1,29 +1,47 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Main } from 'pages/Main';
 import { ProductList } from 'pages/ProductList';
-import { ProductSetting } from 'pages/admin/ProductSetting';
+import { ProductWrite } from 'pages/admin/ProductWrite';
 import { ProductView } from 'pages/ProductView';
 import { Login } from 'pages/admin/Login';
-import { ProductList as adminProductList } from 'pages/admin/ProductList';
+import { ProductList as AdminProductList } from 'pages/admin/ProductList';
+import { Option } from 'pages/admin/Option';
+import { AdminLayout } from 'components/admin/AdminLayout';
+import { QnAList } from 'pages/admin/QnAList';
+import { ReviewList } from 'pages/admin/ReviewList';
+import { QnAView } from 'pages/admin/QnAView';
+import { ReviewView } from 'pages/admin/ReviewView';
 
 function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" Component={Main} />
+                <Route path="/" element={<Main/>} />
                 
                 <Route path="/products">
                     <Route path=":category">
-                        <Route path="" Component={ProductList} />
-                        <Route path=":num" Component={ProductView} />
+                        <Route path="" element={<ProductList/>} />
+                        <Route path=":num" element={<ProductView/>} />
                     </Route>
                 </Route>
 
-                <Route path="/admin">
-                    <Route path="login" Component={Login}/>
+                <Route path="/admin" element={<AdminLayout/>}>
+                    <Route path="login" element={<Login/>}/>
                     <Route path="products">
-                        <Route path="list" Component={adminProductList} />
-                        <Route path="setting" Component={ProductSetting} />
+                        <Route path=":category" >
+                            <Route path="" element={<AdminProductList/>}/>
+                            <Route path="modify/:id" element={<ProductWrite/>} />
+                        </Route>
+                        <Route path="write" element={<ProductWrite/>} />
+                    </Route>
+                    <Route path="option" element={<Option/>} />
+                    <Route path="qna" >
+                        <Route path="" element={<QnAList/>}/>
+                        <Route path="view/:id" element={<QnAView/>}/>
+                    </Route>
+                    <Route path="review" >
+                        <Route path="" element={<ReviewList/>}/>
+                        <Route path="view/:id" element={<ReviewView/>}/>
                     </Route>
                 </Route>
             </Routes>
