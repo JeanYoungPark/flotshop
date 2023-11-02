@@ -9,6 +9,8 @@ import { Option } from 'pages/admin/Option';
 import { AdminLayout } from 'components/admin/AdminLayout';
 import { QnAList } from 'pages/admin/QnAList';
 import { ReviewList } from 'pages/admin/ReviewList';
+import { QnAView } from 'pages/admin/QnAView';
+import { ReviewView } from 'pages/admin/ReviewView';
 
 function App() {
     return (
@@ -28,13 +30,19 @@ function App() {
                     <Route path="products">
                         <Route path=":category" >
                             <Route path="" element={<AdminProductList/>}/>
-                            <Route path=":num/modify" element={<ProductWrite/>} />
+                            <Route path="modify/:id" element={<ProductWrite/>} />
                         </Route>
                         <Route path="write" element={<ProductWrite/>} />
                     </Route>
                     <Route path="option" element={<Option/>} />
-                    <Route path="qna" element={<QnAList/>} />
-                    <Route path="review" element={<ReviewList/>} />
+                    <Route path="qna" >
+                        <Route path="" element={<QnAList/>}/>
+                        <Route path="view/:id" element={<QnAView/>}/>
+                    </Route>
+                    <Route path="review" >
+                        <Route path="" element={<ReviewList/>}/>
+                        <Route path="view/:id" element={<ReviewView/>}/>
+                    </Route>
                 </Route>
             </Routes>
         </BrowserRouter>

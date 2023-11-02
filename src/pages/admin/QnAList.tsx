@@ -36,7 +36,7 @@ export const QnAList = () => {
                                 </div>
                             </div>
                             <div className="flex shrink-0">
-                                <button onClick={() => navigate(`/admin/products`)} className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 mr-2'>답변 등록</button>
+                                <button onClick={() => navigate(`/admin/qna/view/1`)} className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 mr-2'>답변 등록</button>
                                 <button onClick={() => navigate(`/admin/products`)} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>삭제</button>
                             </div>
                         </li>
