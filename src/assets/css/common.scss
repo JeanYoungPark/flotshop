@@ -230,19 +230,31 @@ fieldset, input {margin: 0; padding: 0; border: none;}
 }
 
 #header {
+    &.fixedTypeA {
+        position: fixed;
+        top: 0;
+        left: 0;
+        transition: color 0.25s ease;
+    }
+    
+    &.fixedTypeB {
+        position: fixed;
+        height: 50px;
+        top: 0;
+        left: 0;
+        background: #fff;
+    }
+    
     display: flex;
+    height: 120px;
     align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
     z-index: 1;
     width: 100%;
-    height: 120px;
     padding: 0 240px;
     box-sizing: border-box;
     font-family: "GmarketSans";
     color: #222;
-    transition: color 0.25s ease;
+    transition: background 0.65s ease, height 0.65s ease;
 
     &.active {
         color: #fff;
