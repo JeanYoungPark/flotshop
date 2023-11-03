@@ -39,13 +39,23 @@
 .container .content .nav svg {
   width: 35px;
   height: 35px;
+  color: gray;
+  cursor: pointer;
+}
+.container .content .nav .grid svg {
+  color: #222;
 }
 .container .content .products {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
   -moz-column-gap: 40px;
        column-gap: 40px;
   row-gap: 80px;
+}
+.container .content .products.typeA {
+  grid-template-columns: repeat(2, 1fr);
+}
+.container .content .products.typeB {
+  grid-template-columns: repeat(4, 1fr);
 }
 .container .content .products .product .img {
   position: relative;

@@ -46,12 +46,27 @@
             svg {
                 width: 35px;
                 height: 35px;
+                color: gray;
+                cursor: pointer;
+            }
+
+            .grid {
+                svg {
+                    color: #222;
+                }
             }
         }
 
         .products {
+            &.typeA {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            &.typeB {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
             column-gap: 40px;
             row-gap: 80px;
 
