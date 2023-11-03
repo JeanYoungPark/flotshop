@@ -19,6 +19,7 @@
   padding: 15px 0;
   line-height: 1.5;
   text-align: center;
+  font-size: 15px;
 }
 .container .top ul li span {
   display: inline-block;
@@ -29,4 +30,110 @@
   border: 1px solid #e6e6e6;
   border-radius: 50px;
   background-color: #fcfcfc;
+}
+.container .content .nav {
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 0;
+}
+.container .content .nav svg {
+  width: 35px;
+  height: 35px;
+}
+.container .content .products {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  -moz-column-gap: 40px;
+       column-gap: 40px;
+  row-gap: 80px;
+}
+.container .content .products .product .img {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.container .content .products .product .img:hover .likes {
+  opacity: 1;
+}
+.container .content .products .product .img:hover .icons {
+  opacity: 1;
+  bottom: 10px;
+}
+.container .content .products .product .img .likes {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: 1px solid #e8e8e8;
+  border-radius: 25px;
+  background: #fff;
+  opacity: 0;
+  font-family: "GmarketSans";
+  transition: opacity 0.5s ease;
+}
+.container .content .products .product .img .likes button {
+  position: relative;
+  top: 2px;
+  padding: 8px 12px;
+  line-height: 1.5;
+}
+.container .content .products .product .img .likes strong {
+  color: #222;
+  font-size: 13px;
+  font-weight: 400;
+}
+.container .content .products .product .img .likes .count {
+  font-size: 13px;
+  color: #999;
+  padding-left: 3px;
+}
+.container .content .products .product .img .icons {
+  display: flex;
+  position: absolute;
+  bottom: -10px;
+  right: 10px;
+  opacity: 0;
+  transition: all 0.5s ease;
+}
+.container .content .products .product .img .icons span {
+  padding: 5px;
+  border: 1px solid #e8e8e8;
+  background: #fff;
+}
+.container .content .products .product .img .icons span svg {
+  width: 15px;
+  height: 15px;
+}
+.container .content .products .product .description {
+  position: relative;
+  padding-right: 65px;
+}
+.container .content .products .product .description .name {
+  line-height: 1.3;
+  color: #222;
+  font-size: 20px;
+  font-weight: 400;
+  margin-bottom: 5px;
+}
+.container .content .products .product .description .reviewCount {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid #e7e7e7;
+  padding: 6px 9px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 400;
+}
+.container .content .products .product .description .price {
+  font-size: 21px;
+  color: #222;
+  font-weight: 700;
+  margin-top: 5px;
+}
+.container .content .products .product .description .discountPrice {
+  font-size: 21px;
+  color: #222;
+  font-weight: 400;
 }
