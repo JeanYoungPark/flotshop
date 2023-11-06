@@ -11,6 +11,7 @@ import { QnAList } from 'pages/admin/QnAList';
 import { ReviewList } from 'pages/admin/ReviewList';
 import { QnAView } from 'pages/admin/QnAView';
 import { ReviewView } from 'pages/admin/ReviewView';
+import { EventList } from 'pages/EventList';
 
 function App() {
     return (
@@ -24,6 +25,8 @@ function App() {
                         <Route path=":num" element={<ProductView/>} />
                     </Route>
                 </Route>
+
+                <Route path="/events" element={<EventList/>}/>
 
                 <Route path="/admin" element={<AdminLayout/>}>
                     <Route path="login" element={<Login/>}/>
