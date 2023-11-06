@@ -1,4 +1,18 @@
+#banner {
+    overflow: hidden;
+    
+    .slick-slide {
+        img {
+            width: 100%;
+        }
+    }
+}
+
 .container {
+    padding-top: 120px;    
+}
+
+.content {
     margin-top: 80px;
     padding: 0 70px;
 

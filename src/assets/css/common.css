@@ -235,8 +235,11 @@ fieldset, input {
 }
 
 #header {
+  position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
-  height: 120px;
+  line-height: 120px;
   align-items: center;
   z-index: 1;
   width: 100%;
@@ -244,20 +247,15 @@ fieldset, input {
   box-sizing: border-box;
   font-family: "GmarketSans";
   color: #222;
-  transition: background 0.65s ease, height 0.65s ease;
-}
-#header.fixedTypeA {
-  position: fixed;
-  top: 0;
-  left: 0;
-  transition: color 0.25s ease;
+  background-color: rgba(255, 255, 255, 0);
+  transition: background 0.65s ease, line-height 0.65s ease, color 0.25s ease;
 }
 #header.fixedTypeB {
   position: fixed;
-  height: 50px;
+  line-height: 50px;
   top: 0;
   left: 0;
-  background: #fff;
+  background-color: rgb(255, 255, 255);
 }
 #header.active {
   color: #fff;
