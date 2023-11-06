@@ -2,6 +2,7 @@ import React,  { useState } from 'react'
 import img01 from 'assets/images/product/list/img01.jpg'
 import { BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs"
 import { CiGrid2H, CiGrid41 } from "react-icons/ci"
+import { Paging } from 'components/Paging'
 
 export const ProductComponent = () => {
     const [grid, setGrid] = useState(2);
@@ -46,6 +47,7 @@ export const ProductComponent = () => {
                     }
                 </ul>
             </div>
+            <Paging />
         </div>
     )
 }

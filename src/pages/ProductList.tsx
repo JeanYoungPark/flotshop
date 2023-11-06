@@ -6,6 +6,7 @@ import { ProductComponent } from 'components/product/ProductComponent'
 import { Header } from 'components/Header'
 import { Search } from 'components/Search'
 import { Menu } from 'components/Menu'
+import { CommonProvider } from 'contexts/CommonProvider'
 
 export const ProductList = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -24,14 +25,14 @@ export const ProductList = () => {
     }, []);
 
     return (
-        <>
+        <CommonProvider>
             <Header headerType={scrollClass}/>
             <Search/>
             <Menu/>
-            <div className='container'>
+            <div id='productList'>
                 <BannerComponent/>
                 <ProductComponent/>
             </div>
-        </>
+        </CommonProvider>
     )
 }
