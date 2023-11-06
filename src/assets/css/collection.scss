@@ -1,0 +1,131 @@
+#collectionList {
+    .content {
+        margin: 0 auto;
+        
+        .nav {
+            display: flex;
+            justify-content: flex-end;
+            padding: 20px 0;
+            
+            svg {
+                width: 35px;
+                height: 35px;
+                color: gray;
+                cursor: pointer;
+            }
+            
+            .grid {
+                svg {
+                    color: #222;
+                }
+            }
+        }
+
+        &.typeA {
+            max-width: 800px;
+
+            .collections {
+                grid-template-columns: repeat(1, 1fr);   
+            }
+        }
+
+        &.typeB {
+            max-width: 1560px;
+
+            .collections {
+                grid-template-columns: repeat(3, 1fr);   
+            }
+        }
+
+        .collections {
+            display: grid;
+            column-gap: 40px;
+
+            .collection {
+                margin-bottom: 170px;
+                border-radius: 20px;
+                box-shadow: 0px 3px 8px rgba(0,0,0,0.10);
+
+                .img {
+                    position: relative;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    margin-bottom:10px;
+                    cursor: pointer;
+
+                    &:hover {
+                        .likes  {
+                            opacity: 1;
+                        }
+
+                        .icons {
+                            opacity: 1;
+                            bottom: 10px;
+                        }
+                    }
+
+                    .likes {
+                        position: absolute;
+                        top: 10px;
+                        right: 10px;
+                        border: 1px solid #e8e8e8;
+                        border-radius: 25px;
+                        background: #fff;
+                        opacity: 0;
+                        font-family: "GmarketSans";
+                        transition: opacity 0.5s ease;
+                        
+                        button {
+                            position: relative;
+                            top: 2px;
+                            padding: 8px 12px;
+                            line-height: 1.5;
+                        }
+                        
+                        strong {
+                            color: #222;
+                            font-size: 13px;
+                            font-weight: 400;
+                        }
+
+                        .count {
+                            font-size: 13px;
+                            color: #999;
+                            padding-left: 3px;
+                        }
+                    }
+
+                    .icons {
+                        display: flex;
+                        position: absolute;
+                        bottom: -10px;
+                        right: 10px;
+                        opacity: 0;
+                        transition: all 0.5s ease;
+
+                        span {
+                            padding: 5px;
+                            border: 1px solid #e8e8e8;
+                            background: #fff;
+
+                            svg {
+                                width: 15px;
+                                height: 15px;
+                            }
+                        }
+                    }
+                }
+
+                .description {
+                    padding: 25px 30px;
+
+                    h2 {
+                        color: #222;
+                        font-size: 22px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}
