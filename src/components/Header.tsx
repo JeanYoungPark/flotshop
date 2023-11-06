@@ -3,11 +3,12 @@ import { BsBag } from "react-icons/bs";
 import { RiSearch2Line, RiMenuFill } from "react-icons/ri";
 import { CommonContext } from 'contexts/CommonProvider';
 
-export const Header = () => {
-    const CommonData = useContext(CommonContext);
 
+export const Header = (props: { headerType : string }) => {
+    const CommonData = useContext(CommonContext);
+    
     return (
-        <nav id="header" className={`${CommonData?.headerColor && 'active'}`}>
+        <nav id="header" className={`${props.headerType} ${CommonData?.headerColor && 'active'}`}>
             <h1 className="logo">logo</h1>
             <ul className="menu">
                 <li>

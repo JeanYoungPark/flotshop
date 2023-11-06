@@ -3,9 +3,6 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import Slider  from "react-slick";
 import { BsArrowLeft, BsArrowRight, BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs";
 import { FaFacebookF, FaInstagram, FaYoutube } from "react-icons/fa";
-import { Header } from 'components/Header';
-import { Search } from 'components/Search';
-import { Menu } from 'components/Menu';
 import { CommonContext } from 'contexts/CommonProvider';
 import { MainContext } from 'contexts/MainProvider';
 import pd01 from 'assets/images/mainBg02_1.jpg'; 
@@ -47,9 +44,6 @@ export const MainComponent = () => {
 
   return (
     <>
-        <Header/>
-        <Search/>
-        <Menu/>
         <ReactFullpage
             licenseKey = {'YOUR_KEY_HERE'}
             credits={credits}

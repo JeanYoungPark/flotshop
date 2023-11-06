@@ -1,6 +1,7 @@
 module.exports = {
     content: [
-        "./src/**/*.{js,jsx,ts,tsx}",
+        "./src/pages/admin/**/*.{js,jsx,ts,tsx}",
+        "./src/components/admin/**/*.{js,jsx,ts,tsx}",
     ],
     theme: {
         minWidth: {
