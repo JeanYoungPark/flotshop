@@ -14,6 +14,8 @@
         padding: 0 70px;
     
         .content {
+            margin: 0 auto;
+
             .nav {
                 display: flex;
                 justify-content: flex-end;
@@ -33,15 +35,23 @@
                 }
             }
     
-            .products {
-                &.typeA {
+            &.typeA {
+                max-width: 930px;
+
+                .products {
                     grid-template-columns: repeat(2, 1fr);
-                }
-    
-                &.typeB {
+                }    
+            }
+
+            &.typeB {
+                max-width: 1560px;
+
+                .products {
                     grid-template-columns: repeat(4, 1fr);
                 }
-    
+            }
+            
+            .products {    
                 display: grid;
                 column-gap: 40px;
                 row-gap: 80px;
