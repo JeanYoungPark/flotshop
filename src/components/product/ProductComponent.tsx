@@ -8,7 +8,7 @@ export const ProductComponent = () => {
     const [grid, setGrid] = useState(2);
 
     return (
-        <div className='content'>
+        <div className='wrapper'>
             <div className='top'>
                 <h1>PRODUCT</h1>
                 <ul>

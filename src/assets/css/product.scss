@@ -8,47 +8,10 @@
     }
 }
 
-#productList {
-    padding-top: 120px;    
-
-    .content {
+#productList { 
+    .wrapper {
         margin-top: 80px;
         padding: 0 70px;
-    
-        .top {
-            h1 {
-                margin: 10px 0 20px 0;
-                text-align:center;
-                font-size: 33px;
-                color: #222;
-                font-weight: 400;
-                font-family: "GmarketSans";
-            }
-    
-            ul {
-                display: flex;
-                justify-content: center;
-    
-                li {
-                    margin: 0 7px;
-                    padding: 15px 0;
-                    line-height: 1.5;
-                    text-align: center;
-                    font-size: 15px;
-    
-                    span {
-                        display: inline-block;
-                        min-width: 86px;
-                        padding: 14px 17px 14px 17px;
-                        font-weight: 400;
-                        color: #222;
-                        border: 1px solid #e6e6e6;
-                        border-radius: 50px;
-                        background-color: #fcfcfc;
-                    }
-                }
-            }
-        }
     
         .content {
             .nav {
