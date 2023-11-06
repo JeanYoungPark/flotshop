@@ -1,14 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import "assets/css/common.css"
-import 'assets/css/product.css'
-import { BannerComponent } from 'components/product/BannerComponent'
-import { ProductComponent } from 'components/product/ProductComponent'
-import { Header } from 'components/Header'
-import { Search } from 'components/Search'
-import { Menu } from 'components/Menu'
-import { CommonProvider } from 'contexts/CommonProvider'
+import React, {useEffect, useState} from 'react'
+import 'assets/css/main.css';
+import 'assets/css/event.css';
+import { CommonProvider } from 'contexts/CommonProvider';
+import { Header } from 'components/Header';
+import { Search } from 'components/Search';
+import { Menu } from 'components/Menu';
+import { EventListComponent } from 'components/event/EventListComponent';
 
-export const ProductList = () => {
+export const EventList = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
 
     useEffect(() => {
@@ -29,9 +28,8 @@ export const ProductList = () => {
             <Header headerType={scrollClass}/>
             <Search/>
             <Menu/>
-            <div id='productList' className='container'>
-                <BannerComponent/>
-                <ProductComponent/>
+            <div id='eventList' className='container'>
+                <EventListComponent/>
             </div>
         </CommonProvider>
     )

@@ -5,83 +5,51 @@
   width: 100%;
 }
 
-#productList {
-  padding-top: 120px;
-}
-#productList .content {
+#productList .wrapper {
   margin-top: 80px;
   padding: 0 70px;
 }
-#productList .content .top h1 {
-  margin: 10px 0 20px 0;
-  text-align: center;
-  font-size: 33px;
-  color: #222;
-  font-weight: 400;
-  font-family: "GmarketSans";
-}
-#productList .content .top ul {
-  display: flex;
-  justify-content: center;
-}
-#productList .content .top ul li {
-  margin: 0 7px;
-  padding: 15px 0;
-  line-height: 1.5;
-  text-align: center;
-  font-size: 15px;
-}
-#productList .content .top ul li span {
-  display: inline-block;
-  min-width: 86px;
-  padding: 14px 17px 14px 17px;
-  font-weight: 400;
-  color: #222;
-  border: 1px solid #e6e6e6;
-  border-radius: 50px;
-  background-color: #fcfcfc;
-}
-#productList .content .content .nav {
+#productList .wrapper .content .nav {
   display: flex;
   justify-content: flex-end;
   padding: 20px 0;
 }
-#productList .content .content .nav svg {
+#productList .wrapper .content .nav svg {
   width: 35px;
   height: 35px;
   color: gray;
   cursor: pointer;
 }
-#productList .content .content .nav .grid svg {
+#productList .wrapper .content .nav .grid svg {
   color: #222;
 }
-#productList .content .content .products {
+#productList .wrapper .content .products {
   display: grid;
   -moz-column-gap: 40px;
        column-gap: 40px;
   row-gap: 80px;
 }
-#productList .content .content .products.typeA {
+#productList .wrapper .content .products.typeA {
   grid-template-columns: repeat(2, 1fr);
 }
-#productList .content .content .products.typeB {
+#productList .wrapper .content .products.typeB {
   grid-template-columns: repeat(4, 1fr);
 }
-#productList .content .content .products .product .img {
+#productList .wrapper .content .products .product .img {
   position: relative;
   border-radius: 8px;
   overflow: hidden;
   margin-bottom: 10px;
   cursor: pointer;
 }
-#productList .content .content .products .product .img:hover .likes {
+#productList .wrapper .content .products .product .img:hover .likes {
   opacity: 1;
 }
-#productList .content .content .products .product .img:hover .icons {
+#productList .wrapper .content .products .product .img:hover .icons {
   opacity: 1;
   bottom: 10px;
 }
-#productList .content .content .products .product .img .likes {
+#productList .wrapper .content .products .product .img .likes {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -92,23 +60,23 @@
   font-family: "GmarketSans";
   transition: opacity 0.5s ease;
 }
-#productList .content .content .products .product .img .likes button {
+#productList .wrapper .content .products .product .img .likes button {
   position: relative;
   top: 2px;
   padding: 8px 12px;
   line-height: 1.5;
 }
-#productList .content .content .products .product .img .likes strong {
+#productList .wrapper .content .products .product .img .likes strong {
   color: #222;
   font-size: 13px;
   font-weight: 400;
 }
-#productList .content .content .products .product .img .likes .count {
+#productList .wrapper .content .products .product .img .likes .count {
   font-size: 13px;
   color: #999;
   padding-left: 3px;
 }
-#productList .content .content .products .product .img .icons {
+#productList .wrapper .content .products .product .img .icons {
   display: flex;
   position: absolute;
   bottom: -10px;
@@ -116,27 +84,27 @@
   opacity: 0;
   transition: all 0.5s ease;
 }
-#productList .content .content .products .product .img .icons span {
+#productList .wrapper .content .products .product .img .icons span {
   padding: 5px;
   border: 1px solid #e8e8e8;
   background: #fff;
 }
-#productList .content .content .products .product .img .icons span svg {
+#productList .wrapper .content .products .product .img .icons span svg {
   width: 15px;
   height: 15px;
 }
-#productList .content .content .products .product .description {
+#productList .wrapper .content .products .product .description {
   position: relative;
   padding-right: 65px;
 }
-#productList .content .content .products .product .description .name {
+#productList .wrapper .content .products .product .description .name {
   line-height: 1.3;
   color: #222;
   font-size: 20px;
   font-weight: 400;
   margin-bottom: 5px;
 }
-#productList .content .content .products .product .description .reviewCount {
+#productList .wrapper .content .products .product .description .reviewCount {
   position: absolute;
   top: 0;
   right: 0;
@@ -146,13 +114,13 @@
   font-size: 13px;
   font-weight: 400;
 }
-#productList .content .content .products .product .description .price {
+#productList .wrapper .content .products .product .description .price {
   font-size: 21px;
   color: #222;
   font-weight: 700;
   margin-top: 5px;
 }
-#productList .content .content .products .product .description .discountPrice {
+#productList .wrapper .content .products .product .description .discountPrice {
   font-size: 21px;
   color: #222;
   font-weight: 400;
