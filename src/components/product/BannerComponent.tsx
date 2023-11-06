@@ -12,7 +12,7 @@ export const BannerComponent = () => {
     }
 
     return (
-        <div>
+        <div id="banner">
             <Slider {...slickSetting}>
                 <div><img src={banner01} alt="banner01" /></div>
                 <div><img src={banner02} alt="banner02" /></div>
