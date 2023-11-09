@@ -103,6 +103,9 @@
   padding-bottom: 15px;
   font-family: "GmarketSans";
 }
+#reviewList .wrapper .board .table td.product {
+  padding: 10px 0;
+}
 #reviewList .wrapper .board .table td.product p {
   display: flex;
   cursor: pointer;
