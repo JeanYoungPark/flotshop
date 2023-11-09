@@ -13,6 +13,7 @@ import { QnAView } from 'pages/admin/QnAView';
 import { ReviewView } from 'pages/admin/ReviewView';
 import { EventList } from 'pages/EventList';
 import { CollectionList } from 'pages/CollectionList';
+import { Review } from 'pages/Review';
 
 function App() {
     return (
@@ -29,6 +30,10 @@ function App() {
 
                 <Route path="/events" element={<EventList/>}/>
                 <Route path="/collections" element={<CollectionList/>}/>
+
+                <Route path="/board">
+                    <Route path="review" element={<Review/>}/>
+                </Route>
 
                 <Route path="/admin" element={<AdminLayout/>}>
                     <Route path="login" element={<Login/>}/>

@@ -541,6 +541,26 @@ fieldset, input {
   color: #999;
   font-weight: 400;
 }
+.slides .custom-slick-dots {
+  display: flex !important;
+  justify-content: center;
+  margin-top: 35px;
+}
+.slides .custom-slick-dots li {
+  width: 12px;
+  height: 12px;
+  border-radius: 30px;
+  margin: 0 3px;
+  border: 3px solid #555;
+  text-indent: -999px;
+  transition: color 0.25s ease, width 0.25s ease;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.slides .custom-slick-dots li.slick-active {
+  width: 28px;
+  border-color: #222;
+}
 
 @keyframes coupon {
   0% {
