@@ -16,6 +16,8 @@
                     p {
                         display: flex;
                         cursor: pointer;
+                        word-break: break-all;
+                        word-wrap: break-word;
                     }
 
                     .pdImg {
@@ -26,7 +28,7 @@
                     }
 
                     .name {
-                        width: 100px;
+                        width: 108px;
                         padding-left: 8px;
                     }
                 }
