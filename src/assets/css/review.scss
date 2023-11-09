@@ -123,25 +123,7 @@
             }
 
             .table {
-                table {
-                    width: 100%;
-                    border: 1px solid #e7e7e7;
-                    text-align:center;
-                }
-
-                th {
-                    padding: 13px 0;
-                    font-size: 14px;
-                    font-weight: 400;
-                    border-bottom: 1px solid #e7e7e7;
-                }
-
                 td {
-                    border-top: 1px solid #e7e7e7;
-                    color: #999;
-                    padding: 10px 0;
-                    font-size: 15px;
-
                     &.product {
                         p {
                             display: flex;
