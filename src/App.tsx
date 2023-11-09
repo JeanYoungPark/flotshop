@@ -15,6 +15,7 @@ import { EventList } from 'pages/EventList';
 import { CollectionList } from 'pages/CollectionList';
 import { Review } from 'pages/Review';
 import { Notice } from 'pages/Notice';
+import { FAQ } from 'pages/FAQ';
 
 function App() {
     return (
@@ -35,6 +36,7 @@ function App() {
                 <Route path="/board">
                     <Route path="review" element={<Review/>}/>
                     <Route path="notice" element={<Notice/>}/>
+                    <Route path="faq" element={<FAQ/>}/>
                 </Route>
 
                 <Route path="/admin" element={<AdminLayout/>}>
