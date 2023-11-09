@@ -12,13 +12,15 @@
 #qnaList .wrapper .table td.product p {
   display: flex;
   cursor: pointer;
+  word-break: break-all;
+  word-wrap: break-word;
 }
 #qnaList .wrapper .table td.product .pdImg img {
   width: 56px;
   border-radius: 6px;
 }
 #qnaList .wrapper .table td.product .name {
-  width: 100px;
+  width: 108px;
   padding-left: 8px;
 }
 #qnaList .wrapper .table td.subject {
