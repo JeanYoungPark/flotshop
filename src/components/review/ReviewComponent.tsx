@@ -137,11 +137,9 @@ export const ReviewComponent = () => {
                                             </p>
                                             <div className='img'><img src={img01} alt="product"/></div>
                                         </td>
-                                        <td>
-                                            <span>신****</span>
-                                        </td>
-                                        <td><span>2023-11-02</span></td>
-                                        <td><span>33</span></td>
+                                        <td>신****</td>
+                                        <td>2023-11-02</td>
+                                        <td>33</td>
                                     </tr>
                                 )
                             })}

@@ -16,6 +16,7 @@ import { CollectionList } from 'pages/CollectionList';
 import { Review } from 'pages/Review';
 import { Notice } from 'pages/Notice';
 import { FAQ } from 'pages/FAQ';
+import { Qna } from 'pages/Qna';
 
 function App() {
     return (
@@ -37,6 +38,7 @@ function App() {
                     <Route path="review" element={<Review/>}/>
                     <Route path="notice" element={<Notice/>}/>
                     <Route path="faq" element={<FAQ/>}/>
+                    <Route path="qna" element={<Qna/>}/>
                 </Route>
 
                 <Route path="/admin" element={<AdminLayout/>}>
