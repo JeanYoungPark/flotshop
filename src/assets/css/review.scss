@@ -125,6 +125,8 @@
             .table {
                 td {
                     &.product {
+                        padding: 10px 0;
+                        
                         p {
                             display: flex;
                             cursor: pointer;

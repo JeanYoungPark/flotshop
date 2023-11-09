@@ -14,6 +14,7 @@ import { ReviewView } from 'pages/admin/ReviewView';
 import { EventList } from 'pages/EventList';
 import { CollectionList } from 'pages/CollectionList';
 import { Review } from 'pages/Review';
+import { Notice } from 'pages/Notice';
 
 function App() {
     return (
@@ -33,6 +34,7 @@ function App() {
 
                 <Route path="/board">
                     <Route path="review" element={<Review/>}/>
+                    <Route path="notice" element={<Notice/>}/>
                 </Route>
 
                 <Route path="/admin" element={<AdminLayout/>}>
