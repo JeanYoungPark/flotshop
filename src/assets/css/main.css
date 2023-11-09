@@ -449,26 +449,6 @@
 #fullpage .section.fifth .box .product:hover {
   transform: translate(0, -7px);
 }
-#fullpage .section.fifth .box .custom-slick-dots {
-  display: flex !important;
-  justify-content: center;
-  margin-top: 35px;
-}
-#fullpage .section.fifth .box .custom-slick-dots li {
-  width: 12px;
-  height: 12px;
-  border-radius: 30px;
-  margin: 0 3px;
-  border: 3px solid #555;
-  text-indent: -999px;
-  transition: color 0.25s ease, width 0.25s ease;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-#fullpage .section.fifth .box .custom-slick-dots li.slick-active {
-  width: 28px;
-  border-color: #222;
-}
 #fullpage .section.fifth .box .viewAll {
   margin-top: 45px;
   text-align: center;

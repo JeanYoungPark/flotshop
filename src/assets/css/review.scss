@@ -1,0 +1,211 @@
+#reviewList {
+    .wrapper {
+        margin: 0 auto;
+        max-width: 1150px;
+
+        .reviews {
+            margin-top: 60px;
+            padding-bottom: 120px;
+
+            .arrow.prev {
+                left: -100px;
+            }
+
+            .arrow.next {
+                right: -100px;
+            }
+
+            .review {
+                padding-right: 15px;
+                
+                .wrap {
+                    border: 1px solid #e7e7e7;
+                    text-align: center;
+                    border-radius: 25px;
+                    overflow: hidden;
+                    background: #fff;
+
+                    .img {
+                        background-position: center center;
+                        background-repeat: no-repeat;
+                        background-color: #eee;
+                        background-image: url('assets/images/review/logo_b.png');
+                        border-radius: 25px 25px 0 0;
+                        overflow: hidden;
+
+                        > div {
+                            background-size: cover;
+                            background-position: center center;
+                            background-repeat: no-repeat;
+
+                            img {
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    .description {
+                        border-radius: 0 0 25px 25px;
+                        padding: 30px 25px;
+
+                        .title {
+                            font-weight: 400;
+                            font-size: 18px;
+                            color: #222;
+                            text-overflow: ellipsis;
+                            overflow: hidden;
+                            word-wrap: normal;
+                            white-space: nowrap;
+                        }
+
+                        .contents {
+                            display: -webkit-box;
+                            font-size: 15px;
+                            font-weight: 400;
+                            color: #999;
+                            margin-top: 12px;
+                            height: 50px;
+                            line-height: 25px;
+                            text-overflow: ellipsis;
+                            word-wrap: normal;
+                            overflow: hidden;
+                            -webkit-line-clamp: 2;
+                            -webkit-box-orient: vertical;
+                        }
+
+                        .stars {
+                            display: inline-block;
+                            padding-top: 15px;
+
+                            img {
+                                display: inline;
+                            }
+                        }
+                    }
+
+                    .product {
+                        position:relative;
+                        border-top: 1px dashed #e7e7e7;
+                        min-height: 68px;
+
+                        .pdImg {
+                            position: absolute;
+                            top: 10px;
+                            left: 10px;
+                            width: 48px;
+                            height: 48px;
+                            border-radius: 12px;
+                        }
+
+                        .title {
+                            display: inline-block;
+                            padding: 23px 18px 23px 75px;
+                            color: #999;
+                            text-align: left;
+                            text-overflow: ellipsis;
+                            word-wrap: normal;
+                            overflow: hidden;
+                            white-space: nowrap;
+                            max-width: 100%;
+                            font-size: 15px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .board {
+            .title {
+                font-size: 28px;
+                font-weight: 300;
+                padding-bottom: 15px;
+                font-family: 'GmarketSans';
+            }
+
+            .table {
+                table {
+                    width: 100%;
+                    border: 1px solid #e7e7e7;
+                    text-align:center;
+                }
+
+                th {
+                    padding: 13px 0;
+                    font-size: 14px;
+                    font-weight: 400;
+                    border-bottom: 1px solid #e7e7e7;
+                }
+
+                td {
+                    border-top: 1px solid #e7e7e7;
+                    color: #999;
+                    padding: 10px 0;
+                    font-size: 15px;
+
+                    &.product {
+                        p {
+                            display: flex;
+                            cursor: pointer;
+                        }
+
+                        .pdImg {
+                            img {
+                                width: 56px;
+                                border-radius: 6px;
+                            }
+                        }
+
+                        .name {
+                            width: 100px;
+                            padding-left: 8px;
+                        }
+                    }
+
+                    &.category {
+                        span {
+                            padding: 6px 8px;
+                            background: #eee;
+                            border-radius: 10px;
+                            font-size: 14px;
+                            color: #555;
+                        }
+                    }
+
+                    &.subject {
+                        position:relative;
+                        font-size: 19px;
+                        padding: 0 80px 0 20px;
+                        color: #222;
+                        text-align: left;
+
+                        span {
+                            cursor: pointer;
+                        }
+
+                        .view {
+                            position:relative;
+                            top: -2px;
+                            background: #555;
+                            border-radius: 3px;
+                            padding: 6px 9px;
+                            margin-right: 7px;
+                            font-size: 11px;
+                            color: #fff;
+                        }
+
+                        .img {
+                            position:absolute;
+                            top: 50%;
+                            right: 20px;
+                            width: 50px;
+                            height: 50px;
+                            margin-top: -25px;
+                            border-radius: 50%;
+                            overflow: hidden;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
