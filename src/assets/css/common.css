@@ -38,6 +38,10 @@ fieldset, input {
   border: none;
 }
 
+em {
+  font-style: normal;
+}
+
 #search {
   position: fixed;
   display: flex;
