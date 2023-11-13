@@ -23,8 +23,8 @@ export const IntroduceComponent = () => {
                 반려동물이 더 편안하고 행복해질 수 있도록 플로트의 다양한 전문가들이 기본과 기능에 충실한 답을 찾아 제안합니다.
                 </p>
             </div>
-            <div className='pb-60'><img src={about02} alt='' /></div>
-            <div>
+            <div className='before pb-60'><img src={about02} alt='' /></div>
+            <div className='info'>
                 <h3>
                     <span>반려동물 용품 전문 브랜드</span>
                 </h3>
@@ -33,8 +33,8 @@ export const IntroduceComponent = () => {
                 반려동물 용품 전문 브랜드 ‘플로트’와 반려동물 라이프스타일 스토어 ‘원테일’을 운영하고 있습니다.
                 </p>
             </div>
-            <div><img src={about03} alt='' /></div>
-            <ul>
+            <div className='pb-60'><img src={about03} alt='' /></div>
+            <ul className='history'>
                 <li>
                     <h4>2023</h4>
                     <div>

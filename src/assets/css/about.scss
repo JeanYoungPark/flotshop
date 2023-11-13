@@ -16,12 +16,36 @@
         }
 
         .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            img {
+                margin: 0 auto;
+            }
 
             .pb-60 {
                 padding-bottom: 60px;
+            }
+
+            .before {
+                position: relative;
+                text-align: right;
+                padding-top: 80px;
+
+                &::before {
+                    content: '';
+                    display: block;
+                    clear: both;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 800px;
+                    height: 500px;
+                    background: #eee;
+                    z-index: -1;
+                }
+
+                img {
+                    display: inline;
+                    max-width: 800px;
+                }
             }
 
             .info {
@@ -41,6 +65,42 @@
                     font-weight: 300;
                     color: #999;
                     line-height: 1.7;
+                }
+            }
+
+            .history {
+                font-size: 20px;
+                font-weight: 400;
+                border-left: 2px solid #eee;
+                margin-left: 45%;
+                margin-bottom: 60px;
+
+                li {
+                    position: relative;
+                    padding: 100px 55px;
+                    text-align: left;
+                    line-height: 2;
+
+                    &::after {
+                        content: '';
+                        display: block;
+                        clear: both;
+                        position: absolute;
+                        top: 113px;
+                        left: -7px;
+                        width: 12px;
+                        height: 12px;
+                        border-radius: 10px;
+                        background: #6aafe6;
+                    }
+
+                    h4 {
+                        position: absolute;
+                        top: 79px;
+                        left: -140px;
+                        font-size: 40px;
+                        font-weight: 700;
+                    }
                 }
             }
         }
