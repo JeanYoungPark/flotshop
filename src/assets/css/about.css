@@ -1,0 +1,90 @@
+#introduce .wrapper {
+  margin: 0 auto;
+  max-width: 1050px;
+}
+#introduce .wrapper .top {
+  margin: 10px 0 60px 0;
+  text-align: center;
+  transition: transform 1.3s ease, opacity 1.3s ease;
+}
+#introduce .wrapper .top h2 {
+  font-size: 33px;
+  font-weight: 300;
+  font-family: "GmarketSans";
+}
+#introduce .wrapper .content img {
+  margin: 0 auto;
+}
+#introduce .wrapper .content .pb-60 {
+  padding-bottom: 60px;
+}
+#introduce .wrapper .content .before {
+  position: relative;
+  text-align: right;
+  padding-top: 80px;
+}
+#introduce .wrapper .content .before::before {
+  content: "";
+  display: block;
+  clear: both;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 800px;
+  height: 500px;
+  background: #eee;
+  z-index: -1;
+}
+#introduce .wrapper .content .before img {
+  display: inline;
+  max-width: 800px;
+}
+#introduce .wrapper .content .info {
+  padding-bottom: 100px;
+  text-align: center;
+}
+#introduce .wrapper .content .info h3 {
+  font-size: 36px;
+  padding-bottom: 25px;
+  font-weight: 300;
+  line-height: 1.6;
+  font-family: "GmarketSans";
+}
+#introduce .wrapper .content .info p {
+  font-size: 21px;
+  font-weight: 300;
+  color: #999;
+  line-height: 1.7;
+}
+#introduce .wrapper .content .history {
+  font-size: 20px;
+  font-weight: 400;
+  border-left: 2px solid #eee;
+  margin-left: 45%;
+  margin-bottom: 60px;
+}
+#introduce .wrapper .content .history li {
+  position: relative;
+  padding: 100px 55px;
+  text-align: left;
+  line-height: 2;
+}
+#introduce .wrapper .content .history li::after {
+  content: "";
+  display: block;
+  clear: both;
+  position: absolute;
+  top: 113px;
+  left: -7px;
+  width: 12px;
+  height: 12px;
+  border-radius: 10px;
+  background: #6aafe6;
+}
+#introduce .wrapper .content .history li h4 {
+  position: absolute;
+  top: 79px;
+  left: -140px;
+  font-size: 40px;
+  font-weight: 700;
+}
