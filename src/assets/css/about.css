@@ -88,3 +88,24 @@
   font-size: 40px;
   font-weight: 700;
 }
+
+#videoIntroduce .wrapper {
+  margin: 0 auto;
+  max-width: 1050px;
+}
+#videoIntroduce .wrapper .top {
+  margin: 10px 0 60px 0;
+  text-align: center;
+  transition: transform 1.3s ease, opacity 1.3s ease;
+}
+#videoIntroduce .wrapper .top h2 {
+  font-size: 33px;
+  font-weight: 300;
+  font-family: "GmarketSans";
+}
+#videoIntroduce .wrapper .content iframe {
+  margin: 0 auto;
+}
+#videoIntroduce .wrapper .content .pd-60 {
+  padding-bottom: 60px;
+}

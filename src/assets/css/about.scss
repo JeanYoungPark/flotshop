@@ -106,3 +106,32 @@
         }
     }
 }
+
+#videoIntroduce {
+    .wrapper {
+        margin: 0 auto;
+        max-width: 1050px;
+
+        .top {
+            margin: 10px 0 60px 0;
+            text-align: center;
+            transition: transform 1.3s ease,opacity 1.3s ease;
+
+            h2 {
+                font-size: 33px;
+                font-weight: 300;
+                font-family: 'GmarketSans';
+            }
+        }
+
+        .content {
+            iframe {
+                margin: 0 auto;
+            }
+
+            .pd-60 {
+                padding-bottom: 60px;
+            }
+        }
+    }
+}
