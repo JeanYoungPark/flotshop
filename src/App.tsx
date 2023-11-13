@@ -17,6 +17,7 @@ import { Review } from 'pages/Review';
 import { Notice } from 'pages/Notice';
 import { FAQ } from 'pages/FAQ';
 import { Qna } from 'pages/Qna';
+import { Introduce } from 'pages/Introduce';
 
 function App() {
     return (
@@ -39,6 +40,10 @@ function App() {
                     <Route path="notice" element={<Notice/>}/>
                     <Route path="faq" element={<FAQ/>}/>
                     <Route path="qna" element={<Qna/>}/>
+                </Route>
+
+                <Route path="/about">
+                    <Route path="introduce" element={<Introduce/>}/>
                 </Route>
 
                 <Route path="/admin" element={<AdminLayout/>}>
