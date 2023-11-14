@@ -19,6 +19,7 @@ import { FAQ } from 'pages/FAQ';
 import { Qna } from 'pages/Qna';
 import { Introduce } from 'pages/Introduce';
 import { Video } from 'pages/Video';
+import { OffLine } from 'pages/OffLine';
 
 function App() {
     return (
@@ -46,6 +47,7 @@ function App() {
                 <Route path="/about">
                     <Route path="introduce" element={<Introduce/>}/>
                     <Route path="videoIntroduce" element={<Video/>}/>
+                    <Route path="offline" element={<OffLine/>}/>
                 </Route>
 
                 <Route path="/admin" element={<AdminLayout/>}>

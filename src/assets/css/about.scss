@@ -135,3 +135,14 @@
         }
     }
 }
+
+#offline {
+    .wrapper {
+        .bg {
+            background-image: url('assets/images/about/offline.jpg');
+            background-position: 50% 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+    }
+}
