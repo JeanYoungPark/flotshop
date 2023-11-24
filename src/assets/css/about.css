@@ -116,3 +116,15 @@
   background-size: cover;
   background-repeat: no-repeat;
 }
+#offline .wrapper .bg #map {
+  width: 100%;
+  height: 0;
+  max-width: 1280px;
+  padding: 0 15px;
+  padding-bottom: 100%;
+  margin: 0 atuo;
+}
+#offline .wrapper .bg #map .marker {
+  width: 27px;
+  height: 36px;
+}
