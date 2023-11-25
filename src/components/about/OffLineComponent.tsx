@@ -1,15 +1,27 @@
-import React, {useEffect} from 'react'
+import React, {useCallback, useEffect} from 'react'
 import redArrow from 'assets/images/about/marker_red.png'
 import blueArrow from 'assets/images/about/marker_blue.png'
 import mintArrow from 'assets/images/about/marker_mint.png'
 import yellowArrow from 'assets/images/about/marker_yellow.png'
 import ReactDOMServer from 'react-dom/server'
+import { FaHome } from "react-icons/fa";
+import { useNavigate } from 'react-router'
 
 type MarkerList = {
     [key: string]: { lat: number; lng: number, title: string }[];
 };
 
+interface LocationState {
+    path: string;
+}
+
 export const OffLineComponent = () => {
+
+    const navigate = useNavigate();
+
+    const onClickHome = useCallback(() => {
+        navigate('/');
+    }, [navigate])
 
     useEffect(() => {
         const markerList : MarkerList = {
@@ -98,8 +110,14 @@ export const OffLineComponent = () => {
 
     return (
         <div className='wrapper'>
-            <div className='bg'>
-                <div id='map'></div>;
+            <div className='bg'></div>
+            <div className='mapWrap'>
+                <div className='home' onClick={onClickHome}><FaHome/></div>
+                <div className='top'>
+                    <h2>플로트 오프라인 매장</h2>
+                </div>
+                <p>매장별 취급품목과 재고가 상이하여, 방문 전 매장 재고 확인 부탁드립니다.</p>
+                <div id='map'></div>
             </div>
         </div>
     )

@@ -111,20 +111,58 @@
 }
 
 #offline .wrapper .bg {
+  width: 100%;
+  height: 1100px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-image: url("assets/images/about/offline.jpg");
   background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
+  filter: grayscale(100%);
+  z-index: 1;
 }
-#offline .wrapper .bg #map {
+#offline .wrapper .mapWrap {
+  position: relative;
   width: 100%;
-  height: 0;
   max-width: 1280px;
-  padding: 0 15px;
-  padding-bottom: 100%;
-  margin: 0 atuo;
+  margin: 0 auto;
+  z-index: 3;
 }
-#offline .wrapper .bg #map .marker {
+#offline .wrapper .mapWrap p {
+  font-size: 11px;
+  color: #fff;
+  padding: 15px 0;
+}
+#offline .wrapper .mapWrap .home {
+  padding: 15px 0;
+}
+#offline .wrapper .mapWrap .home svg {
+  width: 35px;
+  height: 35px;
+  color: #fff;
+  cursor: pointer;
+}
+#offline .wrapper .mapWrap .top {
+  position: relative;
+  width: 100%;
+  padding: 15px 0;
+  z-index: 2;
+}
+#offline .wrapper .mapWrap .top h2 {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 700;
+}
+#offline .wrapper #map {
+  width: 100%;
+  padding: 0 15px;
+  padding-bottom: 60%;
+}
+#offline .wrapper #map .marker {
   width: 27px;
   height: 36px;
 }
