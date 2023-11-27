@@ -138,10 +138,8 @@
 
 #offline {
     .wrapper {
-
         .bg {
             width: 100%;
-            height: 1100px;
             position: absolute;
             top:0;
             left: 0;
@@ -162,7 +160,7 @@
             margin: 0 auto;
             z-index: 3;
             
-            p {
+            .des {
                 font-size: 11px;
                 color: #fff;
                 padding: 15px 0;
@@ -196,11 +194,58 @@
         #map {
             width: 100%;
             padding: 0 15px;
-            padding-bottom: 60%;
+            padding-bottom: 70%;
 
             .marker {
                 width: 27px;
                 height: 36px;
+            }
+
+            .mapList {
+                width: 320px;
+                background: #fff;
+
+                li {
+                    display: flex;
+                    padding: 15px;
+                    line-height: 1.6;
+                    border-bottom: 1px solid #e5e5e5;
+                    
+                    .thumb {
+                        img {
+                            width: 80px;
+                            height: 80px;
+                        }
+                    }
+
+                    h4, h5 {
+                        font-family: 'GmarketSans';
+                    }
+
+                    h5, span {
+                        color: #211d90;
+                    }
+
+                    p {
+                        color: #757575;
+                    }
+
+                    .red {
+                        color: #FC5558;
+                    }
+
+                    .mint {
+                        color: #31CBA6;
+                    }
+
+                    .yellow {
+                        color: #F4CD56;
+                    }
+
+                    .blue {
+                        color: #20B9FC
+                    }
+                }
             }
         }
     }

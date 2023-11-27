@@ -112,7 +112,6 @@
 
 #offline .wrapper .bg {
   width: 100%;
-  height: 1100px;
   position: absolute;
   top: 0;
   left: 0;
@@ -132,7 +131,7 @@
   margin: 0 auto;
   z-index: 3;
 }
-#offline .wrapper .mapWrap p {
+#offline .wrapper .mapWrap .des {
   font-size: 11px;
   color: #fff;
   padding: 15px 0;
@@ -160,9 +159,44 @@
 #offline .wrapper #map {
   width: 100%;
   padding: 0 15px;
-  padding-bottom: 60%;
+  padding-bottom: 70%;
 }
 #offline .wrapper #map .marker {
   width: 27px;
   height: 36px;
+}
+#offline .wrapper #map .mapList {
+  width: 320px;
+  background: #fff;
+}
+#offline .wrapper #map .mapList li {
+  display: flex;
+  padding: 15px;
+  line-height: 1.6;
+  border-bottom: 1px solid #e5e5e5;
+}
+#offline .wrapper #map .mapList li .thumb img {
+  width: 80px;
+  height: 80px;
+}
+#offline .wrapper #map .mapList li h4, #offline .wrapper #map .mapList li h5 {
+  font-family: "GmarketSans";
+}
+#offline .wrapper #map .mapList li h5, #offline .wrapper #map .mapList li span {
+  color: #211d90;
+}
+#offline .wrapper #map .mapList li p {
+  color: #757575;
+}
+#offline .wrapper #map .mapList li .red {
+  color: #FC5558;
+}
+#offline .wrapper #map .mapList li .mint {
+  color: #31CBA6;
+}
+#offline .wrapper #map .mapList li .yellow {
+  color: #F4CD56;
+}
+#offline .wrapper #map .mapList li .blue {
+  color: #20B9FC;
 }
