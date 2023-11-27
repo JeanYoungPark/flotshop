@@ -109,3 +109,94 @@
 #videoIntroduce .wrapper .content .pd-60 {
   padding-bottom: 60px;
 }
+
+#offline .wrapper .bg {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("assets/images/about/offline.jpg");
+  background-position: 50% 50%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: grayscale(100%);
+  z-index: 1;
+}
+#offline .wrapper .mapWrap {
+  position: relative;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  z-index: 3;
+}
+#offline .wrapper .mapWrap .des {
+  font-size: 11px;
+  color: #fff;
+  padding: 15px 0;
+}
+#offline .wrapper .mapWrap .home {
+  padding: 15px 0;
+}
+#offline .wrapper .mapWrap .home svg {
+  width: 35px;
+  height: 35px;
+  color: #fff;
+  cursor: pointer;
+}
+#offline .wrapper .mapWrap .top {
+  position: relative;
+  width: 100%;
+  padding: 15px 0;
+  z-index: 2;
+}
+#offline .wrapper .mapWrap .top h2 {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 700;
+}
+#offline .wrapper #map {
+  width: 100%;
+  padding: 0 15px;
+  padding-bottom: 70%;
+}
+#offline .wrapper #map .marker {
+  width: 27px;
+  height: 36px;
+}
+#offline .wrapper #map .mapList {
+  width: 320px;
+  background: #fff;
+}
+#offline .wrapper #map .mapList li {
+  display: flex;
+  padding: 15px;
+  line-height: 1.6;
+  border-bottom: 1px solid #e5e5e5;
+}
+#offline .wrapper #map .mapList li .thumb img {
+  width: 80px;
+  height: 80px;
+}
+#offline .wrapper #map .mapList li h4, #offline .wrapper #map .mapList li h5 {
+  font-family: "GmarketSans";
+}
+#offline .wrapper #map .mapList li h5, #offline .wrapper #map .mapList li span {
+  color: #211d90;
+}
+#offline .wrapper #map .mapList li p {
+  color: #757575;
+}
+#offline .wrapper #map .mapList li .red {
+  color: #FC5558;
+}
+#offline .wrapper #map .mapList li .mint {
+  color: #31CBA6;
+}
+#offline .wrapper #map .mapList li .yellow {
+  color: #F4CD56;
+}
+#offline .wrapper #map .mapList li .blue {
+  color: #20B9FC;
+}

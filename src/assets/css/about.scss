@@ -135,3 +135,118 @@
         }
     }
 }
+
+#offline {
+    .wrapper {
+        .bg {
+            width: 100%;
+            position: absolute;
+            top:0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('assets/images/about/offline.jpg');
+            background-position: 50% 50%;
+            background-size: cover;
+            background-repeat: no-repeat;
+            filter: grayscale(100%);
+            z-index: 1;
+        }
+        
+        .mapWrap {
+            position: relative;
+            width: 100%;
+            max-width: 1280px;
+            margin: 0 auto;
+            z-index: 3;
+            
+            .des {
+                font-size: 11px;
+                color: #fff;
+                padding: 15px 0;
+            }
+
+            .home {
+                padding: 15px 0;
+
+                svg {
+                    width: 35px;
+                    height: 35px;
+                    color: #fff;
+                    cursor: pointer;
+                }
+            }
+
+            .top {
+                position:relative;
+                width: 100%;
+                padding: 15px 0;
+                z-index: 2;
+    
+                h2 {
+                    color: #fff;
+                    font-size: 36px;
+                    font-weight: 700;
+                }
+            }
+        }
+
+        #map {
+            width: 100%;
+            padding: 0 15px;
+            padding-bottom: 70%;
+
+            .marker {
+                width: 27px;
+                height: 36px;
+            }
+
+            .mapList {
+                width: 320px;
+                background: #fff;
+
+                li {
+                    display: flex;
+                    padding: 15px;
+                    line-height: 1.6;
+                    border-bottom: 1px solid #e5e5e5;
+                    
+                    .thumb {
+                        img {
+                            width: 80px;
+                            height: 80px;
+                        }
+                    }
+
+                    h4, h5 {
+                        font-family: 'GmarketSans';
+                    }
+
+                    h5, span {
+                        color: #211d90;
+                    }
+
+                    p {
+                        color: #757575;
+                    }
+
+                    .red {
+                        color: #FC5558;
+                    }
+
+                    .mint {
+                        color: #31CBA6;
+                    }
+
+                    .yellow {
+                        color: #F4CD56;
+                    }
+
+                    .blue {
+                        color: #20B9FC
+                    }
+                }
+            }
+        }
+    }
+}
