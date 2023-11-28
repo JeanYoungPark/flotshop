@@ -172,12 +172,13 @@
 #offline .wrapper #map .mapList li {
   display: flex;
   padding: 15px;
-  line-height: 1.6;
+  line-height: 1.7;
   border-bottom: 1px solid #e5e5e5;
 }
-#offline .wrapper #map .mapList li .thumb img {
+#offline .wrapper #map .mapList li .thumb {
   width: 80px;
   height: 80px;
+  margin-right: 15px;
 }
 #offline .wrapper #map .mapList li h4, #offline .wrapper #map .mapList li h5 {
   font-family: "GmarketSans";
