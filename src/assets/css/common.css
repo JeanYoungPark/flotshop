@@ -52,7 +52,7 @@ em {
   visibility: hidden;
   transition: all 0.7s ease;
   transform: translate(0, -15px) translateZ(0) scale(1, 1);
-  z-index: 1;
+  z-index: 999;
 }
 #search.active {
   opacity: 1;
@@ -112,6 +112,10 @@ em {
 }
 #search .right .box fieldset {
   border-bottom: 2px solid #ddd;
+}
+#search .right .box fieldset p {
+  display: flex;
+  align-items: center;
 }
 #search .right .box fieldset input {
   width: 450px;
@@ -243,7 +247,7 @@ em {
   display: flex;
   line-height: 120px;
   align-items: center;
-  z-index: 999;
+  z-index: 998;
   width: 100%;
   padding: 0 240px;
   box-sizing: border-box;
@@ -525,6 +529,7 @@ em {
   color: #999;
 }
 .slides .icons {
+  display: flex;
   position: absolute;
   right: 10px;
   bottom: 10px;

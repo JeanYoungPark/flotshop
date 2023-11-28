@@ -21,7 +21,7 @@ em {font-style: normal;}
     visibility: hidden;
     transition: all 0.70s ease;
     transform: translate(0,-15px) translateZ(0) scale(1.0,1.0);
-    z-index: 1;
+    z-index: 999;
 
     &.active {
         opacity: 1;
@@ -88,6 +88,11 @@ em {font-style: normal;}
             fieldset {
                 border-bottom: 2px solid #ddd;
     
+                p {
+                    display: flex;
+                    align-items: center;
+                }
+
                 input {
                     width: 450px;
                     height: 110px;
@@ -253,7 +258,7 @@ em {font-style: normal;}
     display: flex;
     line-height: 120px;
     align-items: center;
-    z-index: 999;
+    z-index: 998;
     width: 100%;
     padding: 0 240px;
     box-sizing: border-box;
@@ -570,6 +575,7 @@ em {font-style: normal;}
     }
 
     .icons {
+        display: flex;
         position: absolute;
         right: 10px;
         bottom: 10px;
