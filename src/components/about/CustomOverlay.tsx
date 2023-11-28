@@ -1,5 +1,5 @@
 export type InfoType = {
-    lat: number; lng: number, type: string, title: string, address: string, phone: string
+    lat: number; lng: number, type: string, title: string, address: string, phone: string, img?: string
 }
 
 export type MarkerList = {
@@ -35,9 +35,12 @@ export class CustomOverlay extends naver.maps.OverlayView {
 
         for(const color of Object.keys(this._info)){
             for(const info of this._info[color]){
+                contentHTML += '<li>';
+                if(info.img){
+                    contentHTML += `<div class='thumb'><img src='${info.img}' alt='썸네일'/></div>`;
+                }
+                    
                 contentHTML += `
-                    <li>
-                        <div class='thumb'><img src='' alt='썸네일'/></div>
                         <div>
                             <h4 class='${color}'>${info.type}</h4>
                             <h5>${info.title}</h5>
