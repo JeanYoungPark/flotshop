@@ -6,6 +6,7 @@ import { Menu } from 'components/Menu'
 import { Search } from 'components/Search'
 import { CommonProvider } from 'contexts/CommonProvider'
 import { ReviewComponent } from 'components/review/ReviewComponent'
+import { Footer } from 'components/Footer'
 
 export const Review = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -31,6 +32,7 @@ export const Review = () => {
             <div id='reviewList' className='container'>
                 <ReviewComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }

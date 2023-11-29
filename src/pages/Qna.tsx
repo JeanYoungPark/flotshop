@@ -6,6 +6,7 @@ import { Menu } from 'components/Menu';
 import { Search } from 'components/Search';
 import { QnaComponent } from 'components/qna/QnaComponent';
 import { CommonProvider } from 'contexts/CommonProvider';
+import { Footer } from 'components/Footer';
 
 export const Qna = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -31,6 +32,7 @@ export const Qna = () => {
             <div id='qnaList' className='container'>
                 <QnaComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }

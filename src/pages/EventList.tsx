@@ -6,6 +6,7 @@ import { Header } from 'components/Header';
 import { Search } from 'components/Search';
 import { Menu } from 'components/Menu';
 import { EventListComponent } from 'components/event/EventListComponent';
+import { Footer } from 'components/Footer';
 
 export const EventList = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -31,6 +32,7 @@ export const EventList = () => {
             <div id='eventList' className='container'>
                 <EventListComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }

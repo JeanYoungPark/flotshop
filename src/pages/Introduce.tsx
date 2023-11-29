@@ -4,6 +4,7 @@ import { Menu } from 'components/Menu';
 import { Search } from 'components/Search';
 import { IntroduceComponent } from 'components/about/IntroduceComponent';
 import { CommonProvider } from 'contexts/CommonProvider';
+import { Footer } from 'components/Footer';
 
 export const Introduce = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -29,6 +30,7 @@ export const Introduce = () => {
             <div id='introduce' className='container'>
                 <IntroduceComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }

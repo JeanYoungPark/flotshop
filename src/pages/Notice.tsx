@@ -6,6 +6,7 @@ import { CommonProvider } from 'contexts/CommonProvider'
 import { Search } from 'components/Search';
 import { Menu } from 'components/Menu';
 import { NoticeComponent } from 'components/notice/NoticeComponent';
+import { Footer } from 'components/Footer'
 
 export const Notice = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -31,6 +32,7 @@ export const Notice = () => {
             <div id='noticeList' className='container'>
                 <NoticeComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }

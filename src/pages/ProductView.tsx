@@ -6,6 +6,7 @@ import { Header } from 'components/Header';
 import { Search } from 'components/Search';
 import { Menu } from 'components/Menu';
 import { DetailComponent } from 'components/product/DetailComponent';
+import { Footer } from 'components/Footer';
 
 export const ProductView = () => {
 
@@ -32,6 +33,7 @@ export const ProductView = () => {
             <div id='productDetail' className='container'>
                 <DetailComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }
