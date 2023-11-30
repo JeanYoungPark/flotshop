@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState , useEffect} from 'react'
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
 import Slider from 'react-slick'
 import img01 from 'assets/images/review/review_01.jpg'
@@ -41,6 +41,12 @@ export const ReviewComponent = () => {
             target.current?.slickNext();
         }
     };
+
+    useEffect(() => {
+        setTimeout(() => {
+            document.querySelector('.top')?.classList.add('onload');
+        }, 500);
+    }, []);
 
     return (
         <div className='wrapper'>

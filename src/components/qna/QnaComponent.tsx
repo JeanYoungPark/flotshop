@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import pd01 from 'assets/images/review/product_01.jpg'
 import { Paging } from 'components/Paging'
 import replay from 'assets/images/review/board_reply.png'
@@ -6,6 +6,12 @@ import secret from 'assets/images/review/board_secret.png'
 import newIcon from 'assets/images/review/board_new.png'
 
 export const QnaComponent = () => {
+    useEffect(() => {
+        setTimeout(() => {
+            document.querySelector('.top')?.classList.add('onload');
+        }, 500);
+    }, []);
+
     return (
         <div className='wrapper'>
             <div className='top'>

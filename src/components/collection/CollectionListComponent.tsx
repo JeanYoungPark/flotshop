@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Paging } from 'components/Paging'
 import { BsWindowSplit } from 'react-icons/bs';
 import { CiGrid2H, CiGrid41 } from 'react-icons/ci';
@@ -6,6 +6,13 @@ import img01 from 'assets/images/collection/collection_01.jpg'
 
 export const CollectionListComponent = () => {
     const [grid, setGrid] = useState(1);
+
+    useEffect(() => {
+        setTimeout(() => {
+            document.querySelector('.top')?.classList.add('onload');
+            document.querySelector('.collections')?.classList.add('onload');
+        }, 500)
+    }, []);
 
     return (
         <div className='wrapper'>

@@ -43,6 +43,13 @@
   -moz-column-gap: 40px;
        column-gap: 40px;
   row-gap: 80px;
+  transition: transform 1.5s ease, opacity 1.5s ease;
+  transform: translate(0, 40px);
+  opacity: 0;
+}
+#productList .wrapper .content .products.onload {
+  transform: translate(0, 0);
+  opacity: 1;
 }
 #productList .wrapper .content .products .product .img {
   position: relative;

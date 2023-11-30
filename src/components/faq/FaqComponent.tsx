@@ -1,7 +1,13 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Paging } from 'components/Paging'
 
 export const FaqComponent = () => {
+    useEffect(() => {
+        setTimeout(() => {
+            document.querySelector('.top')?.classList.add('onload');
+        }, 500);
+    }, []);
+
     return (
         <div className='wrapper'>
             <div className='top'>

@@ -1,4 +1,4 @@
-import React,  { useState } from 'react'
+import React,  { useState, useEffect } from 'react'
 import img01 from 'assets/images/product/list/img01.jpg'
 import { BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs"
 import { CiGrid2H, CiGrid41 } from "react-icons/ci"
@@ -6,6 +6,13 @@ import { Paging } from 'components/Paging'
 
 export const ProductComponent = () => {
     const [grid, setGrid] = useState(2);
+
+    useEffect(() => {
+        setTimeout(() => {
+            document.querySelector('.top')?.classList.add('onload');
+            document.querySelector('.products')?.classList.add('onload');
+        }, 500);
+    }, []);
 
     return (
         <div className='wrapper'>

@@ -528,6 +528,15 @@ em {font-style: normal;}
     padding-top: 120px;
 
     .top {
+        transition: transform 1.5s ease,opacity 1.5s ease;
+        transform: translate(0, -20px);
+        opacity: 0;
+        
+        &.onload {
+            transform: translate(0, 0);
+            opacity: 1;
+        }
+
         h1 {
             margin: 10px 0 20px 0;
             text-align:center;
