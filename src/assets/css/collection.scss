@@ -29,11 +29,6 @@
                 transition: transform 1.5s ease,opacity 1.5s ease;
                 transform: translate(0, 40px);
                 opacity: 0;
-
-                &.onload {
-                    transform: translate(0, 0);
-                    opacity: 1;
-                }
             }
         }
 

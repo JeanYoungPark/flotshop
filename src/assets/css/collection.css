@@ -24,10 +24,6 @@
   transform: translate(0, 40px);
   opacity: 0;
 }
-#collectionList .content.typeA .collections.onload {
-  transform: translate(0, 0);
-  opacity: 1;
-}
 #collectionList .content.typeB {
   max-width: 1560px;
 }

@@ -528,15 +528,6 @@ em {font-style: normal;}
     padding-top: 120px;
 
     .top {
-        transition: transform 1.5s ease,opacity 1.5s ease;
-        transform: translate(0, -20px);
-        opacity: 0;
-        
-        &.onload {
-            transform: translate(0, 0);
-            opacity: 1;
-        }
-
         h1 {
             margin: 10px 0 20px 0;
             text-align:center;
@@ -751,7 +742,36 @@ em {font-style: normal;}
         font-size: 15px;
     }
 }
-        
+
+.onload {
+    transform: translate(0, 0)!important;
+    opacity: 1!important;
+}
+
+.fromTopIn20 {
+    transition: transform 1.5s ease,opacity 1.5s ease;
+    transform: translate(0, -20px);
+    opacity: 0;
+}
+
+.fromBottomIn40 {
+    transition: transform 1.5s ease,opacity 1.5s ease;
+    transform: translate(0, 40px);
+    opacity: 0;
+}
+
+.fromLeftIn20 {
+    transition: transform 1.5s ease,opacity 1.5s ease;
+    transform: translate(-20px, 0);
+    opacity: 0;
+}
+
+.fromRightIn20 {
+    transition: transform 1.5s ease,opacity 1.5s ease;
+    transform: translate(20px, 0);
+    opacity: 0;
+}
+
 @keyframes coupon {
     0% {top: 47px;}
     50% {top: 52px;}

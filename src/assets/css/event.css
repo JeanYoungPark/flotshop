@@ -12,10 +12,6 @@
   transform: translate(0, 40px);
   opacity: 0;
 }
-#eventList .content ul.onload {
-  transform: translate(0, 0);
-  opacity: 1;
-}
 #eventList .content ul li {
   border-radius: 18px;
   box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.09);

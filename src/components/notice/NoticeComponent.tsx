@@ -1,16 +1,17 @@
 import { Paging } from 'components/Paging'
 import React, {useEffect} from 'react'
+import { fromTopIn20 } from 'utils';
 
 export const NoticeComponent = () => {
     useEffect(() => {
         setTimeout(() => {
-            document.querySelector('.top')?.classList.add('onload');
+            fromTopIn20();
         }, 500);
     }, []);
 
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h1>NOTICE</h1>
             </div>
             <div className='table'>

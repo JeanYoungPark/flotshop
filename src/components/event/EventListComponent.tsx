@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react'
 import { Paging } from 'components/Paging'
 import img01 from 'assets/images/event/event_01.jpg'
+import { fromTopIn20, fromBottomIn40 } from 'utils';
 
 export const EventListComponent = () => {
     useEffect(() => {
         setTimeout(() => {
-            document.querySelector('.top')?.classList.add('onload');
-            document.querySelector('.events')?.classList.add('onload');
+            fromTopIn20();
+            fromBottomIn40();
         },500);
     }, []);
     
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h1>EVENT</h1>
                 <ul>
                     <li><span>전체</span></li>
@@ -21,7 +22,7 @@ export const EventListComponent = () => {
                 </ul>
             </div>
             <div className='content'>
-                <ul className='events'>
+                <ul className='events fromBottomIn40'>
                     {[1,2].map((i) => {
                         return (
                             <li className='event' key={i}>
