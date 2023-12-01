@@ -4,22 +4,34 @@ import 'assets/css/about.css'
 import about01 from 'assets/images/about/about-img01.jpg'
 import about02 from 'assets/images/about/about-img02.jpg'
 import about03 from 'assets/images/about/about-img03.jpg'
-import { fromTopIn20, fromBottomIn40, fromLeftIn20, fromRightIn20 } from 'utils'
+import { fromTopIn20, fromBottomIn40, fromLeftIn20, fromRightIn20, scrollHeightList, getScrollList } from 'utils'
 
 export const IntroduceComponent = () => {
+    
     useEffect(() => {
         fromTopIn20();
         fromBottomIn40();
         fromLeftIn20();
         fromRightIn20();
+        
+        const scrollDown = () => {
+            if(window.scrollY > 1000){
+                scrollHeightList['1000'].forEach(element => {
+                    element.classList.add('onload');
+                });
+            }else if(window.scrollY > 600){
+                scrollHeightList['600'].forEach(element => {
+                    element.classList.add('onload');
+                });
+            }else if(window.scrollY > 200){
+                scrollHeightList['200'].forEach(element => {
+                    element.classList.add('onload');
+                });
+            }
+        }
 
-    //     const scrollDown = () => {
-    //         if(scrollY > )
-    //         console.log(window.scrollY);
-    //     }
-
-    //     window.addEventListener('scroll', scrollDown);
-    //     return () => window.removeEventListener('scroll', scrollDown);
+        getScrollList()
+        window.addEventListener('scroll', scrollDown);
     }, []);
 
     return (
@@ -39,17 +51,17 @@ export const IntroduceComponent = () => {
                     반려동물이 더 편안하고 행복해질 수 있도록 플로트의 다양한 전문가들이 기본과 기능에 충실한 답을 찾아 제안합니다.
                     </p>
                 </div>
-                <div className='before pb-60 fromBottomIn40' data-scroll='120'><img src={about02} alt='' /></div>
+                <div className='before pb-60 fromBottomOut40' data-scroll='200'><img src={about02} alt='' /></div>
                 <div className='info'>
                     <h3>
-                        <span>반려동물 용품 전문 브랜드</span>
+                        <span className='fromLeftOut20' data-scroll='600'>반려동물 용품 전문 브랜드</span>
                     </h3>
                     <p>
                     반려동물 상품 기획 개발 제조 유통을 위한 자체브랜드를 보유하고 있습니다.<br/>
                     반려동물 용품 전문 브랜드 ‘플로트’와 반려동물 라이프스타일 스토어 ‘원테일’을 운영하고 있습니다.
                     </p>
                 </div>
-                <div className='pb-60'><img src={about03} alt='' /></div>
+                <div className='pb-60 fromBottomOut40' data-scroll='1000'><img src={about03} alt='' /></div>
                 <ul className='history'>
                     <li>
                         <h4>2023</h4>

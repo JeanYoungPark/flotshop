@@ -1,11 +1,33 @@
+export let scrollHeightList : { [key: string]: Element[] } = {};
+
+/**
+ * 컴포넌트에서 추가 개발 필요
+    const scrollDown = () => {
+            if(window.scrollY > 600){
+                scrollHeightList['600'].forEach(element => {
+                    element.classList.add('onload');
+                });
+            }else if(window.scrollY > 200){
+                scrollHeightList['200'].forEach(element => {
+                    element.classList.add('onload');
+                });
+            }
+        }
+ */
+export const getScrollList = () => {
+    const els = document.querySelectorAll('[data-scroll]');
+    els.forEach(element => {
+        const scrollKey = (element as HTMLElement).dataset?.scroll ?? '';
+
+        if (!scrollHeightList[scrollKey]) scrollHeightList[scrollKey] = [];
+        scrollHeightList[scrollKey].push(element);
+    });
+}
+
 const addOnloadAnimation = (className: string) => {
     setTimeout(() => {
         document.querySelectorAll(className).forEach((element) => {
-            if((element as HTMLElement).dataset){
-                // const scrollHeight = (element as HTMLElement).dataset?.scroll;
-            }else{
-                element.classList.add('onload');
-            }
+            element.classList.add('onload');
         });
     }, 500);
 }

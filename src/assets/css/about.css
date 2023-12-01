@@ -173,9 +173,35 @@
   width: 27px;
   height: 36px;
 }
+#offline .wrapper #map .iw_inner {
+  height: 100px;
+  padding: 15px;
+}
+#offline .wrapper #map .iw_inner h3 {
+  font-size: 14px;
+  color: #211d90;
+  margin-bottom: 5px;
+}
+#offline .wrapper #map .iw_inner p {
+  font-size: 12px;
+  line-height: 20px;
+}
+#offline .wrapper #map .iw_inner p span {
+  display: block;
+}
+#offline .wrapper #map .iw_inner p .address {
+  color: #757575;
+}
+#offline .wrapper #map .iw_inner p .tell {
+  color: #211d90;
+}
 #offline .wrapper #map .mapList {
+  position: absolute;
+  top: 20px;
+  left: 20px;
   width: 320px;
   background: #fff;
+  z-index: 997;
 }
 #offline .wrapper #map .mapList li {
   display: flex;

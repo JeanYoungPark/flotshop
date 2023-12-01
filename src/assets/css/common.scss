@@ -754,13 +754,13 @@ em {font-style: normal;}
     opacity: 0;
 }
 
-.fromBottomIn40 {
+.fromBottomIn40, .fromBottomOut40 {
     transition: transform 1.5s ease,opacity 1.5s ease;
     transform: translate(0, 40px);
     opacity: 0;
 }
 
-.fromLeftIn20 {
+.fromLeftIn20, .fromLeftOut20 {
     transition: transform 1.5s ease,opacity 1.5s ease;
     transform: translate(-20px, 0);
     opacity: 0;
