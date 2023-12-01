@@ -1,14 +1,21 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import pd01 from 'assets/images/review/product_01.jpg'
 import { Paging } from 'components/Paging'
 import replay from 'assets/images/review/board_reply.png'
 import secret from 'assets/images/review/board_secret.png'
 import newIcon from 'assets/images/review/board_new.png'
+import { fromTopIn20 } from 'utils'
 
 export const QnaComponent = () => {
+    useEffect(() => {
+        setTimeout(() => {
+            fromTopIn20();
+        }, 500);
+    }, []);
+
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h1>Q & A</h1>
             </div>
             <div className='table'>

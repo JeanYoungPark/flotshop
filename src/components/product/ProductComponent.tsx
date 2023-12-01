@@ -1,15 +1,21 @@
-import React,  { useState } from 'react'
+import React,  { useState, useEffect } from 'react'
 import img01 from 'assets/images/product/list/img01.jpg'
 import { BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs"
 import { CiGrid2H, CiGrid41 } from "react-icons/ci"
 import { Paging } from 'components/Paging'
+import { fromTopIn20, fromBottomIn40 } from 'utils'
 
 export const ProductComponent = () => {
     const [grid, setGrid] = useState(2);
 
+    useEffect(() => {
+        fromTopIn20();
+        fromBottomIn40();
+    }, []);
+
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h1>PRODUCT</h1>
                 <ul>
                     <li><span>의류</span></li>
@@ -22,7 +28,7 @@ export const ProductComponent = () => {
                     <span className={`${grid === 1 && 'grid'}`}  onClick={() => setGrid(1)}><CiGrid2H /></span>
                     <span className={`${grid === 2 && 'grid'}`} onClick={() => setGrid(2)}><CiGrid41 /></span>
                 </div>
-                <ul className='products'>
+                <ul className='products fromBottomIn40'>
                     {[1,2,3,4,5,6].map(() => {
                         return (
                             <li className='product'>

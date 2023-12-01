@@ -1,15 +1,23 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Paging } from 'components/Paging'
 import { BsWindowSplit } from 'react-icons/bs';
 import { CiGrid2H, CiGrid41 } from 'react-icons/ci';
 import img01 from 'assets/images/collection/collection_01.jpg'
+import { fromTopIn20, fromBottomIn40 } from 'utils';
 
 export const CollectionListComponent = () => {
     const [grid, setGrid] = useState(1);
 
+    useEffect(() => {
+        setTimeout(() => {
+            fromTopIn20();
+            fromBottomIn40();
+        }, 500)
+    }, []);
+
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h1>COLLECTION</h1>
                 <ul>
                     <li><span>Keep warm 후리스 컬렉션</span></li>
@@ -22,7 +30,7 @@ export const CollectionListComponent = () => {
                     <span className={`${grid === 1 && 'grid'}`}  onClick={() => setGrid(1)}><CiGrid2H /></span>
                     <span className={`${grid === 2 && 'grid'}`} onClick={() => setGrid(2)}><CiGrid41 /></span>
                 </div>
-                <ul className='collections'>
+                <ul className='collections fromBottomIn40'>
                     {[1,2,3,4,5,6].map(() => {
                         return (
                             <li className='collection'>

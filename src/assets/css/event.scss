@@ -8,6 +8,9 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             column-gap: 50px;
+            transition: transform 1.5s ease,opacity 1.5s ease;
+            transform: translate(0, 40px);
+            opacity: 0;
 
             li {
                 border-radius: 18px;

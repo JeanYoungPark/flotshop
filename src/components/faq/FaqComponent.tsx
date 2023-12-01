@@ -1,10 +1,17 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { Paging } from 'components/Paging'
+import { fromTopIn20 } from 'utils';
 
 export const FaqComponent = () => {
+    useEffect(() => {
+        setTimeout(() => {
+            fromTopIn20();
+        }, 500);
+    }, []);
+
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h1>이용안내 FAQ</h1>
             </div>
             <div className='table'>

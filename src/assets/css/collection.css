@@ -20,6 +20,9 @@
 }
 #collectionList .content.typeA .collections {
   grid-template-columns: repeat(1, 1fr);
+  transition: transform 1.5s ease, opacity 1.5s ease;
+  transform: translate(0, 40px);
+  opacity: 0;
 }
 #collectionList .content.typeB {
   max-width: 1560px;
