@@ -7,6 +7,7 @@ import { Header } from 'components/Header'
 import { Search } from 'components/Search'
 import { Menu } from 'components/Menu'
 import { CommonProvider } from 'contexts/CommonProvider'
+import { Footer } from 'components/Footer'
 
 export const ProductList = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -33,6 +34,7 @@ export const ProductList = () => {
                 <BannerComponent/>
                 <ProductComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }

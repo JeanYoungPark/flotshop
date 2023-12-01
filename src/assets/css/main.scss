@@ -806,90 +806,13 @@
 
         &.footer {
             height: auto;
-            padding-bottom: 90px;
 
-            .box {
-                display: flex;
-                justify-content: space-between;
-                align-items: flex-end;
-                padding: 30px 85px 0 85px;
+            #footer {
+                border: none;
+                margin-top: 0;
 
-                .cs {
-                    padding-bottom: 50px;
-
-                    h3 {
-                        font-size: 21px;
-                        font-weight: 600;
-                        padding-bottom: 5px;
-                    }
-    
-                    .call {
-                        font-size: 38px;
-                        font-weight: 600;
-                        padding: 3px 0 7px 0;
-    
-                        span {
-                            font-size: 17px;
-                            color: #999;
-                            padding-left: 10px;
-                        }
-                    }
-    
-                    .account {
-                        font-size: 17px;
-                    }
-                }
-
-                .utilMenu {
-                    li {
-                        color: #222;
-                        font-size: 16px;
-                        font-weight: 600;
-                        line-height: 1.5;
-                        padding: 3px 0;
-                    }
-                }
-
-                .copyright {
-                    font-size: 16px;
-                    color:#222;
-                    line-height: 1.8;
-                }
-
-                .sns {
-                    display: flex;
-                    flex-direction: row-reverse;
-                    padding-bottom: 100px;
-
-                    li {
-                        padding-left: 40px;
-                        font-size: 45px;
-                        color: #222;
-                        cursor: pointer;
-
-                        &.facebook svg:hover {
-                            color: #3b5998;
-                        }
-
-                        &.instagram svg:hover {
-                            color: #3897f0;
-                        }
-
-                        &.youtube svg:hover {
-                            color: #ff0000;
-                        }
-                    }
-                }
-
-                .address {
-                    text-align: right;
-                    font-size: 16px;
-                    color: #222;
-                    line-height: 1.8;
-
-                    span {
-                        padding-left: 8px;
-                    }
+                .box {
+                    padding: 30px 85px 0 85px;
                 }
             }
         }

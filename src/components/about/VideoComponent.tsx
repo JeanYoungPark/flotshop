@@ -1,9 +1,14 @@
-import React from 'react'
+import React, {useEffect} from 'react'
+import { fromTopIn20 } from 'utils';
 
 export const VideoComponent = () => {
+    useEffect(() => {
+        fromTopIn20();
+    }, []);
+
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h2>영상 소개</h2>
             </div>
             <div className='content'>

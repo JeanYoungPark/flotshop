@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState , useEffect} from 'react'
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
 import Slider from 'react-slick'
 import img01 from 'assets/images/review/review_01.jpg'
@@ -6,6 +6,7 @@ import img2 from 'assets/images/review/bs_dummy_p_review.png'
 import { Paging } from 'components/Paging'
 import stars from 'assets/images/point5.gif'
 import pd01 from 'assets/images/review/product_01.jpg'
+import { fromTopIn20 } from 'utils'
 
 export const ReviewComponent = () => {
     const sliderRef = useRef<Slider>(null);
@@ -42,9 +43,15 @@ export const ReviewComponent = () => {
         }
     };
 
+    useEffect(() => {
+        setTimeout(() => {
+            fromTopIn20();
+        }, 500);
+    }, []);
+
     return (
         <div className='wrapper'>
-            <div className='top'>
+            <div className='top fromTopIn20'>
                 <h1>REVIEW</h1>
                 <ul>
                     <li><span>전체</span></li>

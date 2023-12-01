@@ -6,6 +6,7 @@ import { Menu } from 'components/Menu';
 import { Search } from 'components/Search';
 import { FaqComponent } from 'components/faq/FaqComponent';
 import { CommonProvider } from 'contexts/CommonProvider';
+import { Footer } from 'components/Footer';
 
 export const FAQ = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -31,6 +32,7 @@ export const FAQ = () => {
             <div id='faqList' className='container'>
                 <FaqComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }

@@ -30,7 +30,7 @@ export class CustomOverlay extends naver.maps.OverlayView {
     }
     
     onAdd() {
-        this._element = document.createElement('ul');
+        this._element = document.createElement('div');
         let contentHTML = "<ul class='mapList'>";
 
         for(const color of Object.keys(this._info)){

@@ -6,6 +6,7 @@ import { Menu } from 'components/Menu';
 import { Search } from 'components/Search';
 import { VideoComponent } from 'components/about/VideoComponent';
 import { CommonProvider } from 'contexts/CommonProvider';
+import { Footer } from 'components/Footer';
 
 export const Video = () => {
     const [scrollClass, setScrollClass] = useState<string>("");
@@ -31,6 +32,7 @@ export const Video = () => {
             <div id='videoIntroduce' className='container'>
                 <VideoComponent/>
             </div>
+            <Footer/>
         </CommonProvider>
     )
 }
