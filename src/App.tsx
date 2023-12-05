@@ -20,6 +20,8 @@ import { Qna } from 'pages/Qna';
 import { Introduce } from 'pages/Introduce';
 import { Video } from 'pages/Video';
 import { OffLine } from 'pages/OffLine';
+import { AdminList } from 'pages/admin/AdminList';
+import { AdminRegister } from 'pages/admin/AdminRegister';
 
 function App() {
     return (
@@ -52,6 +54,11 @@ function App() {
 
                 <Route path="/admin" element={<AdminLayout/>}>
                     <Route path="login" element={<Login/>}/>
+                    <Route path="user">
+                        <Route path="list" element={<AdminList/>} />
+                        <Route path="modify/:id" element={<AdminList/>} />
+                        <Route path="register" element={<AdminRegister/>} />
+                    </Route>
                     <Route path="products">
                         <Route path=":category" >
                             <Route path="" element={<AdminProductList/>}/>

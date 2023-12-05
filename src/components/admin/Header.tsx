@@ -30,6 +30,9 @@ export const Header = () => {
                 <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'review' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('review', '/admin/review')}>
                     <RiPriceTag3Line className='mr-2'/>상품후기 리스트
                 </li>
+                <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'admin' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('admin', '/admin/list')}>
+                    <RiPriceTag3Line className='mr-2'/>관리자 리스트
+                </li>
             </ul>
             <span className='block absolute text-base text-white bottom-5 right-10'><a href="/admin/login" className='flex items-center'><RiLoginBoxLine className='mr-2'/>로그인</a></span>
         </div>
