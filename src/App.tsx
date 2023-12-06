@@ -56,8 +56,8 @@ function App() {
                     <Route path="login" element={<Login/>}/>
                     <Route path="user">
                         <Route path="list" element={<AdminList/>} />
-                        <Route path="modify/:id" element={<AdminList/>} />
-                        <Route path="register" element={<AdminRegister/>} />
+                        <Route path="modify/:id" element={<AdminRegister/>} />
+                        <Route path="join" element={<AdminRegister/>} />
                     </Route>
                     <Route path="products">
                         <Route path=":category" >
