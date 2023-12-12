@@ -4,6 +4,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import { RootState } from 'store';
 
+const mainMenu = ['의류', '산책', '리빙'];
+
 export const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -18,8 +20,15 @@ export const Header = () => {
         <div className='fixed min-w-1/6 h-full p-5 drop-shadow bg-indigo-600 z-10'>
             <h1 className='h-7 mb-10 bg-[url("assets/images/header/logo.svg")] bg-no-repeat -indent-96'>logo</h1>
             <ul className='flex flex-col h-full text-white text-base'>
-                <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'list' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('list', '/admin/products/b')}>
-                    <RiListCheck className='mr-2'/>상품 리스트
+                <li className='relative'>
+                    <div className='flex p-3 mb-1 rounded-lg hover:bg-indigo-700 cursor-pointer'><RiListCheck className='mr-2'/>상품 리스트</div>
+                    <ul className='relative flex flex-col rounded-lg bg-indigo-500 text-white text-base overflow-hidden'>
+                        {mainMenu.map((name, i) => (
+                            <li key={i} className={`flex p-3 pl-10 hover:bg-indigo-700 cursor-pointer ${adminMenu.name === `list/${name}` && 'bg-indigo-700'}`} onClick={() => handleClickMenu(`list/${name}`, `/admin/products/${name}`)}>
+                                {name}
+                            </li>
+                        ))}
+                    </ul>
                 </li>
                 <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'category' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('category', '/admin/category')}>
                     <RiPencilLine className='mr-2'/>카테고리 등록
