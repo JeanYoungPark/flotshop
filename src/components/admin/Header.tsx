@@ -21,6 +21,9 @@ export const Header = () => {
                 <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'list' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('list', '/admin/products/b')}>
                     <RiListCheck className='mr-2'/>상품 리스트
                 </li>
+                <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'category' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('category', '/admin/category')}>
+                    <RiPencilLine className='mr-2'/>카테고리 등록
+                </li>
                 <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'option' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('option', '/admin/option')}>
                     <RiPencilLine className='mr-2'/>옵션 등록
                 </li>

@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import { Dialog } from '@headlessui/react'
 
-export const Option = () => {
+export const Category = () => {
     const [isOpen, setIsOpen] = useState(false)
 
     return (
@@ -43,6 +43,7 @@ export const Option = () => {
                                 <li className='flex justify-between mb-3'>
                                     <span className='text-base text-slate-500'>white</span>
                                     <p className='flex'>
+
                                         <span className="block"><button className='bg-slate-300 px-3 py-2 rounded-md text-sm font-semibold shadow-sm hover:bg-slate-200'>삭제</button></span>
                                     </p>
                                 </li>
@@ -61,7 +62,7 @@ export const Option = () => {
             <div className='pt-10 flex w-full z-0 justify-center items-center'>
                 <div className='space-y-6 min-w-1/2 pb-20'>
                     <form className='space-y-4'>
-                        <h1 className="text-xl font-semibold leading-10 text-gray-900">옵션 등록</h1>
+                        <h1 className="text-xl font-semibold leading-10 text-gray-900">카테고리 등록</h1>
                         <div className='flex'>
                             <div className='grow mr-2'>
                                 <input id="name" name="name" type="name" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />

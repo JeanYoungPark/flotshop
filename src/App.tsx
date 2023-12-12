@@ -22,6 +22,7 @@ import { Video } from 'pages/Video';
 import { OffLine } from 'pages/OffLine';
 import { AdminList } from 'pages/admin/AdminList';
 import { AdminRegister } from 'pages/admin/AdminRegister';
+import { Category } from 'pages/admin/Category';
 
 function App() {
     return (
@@ -67,6 +68,7 @@ function App() {
                         <Route path="write" element={<ProductWrite/>} />
                     </Route>
                     <Route path="option" element={<Option/>} />
+                    <Route path="category" element={<Category/>} />
                     <Route path="qna" >
                         <Route path="" element={<QnAList/>}/>
                         <Route path="view/:id" element={<QnAView/>}/>
