@@ -1,30 +1,88 @@
-import React from 'react'
+import React, {useCallback, useEffect, SyntheticEvent, ChangeEvent} from 'react'
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
 import { useParams } from 'react-router'
-
-const category = ['민소매/나시', '티셔츠', '후드', '아우터', '악세사리'];
+import axios from 'axios'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
-  }
+}
+
+type categoryListType = {
+    id: number,
+    title: string
+}
 
 export const ProductWrite = () => {
     const { id } = useParams();
-    const [selected, setSelected] = useState(category[0]);
+    const [selectedCategory, setSelectedCategory] = useState<string>('선택해주세요.');
+    const [selectedCategoryDetail, setSelectedCategoryDetail] = useState<string>('선택해주세요.');
+    const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
+    const [categoryDetailList, setCategoryDetailList] = useState<categoryListType[]>([]);
+    const [newProduct, setNewProduct] = useState<string>('');
+    const [productName, setProductName] = useState<string>('');
+    const [productPrice, setProductPrice] = useState<string>('');
+    const [productDiscount, setProductDiscount] = useState<string>('');
+    const [files, setFiles] = useState<File[]>([]);
+
+    const handleFile = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+        if(e.target.files !== null){
+            setFiles(Object.values(e.target.files));
+        }
+    }, []);
+
+    /**
+     * 카테고리 리스트 호출
+     */
+    const categoryListApi = useCallback(async() => {
+        try {
+            const res = await axios.post('http://localhost:3001/api/category');
+            
+            if(res.status === 200){
+                setCategoryList([...res.data.category]);
+            }
+        } catch (error) {
+            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+        }
+    }, []);
+
+     /**
+         * 서브 카테고리 리스트 호출
+         */
+     const categoryDetailListApi = useCallback(async(id: number) => {
+        try {
+            const res = await axios.post(`http://localhost:3001/api/category/${id}/detail`);
+            
+            if(res.status === 200){
+                setCategoryDetailList([...res.data.categoryDetail]);
+            }
+        } catch (error) {
+            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+        }
+    }, []);
+
+    const onSubmit = useCallback((e:SyntheticEvent) => {
+        e.preventDefault();
+        console.log(files);
+        
+    }, [files]);
+
+    useEffect(() => {
+        categoryListApi();
+    }, [categoryListApi]);
     
     return (
         <div className='pt-10 flex w-full h-full justify-center items-center'>
-            <form className='space-y-6 min-w-1/2'>
+            <form className='space-y-6 min-w-1/2' onSubmit={onSubmit}>
                 <h1 className="text-xl font-semibold leading-10 text-gray-900">{id ? '상품 수정' : '상품 등록'}</h1>
                 <div>
                     <div className='flex'>
                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900 mr-2">새상품</label>
                         <div className="flex h-6 items-center">
                             <input
-                            id="comments"
-                            name="comments"
+                            id="new"
+                            onChange={(e) => setNewProduct(e.target.value)}
                             type="checkbox"
                             className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
                             />
@@ -34,14 +92,14 @@ export const ProductWrite = () => {
                 </div>
 
                 <div>
-                    <Listbox value={selected} onChange={setSelected}>
+                    <Listbox value={selectedCategory} onChange={setSelectedCategory}>
                         {({ open }) => (
                             <>
                             <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">카테고리</Listbox.Label>
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selected}</span>
+                                    <span className="ml-3 block truncate">{selectedCategory}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -53,10 +111,9 @@ export const ProductWrite = () => {
                                 as={Fragment}
                                 leave="transition ease-in duration-100"
                                 leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                                >
+                                leaveTo="opacity-0">
                                     <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {category.map((cate, i) => (
+                                        {categoryList.map((data, i) => (
                                         <Listbox.Option
                                             key={i}
                                             className={({ active }) =>
@@ -64,14 +121,14 @@ export const ProductWrite = () => {
                                                 active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                                 'relative cursor-default select-none py-2 pl-1 pr-9'
                                             )}
-                                            value={cate}
+                                            value={data.title}
                                         >
                                             {({ selected, active }) => (
                                             <>
-                                                <div className="flex items-center">
-                                                <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
-                                                    {cate}
-                                                </span>
+                                                <div className="flex items-center" onClick={() => categoryDetailListApi(data.id)}>
+                                                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
+                                                        {data.title}
+                                                    </span>
                                                 </div>
 
                                                 {selected ? (
@@ -97,14 +154,14 @@ export const ProductWrite = () => {
                 </div>
 
                 <div>
-                    <Listbox value={selected} onChange={setSelected}>
+                    <Listbox value={selectedCategoryDetail} onChange={setSelectedCategoryDetail}>
                         {({ open }) => (
                             <>
                             <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">세부 카테고리</Listbox.Label>
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selected}</span>
+                                    <span className="ml-3 block truncate">{selectedCategoryDetail}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -119,37 +176,37 @@ export const ProductWrite = () => {
                                 leaveTo="opacity-0"
                                 >
                                     <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {category.map((cate, i) => (
-                                        <Listbox.Option
-                                            key={i}
-                                            className={({ active }) =>
-                                            classNames(
-                                                active ? 'bg-indigo-600 text-white' : 'text-gray-900',
-                                                'relative cursor-default select-none py-2 pl-1 pr-9'
-                                            )}
-                                            value={cate}
-                                        >
-                                            {({ selected, active }) => (
-                                            <>
-                                                <div className="flex items-center">
-                                                <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
-                                                    {cate}
-                                                </span>
-                                                </div>
+                                        {categoryDetailList.map((data, i) => (
+                                            <Listbox.Option
+                                                key={i}
+                                                className={({ active }) =>
+                                                classNames(
+                                                    active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                                    'relative cursor-default select-none py-2 pl-1 pr-9'
+                                                )}
+                                                value={data.title}
+                                            >
+                                                {({ selected, active }) => (
+                                                <>
+                                                    <div className="flex items-center">
+                                                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
+                                                        {data.title}
+                                                    </span>
+                                                    </div>
 
-                                                {selected ? (
-                                                <span
-                                                    className={classNames(
-                                                    active ? 'text-white' : 'text-indigo-600',
-                                                    'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                    )}
-                                                >
-                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                </span>
-                                                ) : null}
-                                            </>
-                                            )}
-                                        </Listbox.Option>
+                                                    {selected ? (
+                                                    <span
+                                                        className={classNames(
+                                                        active ? 'text-white' : 'text-indigo-600',
+                                                        'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                        )}
+                                                    >
+                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                    </span>
+                                                    ) : null}
+                                                </>
+                                                )}
+                                            </Listbox.Option>
                                         ))}
                                     </Listbox.Options>
                                 </Transition>
@@ -160,23 +217,23 @@ export const ProductWrite = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">상품명</label>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">상품명</label>
                     <div className="mt-2">
-                        <input id="name" name="name" type="name" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                        <input id="name" type="text" required value={productName} onChange={(e) => setProductName(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                     </div>
                 </div>
 
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">금액</label>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">금액</label>
                     <div className="mt-2">
-                        <input id="name" name="name" type="name" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                        <input id="price" type="text" required value={productPrice} onChange={(e) => setProductPrice(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                     </div>
                 </div>
 
                 <div>
-                    <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">할인률</label>
+                    <label className="block text-sm font-medium leading-6 text-gray-900">할인률</label>
                     <div className="mt-2">
-                        <input id="name" name="name" type="name" autoComplete="name" required className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                        <input id="discount" type="text" required value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                     </div>
                 </div>
 
@@ -188,12 +245,11 @@ export const ProductWrite = () => {
                         <div className="text-center">
                         <PhotoIcon className="mx-auto h-12 w-12 text-gray-300" aria-hidden="true" />
                         <div className="mt-4 flex text-sm leading-6 text-gray-600">
-                            <label
-                            htmlFor="file-upload"
+                            <label 
                             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                             >
                             <span>Upload a file</span>
-                            <input id="file-upload" name="file-upload" type="file" className="sr-only" />
+                            <input id="file-upload" type="file" multiple onChange={handleFile} className="sr-only" />
                             </label>
                             <p className="pl-1">or drag and drop</p>
                         </div>
