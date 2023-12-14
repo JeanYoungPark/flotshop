@@ -61,7 +61,7 @@ function App() {
                         <Route path="join" element={<AdminRegister/>} />
                     </Route>
                     <Route path="products">
-                        <Route path=":category" >
+                        <Route path=":categoryId" >
                             <Route path="" element={<AdminProductList/>}/>
                             <Route path="modify/:id" element={<ProductWrite/>} />
                         </Route>

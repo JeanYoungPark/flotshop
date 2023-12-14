@@ -1,4 +1,5 @@
-import React from 'react'
+import axios from 'axios'
+import React, {useEffect, useState, useCallback} from 'react'
 import { useNavigate, useParams } from 'react-router'
 
 const people = [
@@ -21,24 +22,65 @@ const people = [
     },
 ]
   
+type categoryListType = {
+    id: number,
+    title: string
+}
+
 export const ProductList = () => {
-    const { category } = useParams();
-    const navigate = useNavigate();
+    const { categoryId } = useParams()
+    const navigate = useNavigate()
+    const [category, setCategory] = useState<string>('');
+    const [categoryDetailList, setCategoryDetailList] = useState<categoryListType[]>([]);
+
+    const productListApi = useCallback(async() => {
+        // 상품 호출
+    }, []);
+
+    useEffect(() => {
+        const categoryInfoApi = async() => {
+            try {
+                const res = await axios.post(`http://localhost:3001/api/category/info/${categoryId}`);
+                
+                if(res.status === 200){
+                    setCategory(res.data.title);
+                }
+            } catch (error) {
+                console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+            }
+        }
+
+        /**
+         * 서브 카테고리 리스트 호출
+         */
+        const categoryDetailListApi = async() => {
+            try {
+                const res = await axios.post(`http://localhost:3001/api/category/${categoryId}/detail`);
+                
+                if(res.status === 200){
+                    setCategoryDetailList([...res.data.categoryDetail]);
+                }
+            } catch (error) {
+                console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+            }
+        };
+
+        categoryInfoApi();
+        categoryDetailListApi();
+    }, [categoryId])
 
     return (
         <div className="flex justify-center items-center w-full">
             <div className='min-w-1/2'>
                 <h1 className='text-2xl py-10'>{category}</h1>
-                <ul className='grid grid-cols-5 divide-x border rounded-lg border-slate-200 border-solid text-center bg-white overflow-hidden cursor-pointer mb-8'>
-                    <li className='p-4 text-sm hover:bg-indigo-500 hover:text-white'>민소매/나시</li>
-                    <li className='p-4 text-sm hover:bg-indigo-500 hover:text-white'>티셔츠</li>
-                    <li className='p-4 text-sm hover:bg-indigo-500 hover:text-white'>후드</li>
-                    <li className='p-4 text-sm hover:bg-indigo-500 hover:text-white'>아우터</li>
-                    <li className='p-4 text-sm hover:bg-indigo-500 hover:text-white'>악세사리</li>
+                <ul className='grid grid-cols-5 rounded-lg border-slate-200 border-solid border-l border-t text-center bg-white overflow-hidden cursor-pointer mb-8'>
+                    {categoryDetailList.map((data, i) => (
+                        <li key={i} className='p-4 text-sm border-r border-b hover:bg-indigo-500 hover:text-white'>{data.title}</li>
+                    ))}
                 </ul>
                 <ul className="divide-y divide-gray-100 mb-10">
                     {people.map((person) => (
-                        <li key={person.id} className="flex justify-between gap-x-6 py-5 ">
+                        <li key={person.id} className="flex justify-between gap-x-6 py-5">
                             <div className="flex min-w-0 gap-x-4">
                                 <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" />
                                 <div className="min-w-0 flex-auto">
