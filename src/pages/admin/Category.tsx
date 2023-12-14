@@ -28,6 +28,7 @@ export const Category = () => {
                     ...categoryList,
                     res.data.result
                 ]);
+                setCategoryValue('');
             }
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
@@ -42,32 +43,39 @@ export const Category = () => {
             const res = await axios.post('http://localhost:3001/api/category');
             
             if(res.status === 200){
-                setCategoryList([
-                    ...categoryList,
-                    ...res.data.category
-                ]);
+                setCategoryList([...res.data.category]);
             }
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
-    }, [categoryList]);
+    }, []);
 
 
     /**
      * 카테고리 삭제
      */
     const categoryDeleteApi = useCallback(async(id: number) => {
-        // 소분류나 상품이 있으면 물어보고 모두 삭제하고 카테고리 삭제
-        try {
-            const res = await axios.delete(`http://localhost:3001/api/category/${id}/delete`);
-            console.log(res);
-            if(res.status === 200){
+        const confirm = window.confirm('소분류 및 관련 상품이 모두 삭제 됩니다.\n삭제하시겠습니까?');
 
+        if(confirm){
+            const res = await axios.post(`http://localhost:3001/api/category/${id}/detail`);
+            
+            if(res.status === 200){
+                if(res.data.categoryDetail.length === 0){
+                    try {
+                        const res = await axios.delete(`http://localhost:3001/api/category/${id}`);
+                        
+                        if(res.status === 200){
+                            categoryListApi();
+                        }
+                    } catch (error) {
+                        console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+                    }
+                }
             }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
-    }, []);
+
+    }, [categoryListApi]);
 
     /**
      * 서브 카테고리 리스트 호출
@@ -79,15 +87,12 @@ export const Category = () => {
             if(res.status === 200){
                 setIsOpen(true);
                 setCategorySelected(id);
-                setCategoryDetailList([
-                    ...categoryDetailList,
-                    ...res.data.categoryDetail
-                ]);
+                setCategoryDetailList([...res.data.categoryDetail]);
             }
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
-    },[categoryDetailList]);
+    },[]);
 
     /**
      * 서브 카테고리 등록
@@ -117,11 +122,11 @@ export const Category = () => {
     const categoryDetailDeleteApi = useCallback(async(id: number) => {
         // 상품이 있으면 물어보고 모두 삭제하고 카테고리 삭제
         try {
-            const res = await axios.delete(`http://localhost:3001/api/category/detail/${id}/delete`);
-            console.log(res);
-            if(res.status === 200){
+            // const res = await axios.delete(`http://localhost:3001/api/category/detail/${id}`);
+            
+            // if(res.status === 200){
 
-            }
+            // }
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
@@ -129,7 +134,7 @@ export const Category = () => {
 
     useEffect(() => {
         categoryListApi();
-    }, []);
+    }, [categoryListApi]);
 
     return (
         <>
@@ -183,7 +188,7 @@ export const Category = () => {
                         <h1 className="text-xl font-semibold leading-10 text-gray-900">카테고리 등록</h1>
                         <div className='flex'>
                             <div className='grow mr-2'>
-                                <input id="name" type="text" required onChange={(e) => setCategoryValue(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                                <input id="name" type="text" required value={categoryValue} onChange={(e) => setCategoryValue(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                             </div>
                             <div className="flex items-center justify-end gap-x-6">
                                 <button
