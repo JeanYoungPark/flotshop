@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
 import { useParams } from 'react-router'
-import axios from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
@@ -25,13 +25,47 @@ export const ProductWrite = () => {
     const [productPrice, setProductPrice] = useState<string>('');
     const [productDiscount, setProductDiscount] = useState<string>('');
     const [files, setFiles] = useState<File[]>([]);
+    const [prevImg, setPrevImg] = useState<string[]>([]);
+    const [productDes, setProductDes] = useState<string>('');
 
-    const handleFile = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    const readFileAsDataURL = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            
+            reader.onloadend = () => {
+                resolve(reader.result as string);
+            };
+        
+            reader.onerror = reject;
+        
+            reader.readAsDataURL(file);
+        });
+    };
+
+    const handleFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
         if(e.target.files !== null){
-            setFiles(Object.values(e.target.files));
+            // setFiles([...e.target.files]);
+            // const files = Object.values();
+            // setFiles(files);
+
+            try {
+                const config: AxiosRequestConfig = {
+                    data: {
+                      img: e.target.files // data 속성 사용
+                    },
+                    headers: {
+                      "Content-Type": "multipart/form-data" // 헤더 설정
+                    }
+                };
+                  
+                  const response = await axios.post("http://localhost:3001/api/admin/product/upload", config);
+                  
+            } catch (error) {
+                
+            }
         }
     }, []);
-
+    
     /**
      * 카테고리 리스트 호출
      */
@@ -74,7 +108,7 @@ export const ProductWrite = () => {
     
     return (
         <div className='pt-10 flex w-full h-full justify-center items-center'>
-            <form className='space-y-6 min-w-1/2' onSubmit={onSubmit}>
+            <form className='space-y-6 min-w-1/2 max-w-1/2' onSubmit={onSubmit}>
                 <h1 className="text-xl font-semibold leading-10 text-gray-900">{id ? '상품 수정' : '상품 등록'}</h1>
                 <div>
                     <div className='flex'>
@@ -238,7 +272,7 @@ export const ProductWrite = () => {
                 </div>
 
                 <div>
-                    <label htmlFor="cover-photo" className="block text-sm font-medium leading-6 text-gray-900">
+                    <label className="block text-sm font-medium leading-6 text-gray-900">
                         상품 이미지
                     </label>
                     <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
@@ -249,13 +283,18 @@ export const ProductWrite = () => {
                             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                             >
                             <span>Upload a file</span>
-                            <input id="file-upload" type="file" multiple onChange={handleFile} className="sr-only" />
+                            <input id="file-upload" name="img" type="file" multiple onChange={handleFile} className="sr-only" />
                             </label>
                             <p className="pl-1">or drag and drop</p>
                         </div>
                         <p className="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
                         </div>
                     </div>
+                    <ul className='grid gap-4 grid-cols-5 mt-3'>
+                        {prevImg.map((url, i) => (
+                            <li key={i} className='h-52 border rounded-lg border-gray-300 bg-cover' style={{backgroundImage:`url(${url})`}}></li>
+                        ))}
+                    </ul>
                 </div>
 
                 <div className="col-span-full">
@@ -265,10 +304,10 @@ export const ProductWrite = () => {
                     <div className="mt-2">
                         <textarea
                         id="about"
-                        name="about"
+                        onChange={(e) => setProductDes(e.target.value)}
                         rows={3}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        defaultValue={''}
+                        className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        defaultValue={productDes}
                         />
                     </div>
                 </div>
