@@ -11,13 +11,13 @@ export const Login = () => {
         e.preventDefault();
 
         const res = await axios.post('http://localhost:3001/api/login', {user_id: userId, password: password});
-        
-        if(res.status === 200) {
-            const session = res.data;
-            console.log(session);
+        console.log(res);
+        // if(res.status === 200) {
+        //     const session = res.data;
+        //     console.log(session);
             // localStorage.setItem('sessionToken', session);
             // localStorage.setItem('expirationDate', session);
-        }
+        // }
     }, [password, userId]);
 
     return (

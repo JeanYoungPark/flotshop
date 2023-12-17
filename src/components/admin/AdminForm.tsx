@@ -65,8 +65,8 @@ export const AdminForm = () => {
     const chkUser = useCallback(async() => {
         try {
             const res = await axios.post('http://localhost:3001/api/find/user', {user_id: userId});
-
-            if(res.status === 200 && res.data.user.id){
+            
+            if(res.status === 200 && res.data.user !== null){
                 alert('존재하는 회원입니다.');
                 return false;
             }
@@ -115,6 +115,7 @@ export const AdminForm = () => {
             }
         }else{
             const existUser = await chkUser();
+            
             if(existUser) onSubmit();
         }
     }, [chkUser, email, id, name?.length, newPassword, newPassword2, newPasswordBtn, onSubmit, onUpdateSubmit, password?.length, userId?.length]);
