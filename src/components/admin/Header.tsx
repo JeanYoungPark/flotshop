@@ -4,6 +4,7 @@ import { RiListCheck, RiLoginBoxLine, RiPencilLine, RiPriceTag3Line } from 'reac
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from 'react-router-dom';
 import { RootState } from 'store';
+import { useCookies } from 'react-cookie';
 
 type categoryListType = {
     id: number,
@@ -14,7 +15,9 @@ export const Header = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const adminMenu = useSelector((state: RootState) => state.adminMenu);
+    const userInfo = useSelector((state: RootState) => state.userInfo);
     const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
+    const [cookie, , removeCookie] = useCookies(['flotshopUserSession']);
 
     const handleClickMenu = useCallback((menu: string, url:string) => {
         dispatch({type: 'setName', name: menu});
@@ -32,6 +35,17 @@ export const Header = () => {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
     }, []);
+
+    const onLogout = useCallback(async() => {
+        try {
+            const res = await axios.post('http://localhost:3001/api/logout', {id: userInfo.id});
+            if(res.status === 200){
+                removeCookie('flotshopUserSession');
+            }
+        } catch (error) {
+            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+        }
+    }, [removeCookie, userInfo.id]);
 
     useEffect(() => {
         categoryListApi();
@@ -67,7 +81,13 @@ export const Header = () => {
                     <RiPriceTag3Line className='mr-2'/>관리자 리스트
                 </li>
             </ul>
-            <span className='block absolute text-base text-white bottom-5 right-10'><a href="/admin/login" className='flex items-center'><RiLoginBoxLine className='mr-2'/>로그인</a></span>
+            <span className='block absolute text-base text-white bottom-5 right-10'>
+                {cookie.flotshopUserSession ? (
+                    <span onClick={onLogout} className='flex items-center cursor-pointer'><RiLoginBoxLine className='mr-2'/>로그아웃</span>
+                    ) : (
+                    <a href="/admin/login" className='flex items-center'><RiLoginBoxLine className='mr-2'/>로그인</a>
+                )}
+            </span>
         </div>
     )
 }

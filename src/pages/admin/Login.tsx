@@ -1,24 +1,42 @@
 import React, {useCallback, useState, SyntheticEvent} from 'react'
 import { Header } from 'components/admin/Header'
 import axios from 'axios';
-
+import { useCookies  } from 'react-cookie';
+import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 
 export const Login = () => {
     const [userId, setUserId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [cookies, setCookies] = useCookies(['flotshopUserSession']);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const onSubmit = useCallback(async(e: SyntheticEvent) => {
         e.preventDefault();
 
         const res = await axios.post('http://localhost:3001/api/login', {user_id: userId, password: password});
-        console.log(res);
-        // if(res.status === 200) {
-        //     const session = res.data;
-        //     console.log(session);
-            // localStorage.setItem('sessionToken', session);
-            // localStorage.setItem('expirationDate', session);
-        // }
-    }, [password, userId]);
+        
+        if(res.status === 200) {
+            const session = res.data.result.session_id;
+            const expirationDate = res.data.result.expired_at;
+            const date = new Date(expirationDate);
+
+            setCookies('flotshopUserSession', session, {
+                path: '/',
+                expires: date
+            });
+            
+            dispatch({type: 'setUser', data: {
+                id: res.data.user.id,
+                user_id: res.data.user.user_id,
+                name: res.data.user.name
+            }});
+
+            alert('로그인 되었습니다.');
+            navigate('/admin/user/list');
+        }
+    }, [dispatch, navigate, password, setCookies, userId]);
 
     return (
         <div>

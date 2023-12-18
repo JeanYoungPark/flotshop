@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { Main } from 'pages/Main';
 import { ProductList } from 'pages/ProductList';
 import { ProductWrite } from 'pages/admin/ProductWrite';
@@ -26,60 +26,58 @@ import { Category } from 'pages/admin/Category';
 
 function App() {
     return (
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<Main/>} />
-                
-                <Route path="/products">
-                    <Route path=":category">
-                        <Route path="" element={<ProductList/>} />
-                        <Route path=":num" element={<ProductView/>} />
-                    </Route>
+        <Routes>
+            <Route path="/" element={<Main/>} />
+            
+            <Route path="/products">
+                <Route path=":category">
+                    <Route path="" element={<ProductList/>} />
+                    <Route path=":num" element={<ProductView/>} />
                 </Route>
+            </Route>
 
-                <Route path="/events" element={<EventList/>}/>
-                <Route path="/collections" element={<CollectionList/>}/>
+            <Route path="/events" element={<EventList/>}/>
+            <Route path="/collections" element={<CollectionList/>}/>
 
-                <Route path="/board">
-                    <Route path="review" element={<Review/>}/>
-                    <Route path="notice" element={<Notice/>}/>
-                    <Route path="faq" element={<FAQ/>}/>
-                    <Route path="qna" element={<Qna/>}/>
+            <Route path="/board">
+                <Route path="review" element={<Review/>}/>
+                <Route path="notice" element={<Notice/>}/>
+                <Route path="faq" element={<FAQ/>}/>
+                <Route path="qna" element={<Qna/>}/>
+            </Route>
+
+            <Route path="/about">
+                <Route path="introduce" element={<Introduce/>}/>
+                <Route path="videoIntroduce" element={<Video/>}/>
+                <Route path="offline" element={<OffLine/>}/>
+            </Route>
+
+            <Route path="/admin" element={<AdminLayout/>}>
+                <Route path="login" element={<Login/>}/>
+                <Route path="user">
+                    <Route path="list" element={<AdminList/>} />
+                    <Route path="modify/:id" element={<AdminRegister/>} />
+                    <Route path="join" element={<AdminRegister/>} />
                 </Route>
-
-                <Route path="/about">
-                    <Route path="introduce" element={<Introduce/>}/>
-                    <Route path="videoIntroduce" element={<Video/>}/>
-                    <Route path="offline" element={<OffLine/>}/>
+                <Route path="products">
+                    <Route path=":categoryId" >
+                        <Route path="" element={<AdminProductList/>}/>
+                        <Route path="modify/:id" element={<ProductWrite/>} />
+                    </Route>
+                    <Route path="write" element={<ProductWrite/>} />
                 </Route>
-
-                <Route path="/admin" element={<AdminLayout/>}>
-                    <Route path="login" element={<Login/>}/>
-                    <Route path="user">
-                        <Route path="list" element={<AdminList/>} />
-                        <Route path="modify/:id" element={<AdminRegister/>} />
-                        <Route path="join" element={<AdminRegister/>} />
-                    </Route>
-                    <Route path="products">
-                        <Route path=":categoryId" >
-                            <Route path="" element={<AdminProductList/>}/>
-                            <Route path="modify/:id" element={<ProductWrite/>} />
-                        </Route>
-                        <Route path="write" element={<ProductWrite/>} />
-                    </Route>
-                    <Route path="option" element={<Option/>} />
-                    <Route path="category" element={<Category/>} />
-                    <Route path="qna" >
-                        <Route path="" element={<QnAList/>}/>
-                        <Route path="view/:id" element={<QnAView/>}/>
-                    </Route>
-                    <Route path="review" >
-                        <Route path="" element={<ReviewList/>}/>
-                        <Route path="view/:id" element={<ReviewView/>}/>
-                    </Route>
+                <Route path="option" element={<Option/>} />
+                <Route path="category" element={<Category/>} />
+                <Route path="qna" >
+                    <Route path="" element={<QnAList/>}/>
+                    <Route path="view/:id" element={<QnAView/>}/>
                 </Route>
-            </Routes>
-        </BrowserRouter>
+                <Route path="review" >
+                    <Route path="" element={<ReviewList/>}/>
+                    <Route path="view/:id" element={<ReviewView/>}/>
+                </Route>
+            </Route>
+        </Routes>
     );
 }
 
