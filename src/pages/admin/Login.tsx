@@ -30,7 +30,8 @@ export const Login = () => {
             dispatch({type: 'setUser', data: {
                 id: res.data.user.id,
                 user_id: res.data.user.user_id,
-                name: res.data.user.name
+                name: res.data.user.name,
+                is_admin: res.data.user.is_admin
             }});
 
             alert('로그인 되었습니다.');

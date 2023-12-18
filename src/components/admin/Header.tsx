@@ -40,7 +40,7 @@ export const Header = () => {
         try {
             const res = await axios.post('http://localhost:3001/api/logout', {id: userInfo.id});
             if(res.status === 200){
-                removeCookie('flotshopUserSession');
+                removeCookie('flotshopUserSession', {path: '/'});
             }
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
@@ -54,6 +54,7 @@ export const Header = () => {
     return (
         <div className='fixed min-w-1/6 h-full p-5 drop-shadow bg-indigo-600 z-10'>
             <h1 className='h-7 mb-10 bg-[url("assets/images/header/logo.svg")] bg-no-repeat -indent-96'>logo</h1>
+            
             <ul className='flex flex-col h-full text-white text-base'>
                 <li className='relative'>
                     <div className='flex p-3 mb-1 rounded-lg hover:bg-indigo-700 cursor-pointer' onClick={categoryListApi}><RiListCheck className='mr-2'/>상품 리스트</div>

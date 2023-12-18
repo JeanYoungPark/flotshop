@@ -41,7 +41,7 @@ export const AdminList = () => {
                     ))}
                 </ul>
                 <div className='text-right'>
-                    <button onClick={() => navigate('/admin/user/join')} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>관리자 등록</button>
+                    <button onClick={() => navigate('/admin/join')} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>관리자 등록</button>
                 </div>
             </div>
         </div>
