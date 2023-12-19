@@ -54,10 +54,10 @@ function App() {
 
             <Route path="/admin" element={<AdminLayout/>}>
                 <Route path="login" element={<Login/>}/>
+                <Route path="join" element={<AdminRegister/>} />
                 <Route path="user">
                     <Route path="list" element={<AdminList/>} />
                     <Route path="modify/:id" element={<AdminRegister/>} />
-                    <Route path="join" element={<AdminRegister/>} />
                 </Route>
                 <Route path="products">
                     <Route path=":categoryId" >
