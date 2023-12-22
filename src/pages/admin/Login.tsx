@@ -17,7 +17,7 @@ export const Login = () => {
 
         const res = await axios.post('http://localhost:3001/api/login', {user_id: userId, password: password});
         
-        if(res.status === 200) {
+        if(res.data.result) {
             const session = res.data.result.session_id;
             const expirationDate = res.data.result.expired_at;
             const date = new Date(expirationDate);
@@ -36,6 +36,8 @@ export const Login = () => {
 
             alert('로그인 되었습니다.');
             navigate('/admin/user/list');
+        }else {
+            alert(res.data.message);
         }
     }, [dispatch, navigate, password, setCookies, userId]);
 

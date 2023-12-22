@@ -41,11 +41,12 @@ export const Header = () => {
             const res = await axios.post('http://localhost:3001/api/logout', {id: userInfo.id});
             if(res.status === 200){
                 removeCookie('flotshopUserSession', {path: '/'});
+                navigate('/admin/login');
             }
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
-    }, [removeCookie, userInfo.id]);
+    }, [navigate, removeCookie, userInfo.id]);
 
     useEffect(() => {
         categoryListApi();
