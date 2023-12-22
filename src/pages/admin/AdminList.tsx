@@ -1,10 +1,23 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useNavigate } from 'react-router';
 
 export const AdminList = () => {
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
+
+    const onDelete = useCallback(async(userId : Number) => {
+        try {
+            const res = await axios.delete('http://localhost:3001/api/user/delete');
+            if(res.data.result){
+                alert('삭제되었습니다.');
+            }else{
+                alert(res.data.message);
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }, []);
 
     useEffect(() => {
         const getAdmin = async() => {
@@ -35,7 +48,7 @@ export const AdminList = () => {
                             </div>
                             <div className="flex shrink-0">
                                 <button onClick={() => navigate(`/admin/user/modify/${user.id}`)} className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 mr-2'>수정</button>
-                                <button onClick={() => navigate(`/admin/user/delete`)} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>삭제</button>
+                                <button onClick={() => onDelete(user.id)} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>삭제</button>
                             </div>
                         </li>
                     ))}
