@@ -35,6 +35,7 @@ export const Login = () => {
             }});
 
             alert('로그인 되었습니다.');
+            dispatch({type: 'setName', name: 'admin'});
             navigate('/admin/user/list');
         }else {
             alert(res.data.message);
