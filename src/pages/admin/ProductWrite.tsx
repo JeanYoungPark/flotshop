@@ -42,29 +42,37 @@ export const ProductWrite = () => {
         });
     };
 
-    const handleFile = useCallback(async (e: ChangeEvent<HTMLInputElement>) => {
-        if(e.target.files !== null){
-            // setFiles([...e.target.files]);
-            // const files = Object.values();
-            // setFiles(files);
+    const onChangeFiles = useCallback((e: any) => {
+        const newFiles = e.target.files;
+        const FileList = [];
+        const urlList = [];
 
-            try {
-                const config: AxiosRequestConfig = {
-                    data: {
-                      img: e.target.files // data 속성 사용
-                    },
-                    headers: {
-                      "Content-Type": "multipart/form-data" // 헤더 설정
-                    }
-                };
-                  
-                  const response = await axios.post("http://localhost:3001/api/admin/product/upload", config);
-                  
-            } catch (error) {
-                
-            }
+        for(let i = 0; i < newFiles.length; i++) {
+            FileList.push(newFiles[i]);
+            urlList.push(URL.createObjectURL(newFiles[i]));
         }
+        
+        setFiles(FileList);
+        setPrevImg(urlList);
     }, []);
+
+    const handleFile = useCallback(async () => {
+        try {
+            const formData = new FormData();
+            
+            for(let file of files){
+                formData.append('data', file);
+            }
+
+            const response = await axios.post("http://localhost:3001/api/admin/product/upload", formData, {
+                headers: {'Content-type': 'multipart/form-data'}
+            });
+
+            console.log(response);
+        } catch (error) {
+            
+        }
+    }, [files]);
     
     /**
      * 카테고리 리스트 호출
@@ -98,9 +106,8 @@ export const ProductWrite = () => {
 
     const onSubmit = useCallback((e:SyntheticEvent) => {
         e.preventDefault();
-        console.log(files);
-        
-    }, [files]);
+        handleFile();
+    }, [handleFile]);
 
     useEffect(() => {
         categoryListApi();
@@ -283,7 +290,7 @@ export const ProductWrite = () => {
                             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                             >
                             <span>Upload a file</span>
-                            <input id="file-upload" name="img" type="file" multiple onChange={handleFile} className="sr-only" />
+                            <input id="file-upload" name="img" type="file" multiple onChange={onChangeFiles} className="sr-only" />
                             </label>
                             <p className="pl-1">or drag and drop</p>
                         </div>
