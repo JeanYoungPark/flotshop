@@ -1,9 +1,9 @@
-import React, {useCallback, useEffect, SyntheticEvent, ChangeEvent} from 'react'
+import React, {useCallback, useEffect, SyntheticEvent} from 'react'
+import axios from 'axios'
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
 import { useParams } from 'react-router'
-import axios, { AxiosRequestConfig } from 'axios'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
@@ -23,24 +23,10 @@ export const ProductWrite = () => {
     const [newProduct, setNewProduct] = useState<string>('');
     const [productName, setProductName] = useState<string>('');
     const [productPrice, setProductPrice] = useState<string>('');
-    const [productDiscount, setProductDiscount] = useState<string>('');
+    const [productDiscount, setProductDiscount] = useState<string>('0');
     const [files, setFiles] = useState<File[]>([]);
     const [prevImg, setPrevImg] = useState<string[]>([]);
-    const [productDes, setProductDes] = useState<string>('');
-
-    const readFileAsDataURL = (file: File): Promise<string> => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            
-            reader.onloadend = () => {
-                resolve(reader.result as string);
-            };
-        
-            reader.onerror = reject;
-        
-            reader.readAsDataURL(file);
-        });
-    };
+    const [productDes, setProductDes] = useState<string | undefined>(undefined);
 
     const onChangeFiles = useCallback((e: any) => {
         const newFiles = e.target.files;
@@ -59,7 +45,8 @@ export const ProductWrite = () => {
     const handleFile = useCallback(async () => {
         try {
             const formData = new FormData();
-            
+            formData.append('categoryId', selectedCategory);
+
             for(let file of files){
                 formData.append('data', file);
             }
@@ -72,7 +59,7 @@ export const ProductWrite = () => {
         } catch (error) {
             
         }
-    }, [files]);
+    }, [files, selectedCategory]);
     
     /**
      * 카테고리 리스트 호출
@@ -106,15 +93,36 @@ export const ProductWrite = () => {
 
     const onSubmit = useCallback((e:SyntheticEvent) => {
         e.preventDefault();
+
+        if(!selectedCategory){
+            alert('카테고리를 선택해주세요.');
+            return false;
+        }
+
+        if(!selectedCategoryDetail){
+            alert('세부 카테고리를 선택해주세요.');
+            return false;
+        }
+        
+        if(!productName){
+            alert('상품 이름을 입력해주세요.');
+            return false;
+        }
+
+        if(!productPrice){
+            alert('상품 가격을 입력해주세요.');
+            return false;
+        }
+
         handleFile();
-    }, [handleFile]);
+    }, [handleFile, productName, productPrice, selectedCategory, selectedCategoryDetail]);
 
     useEffect(() => {
         categoryListApi();
     }, [categoryListApi]);
     
     return (
-        <div className='pt-10 flex w-full h-full justify-center items-center'>
+        <div className='pt-10 pb-10 flex w-full h-full justify-center items-center'>
             <form className='space-y-6 min-w-1/2 max-w-1/2' onSubmit={onSubmit}>
                 <h1 className="text-xl font-semibold leading-10 text-gray-900">{id ? '상품 수정' : '상품 등록'}</h1>
                 <div>
