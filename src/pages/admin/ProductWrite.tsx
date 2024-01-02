@@ -1,9 +1,10 @@
-import React, {useCallback, useEffect, SyntheticEvent} from 'react'
+import React, {useCallback, useEffect, SyntheticEvent, useRef} from 'react'
 import axios from 'axios'
 import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
 import { useParams } from 'react-router'
+import { ProductEditor } from 'components/product/ProductEditor'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
@@ -121,6 +122,28 @@ export const ProductWrite = () => {
         categoryListApi();
     }, [categoryListApi]);
     
+    const quillRef = useRef(); //🌈
+    const [htmlContent, setHtmlContent] = useState(""); //🌈
+    const [noticeTitle, setNoticeTitle] = useState<string>('');
+    const [cont, setCont] = useState<string>('');
+
+    const modules = useCallback(
+    () => ({
+        toolbar: { // 툴바에 넣을 기능
+            container: [
+                ["bold", "italic", "underline", "strike", "blockquote"],
+                [{ size: ["small", false, "large", "huge"] }, { color: [] }],
+                [
+                    { list: "ordered" },
+                    { list: "bullet" },
+                    { indent: "-1" },
+                    { indent: "+1" },
+                    { align: [] },
+                ],
+            ],
+        },
+    }), []);
+
     return (
         <div className='pt-10 pb-10 flex w-full h-full justify-center items-center'>
             <form className='space-y-6 min-w-1/2 max-w-1/2' onSubmit={onSubmit}>
@@ -317,13 +340,7 @@ export const ProductWrite = () => {
                         상픔 설명
                     </label>
                     <div className="mt-2">
-                        <textarea
-                        id="about"
-                        onChange={(e) => setProductDes(e.target.value)}
-                        rows={3}
-                        className="block w-full p-2 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        defaultValue={productDes}
-                        />
+                        <ProductEditor/>
                     </div>
                 </div>
 
