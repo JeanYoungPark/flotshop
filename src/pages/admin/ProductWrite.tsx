@@ -28,7 +28,7 @@ export const ProductWrite = () => {
     const [files, setFiles] = useState<File[]>([]);
     const [prevImg, setPrevImg] = useState<string[]>([]);
     const [productDes, setProductDes] = useState<string | undefined>(undefined);
-
+    
     const onChangeFiles = useCallback((e: any) => {
         const newFiles = e.target.files;
         const FileList = [];
@@ -122,28 +122,6 @@ export const ProductWrite = () => {
         categoryListApi();
     }, [categoryListApi]);
     
-    const quillRef = useRef(); //🌈
-    const [htmlContent, setHtmlContent] = useState(""); //🌈
-    const [noticeTitle, setNoticeTitle] = useState<string>('');
-    const [cont, setCont] = useState<string>('');
-
-    const modules = useCallback(
-    () => ({
-        toolbar: { // 툴바에 넣을 기능
-            container: [
-                ["bold", "italic", "underline", "strike", "blockquote"],
-                [{ size: ["small", false, "large", "huge"] }, { color: [] }],
-                [
-                    { list: "ordered" },
-                    { list: "bullet" },
-                    { indent: "-1" },
-                    { indent: "+1" },
-                    { align: [] },
-                ],
-            ],
-        },
-    }), []);
-
     return (
         <div className='pt-10 pb-10 flex w-full h-full justify-center items-center'>
             <form className='space-y-6 min-w-1/2 max-w-1/2' onSubmit={onSubmit}>
@@ -340,7 +318,7 @@ export const ProductWrite = () => {
                         상픔 설명
                     </label>
                     <div className="mt-2">
-                        <ProductEditor/>
+                        <ProductEditor value={productDes} setValue={setProductDes}/>
                     </div>
                 </div>
 
