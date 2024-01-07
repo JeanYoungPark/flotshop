@@ -13,7 +13,7 @@ export class CustomUploadAdapter {
                 data.append("data", file);
 
                 // 데이터를 서버로 전송하는 부분을 여기에 작성해야 합니다.
-                const response = await axios.post("http://localhost:3001/api/board/uploadtmp", data, {
+                const response = await axios.post("http://localhost:3001/api/board/upload/temp", data, {
                     headers: {'Content-type': 'multipart/form-data'}
                 });
                 
