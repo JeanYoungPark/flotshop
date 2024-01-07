@@ -23,6 +23,7 @@ export const ProductWrite = () => {
     const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
     const [categoryDetailList, setCategoryDetailList] = useState<categoryListType[]>([]);
     const [optionList, setOptionList] = useState<categoryListType[]>([]);
+    const [optionDetailList, setOptionDetailList] = useState<categoryListType[]>([]);
     const [newProduct, setNewProduct] = useState<string>('');
     const [productName, setProductName] = useState<string>('');
     const [productPrice, setProductPrice] = useState<string>('');
@@ -79,9 +80,9 @@ export const ProductWrite = () => {
         }
     }, []);
 
-     /**
-         * 서브 카테고리 리스트 호출
-         */
+    /**
+     * 서브 카테고리 리스트 호출
+     */
      const categoryDetailListApi = useCallback(async(id: number) => {
         try {
             const res = await axios.post(`http://localhost:3001/api/category/${id}/detail`);
@@ -94,6 +95,34 @@ export const ProductWrite = () => {
         }
     }, []);
 
+
+    const optionListApi = useCallback(async() => {
+        try {
+            const res = await axios.post('http://localhost:3001/api/option');
+            
+            if(res.status === 200){
+                setOptionList([...res.data.option]);
+            }
+        } catch (error) {
+            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+        }
+    }, []);
+
+    /**
+     * 서브 옵션 리스트 호출
+     */
+    const optionDetailListApi = useCallback(async(id: number) => {
+        try {
+            const res = await axios.post(`http://localhost:3001/api/option/${id}/detail`);
+            
+            if(res.status === 200){
+                setOptionDetailList([...res.data.optionDetail]);
+            }
+        } catch (error) {
+            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
+        }
+    }, []);
+    
     const onSubmit = useCallback(async (e:SyntheticEvent) => {
         e.preventDefault();
 
@@ -139,6 +168,7 @@ export const ProductWrite = () => {
 
     useEffect(() => {
         categoryListApi();
+        optionListApi();
     }, [categoryListApi]);
     
     return (
@@ -319,7 +349,7 @@ export const ProductWrite = () => {
                                         >
                                             {({ selected, active }) => (
                                             <>
-                                                <div className="flex items-center">
+                                                <div className="flex items-center" onClick={() => optionDetailListApi(data.id)}>
                                                     <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
                                                         {data.title}
                                                     </span>
@@ -345,6 +375,13 @@ export const ProductWrite = () => {
                             </>
                         )}
                     </Listbox>
+                    <div className='pt-2'>
+                        <p>항목: 
+                        {optionDetailList.map((data, i) => (
+                            <span key={i} className='ml-1 p-1 rounded inline-block bg-gray-200'>{data.title}</span>
+                        ))}
+                        </p>
+                    </div>
                 </div>
 
                 <div>
