@@ -1,8 +1,8 @@
-import React, { useState, Dispatch, SetStateAction } from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import { CKEditor } from '@ckeditor/ckeditor5-react'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import { CustomUploadAdapter } from 'components/ckeditor/CustomUploadAdapter';
-import { FileLoader } from '@ckeditor/ckeditor5-upload';
+import { CustomUploadAdapter } from 'components/ckeditor/CustomUploadAdapter'
+import { FileLoader } from '@ckeditor/ckeditor5-upload'
 
 type ProductEditorProps = {
     value: string | undefined;

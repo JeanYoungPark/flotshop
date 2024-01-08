@@ -1,34 +1,21 @@
-import axios from 'axios';
 import React, { useEffect, useState, useCallback } from 'react'
-import { useNavigate } from 'react-router';
+import axios from 'axios'
+import { useNavigate } from 'react-router'
+import { handleAsyncRequest } from 'api/api'
 
 export const AdminList = () => {
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
 
     const onDelete = useCallback(async(userId : Number) => {
-        try {
-            const res = await axios.delete('http://localhost:3001/api/user/delete');
-            if(res.data.result){
-                alert('삭제되었습니다.');
-            }else{
-                alert(res.data.message);
-            }
-        } catch (error) {
-            console.log(error);
-        }
+        await handleAsyncRequest(() => axios.delete('/api/user/delete'));
+        alert('삭제되었습니다.');
     }, []);
 
     useEffect(() => {
         const getAdmin = async() => {
-            try {
-                const res = await axios.post('http://localhost:3001/api/admin/user/list');
-                if(res.status === 200) {
-                    setUsers(res.data.users);
-                }
-            } catch (error) {
-                console.log(error);
-            }
+            const res = await handleAsyncRequest(() => axios.post('/api/admin/user/list'));
+            setUsers(res.users);
         }
 
         getAdmin();

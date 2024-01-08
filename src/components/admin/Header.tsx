@@ -1,10 +1,11 @@
-import axios from 'axios';
 import React, { useCallback, useState, useEffect } from 'react'
+import axios from 'axios'
 import { RiListCheck, RiLoginBoxLine, RiPencilLine, RiPriceTag3Line } from 'react-icons/ri'
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from 'react-router-dom';
-import { RootState } from 'store';
-import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom'
+import { RootState } from 'store'
+import { useCookies } from 'react-cookie'
+import { handleAsyncRequest } from 'api/api'
 
 type categoryListType = {
     id: number,
@@ -25,27 +26,14 @@ export const Header = () => {
     }, [dispatch, navigate])
 
     const categoryListApi = useCallback(async () => {
-        try {
-            const res = await axios.post('http://localhost:3001/api/category');
-            
-            if(res.status === 200){
-                setCategoryList([...res.data.category]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post('/api/category'));
+        setCategoryList([...res.category]);
     }, []);
 
     const onLogout = useCallback(async() => {
-        try {
-            const res = await axios.post('http://localhost:3001/api/logout', {id: userInfo.id});
-            if(res.status === 200){
-                removeCookie('flotshopUserSession', {path: '/'});
-                navigate('/admin/login');
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        await handleAsyncRequest(() => axios.post('/api/logout', {id: userInfo.id}));
+        removeCookie('flotshopUserSession', {path: '/'});
+        navigate('/admin/login');
     }, [navigate, removeCookie, userInfo.id]);
 
     useEffect(() => {

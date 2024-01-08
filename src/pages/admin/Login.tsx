@@ -1,25 +1,26 @@
 import React, {useCallback, useState, SyntheticEvent} from 'react'
 import { Header } from 'components/admin/Header'
-import axios from 'axios';
-import { useCookies  } from 'react-cookie';
-import { useNavigate } from 'react-router';
-import { useDispatch } from 'react-redux';
+import axios from 'axios'
+import { useCookies  } from 'react-cookie'
+import { useNavigate } from 'react-router'
+import { useDispatch } from 'react-redux'
+import { handleAsyncRequest } from 'api/api'
 
 export const Login = () => {
     const [userId, setUserId] = useState<string>('');
     const [password, setPassword] = useState<string>('');
-    const [cookies, setCookies] = useCookies(['flotshopUserSession']);
+    const [, setCookies] = useCookies(['flotshopUserSession']);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const onSubmit = useCallback(async(e: SyntheticEvent) => {
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:3001/api/login', {user_id: userId, password: password});
+        const res = await handleAsyncRequest(() => axios.post('/api/login', {user_id: userId, password: password}));
         
-        if(res.data.result) {
-            const session = res.data.result.session_id;
-            const expirationDate = res.data.result.expired_at;
+        if(res.result) {
+            const session = res.result.session_id;
+            const expirationDate = res.result.expired_at;
             const date = new Date(expirationDate);
 
             setCookies('flotshopUserSession', session, {
@@ -28,17 +29,17 @@ export const Login = () => {
             });
             
             dispatch({type: 'setUser', data: {
-                id: res.data.user.id,
-                user_id: res.data.user.user_id,
-                name: res.data.user.name,
-                is_admin: res.data.user.is_admin
+                id: res.user.id,
+                user_id: res.user.user_id,
+                name: res.user.name,
+                is_admin: res.user.is_admin
             }});
 
             alert('로그인 되었습니다.');
             dispatch({type: 'setName', name: 'admin'});
             navigate('/admin/user/list');
         }else {
-            alert(res.data.message);
+            alert(res.message);
         }
     }, [dispatch, navigate, password, setCookies, userId]);
 

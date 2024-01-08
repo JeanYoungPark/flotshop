@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, SyntheticEvent, useRef} from 'react'
+import React, {useCallback, useEffect, SyntheticEvent, Fragment, useState } from 'react'
 import axios from 'axios'
-import { Fragment, useState } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
 import { useParams } from 'react-router'
 import { ProductEditor } from 'components/product/ProductEditor'
+import { handleAsyncRequest } from 'api/api'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
@@ -47,80 +47,49 @@ export const ProductWrite = () => {
     }, []);
 
     const handleFile = useCallback(async () => {
-        try {
-            const formData = new FormData();
-            formData.append('categoryId', selectedCategory);
+        const formData = new FormData();
+        formData.append('categoryId', selectedCategory);
 
-            for(let file of files){
-                formData.append('data', file);
-            }
-
-            const response = await axios.post("http://localhost:3001/api/admin/product/upload", formData, {
-                headers: {'Content-type': 'multipart/form-data'}
-            });
-
-            console.log(response);
-        } catch (error) {
-            
+        for(let file of files){
+            formData.append('data', file);
         }
+
+        const response = await handleAsyncRequest(() => axios.post("/api/admin/product/upload", formData, {
+            headers: {'Content-type': 'multipart/form-data'}
+        }));
+
+        console.log(response);
     }, [files, selectedCategory]);
     
     /**
      * 카테고리 리스트 호출
      */
     const categoryListApi = useCallback(async() => {
-        try {
-            const res = await axios.post('http://localhost:3001/api/category');
-            
-            if(res.status === 200){
-                setCategoryList([...res.data.category]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post('/api/category'));
+        
+        setCategoryList([...res.category]);
     }, []);
 
     /**
      * 서브 카테고리 리스트 호출
      */
      const categoryDetailListApi = useCallback(async(id: number) => {
-        try {
-            const res = await axios.post(`http://localhost:3001/api/category/${id}/detail`);
-            
-            if(res.status === 200){
-                setCategoryDetailList([...res.data.categoryDetail]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
+        setCategoryDetailList([...res.categoryDetail]);
     }, []);
 
 
     const optionListApi = useCallback(async() => {
-        try {
-            const res = await axios.post('http://localhost:3001/api/option');
-            
-            if(res.status === 200){
-                setOptionList([...res.data.option]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post('/api/option'));
+        setOptionList([...res.option]);
     }, []);
 
     /**
      * 서브 옵션 리스트 호출
      */
     const optionDetailListApi = useCallback(async(id: number) => {
-        try {
-            const res = await axios.post(`http://localhost:3001/api/option/${id}/detail`);
-            
-            if(res.status === 200){
-                setOptionDetailList([...res.data.optionDetail]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
+        setOptionDetailList([...res.optionDetail]);
     }, []);
     
     const onSubmit = useCallback(async (e:SyntheticEvent) => {
@@ -156,20 +125,17 @@ export const ProductWrite = () => {
             name: productName,
             price: productPrice,
         }
-        try {
-            const res = await axios.post('http://localhost:3001/api/product/add')
-        } catch (error) {
-            
-        }
+
+        const res = await handleAsyncRequest(() => axios.post('/api/product/add'));
         handleFile();
 
 
-    }, [handleFile, productName, productPrice, selectedCategory, selectedCategoryDetail]);
+    }, [handleFile, productDes, productName, productPrice, selectedCategory, selectedCategoryDetail]);
 
     useEffect(() => {
         categoryListApi();
         optionListApi();
-    }, [categoryListApi]);
+    }, [categoryListApi, optionListApi]);
     
     return (
         <div className='pt-10 pb-10 flex w-full h-full justify-center items-center'>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, SyntheticEvent } from 'react'
 import { Dialog } from '@headlessui/react'
 import axios from 'axios'
+import { handleAsyncRequest } from 'api/api'
 
 type optionListType = {
     id: number,
@@ -18,19 +19,13 @@ export const Option = () => {
     const onSubmit = useCallback(async(e: SyntheticEvent) => {
         e.preventDefault();
         
-        try {
-            const res = await axios.post('http://localhost:3001/api/option/add', {title: optionValue});
-            
-            if(res.status === 200){
-                setOptionList([
-                    ...optionList,
-                    res.data.result
-                ]);
-                setOptionValue('');
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post('/api/option/add', {title: optionValue}));
+        
+        setOptionList([
+            ...optionList,
+            res.result
+        ]);
+        setOptionValue('');
     }, []);
     
     /**
@@ -64,17 +59,11 @@ export const Option = () => {
      */
      const optionDetailListApi = useCallback(async(id: number) => {
         
-        try {
-            const res = await axios.post(`http://localhost:3001/api/option/${id}/detail`);
-            
-            if(res.status === 200){
-                setIsOpen(true);
-                setOptionSelected(id);
-                setOptionDetailList([...res.data.optionDetail]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+         const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
+         
+         setIsOpen(true);
+         setOptionSelected(id);
+         setOptionDetailList([...res.optionDetail]);
     },[]);
 
     /**
@@ -83,20 +72,13 @@ export const Option = () => {
     const onSubmitDetail = useCallback(async(e: SyntheticEvent) => {
         e.preventDefault();
 
-        try {
-            const res = await axios.post(`http://localhost:3001/api/option/${optionSelected}/detail/add`, {title: optionDetailValue});
-            
-            if(res.status === 200){
-                setOptionDetailValue('');
-                setOptionDetailList([
-                    ...optionDetailList,
-                    res.data.result
-                ]);
-            }
-
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }        
+        const res = await handleAsyncRequest(() => axios.post(`/api/option/${optionSelected}/detail/add`, {title: optionDetailValue}));
+        
+        setOptionDetailValue('');
+        setOptionDetailList([
+            ...optionDetailList,
+            res.result
+        ]);      
     }, [optionDetailList, optionDetailValue, optionSelected]);
 
     /**
@@ -117,16 +99,9 @@ export const Option = () => {
 
     useEffect(() => {
         const optionList = (async() => {
-            try {
-                const res = await axios.post('http://localhost:3001/api/option');
-                
-                if(res.status === 200){
-                    setOptionList([...res.data.option]);
-                }
-                
-            } catch (error) {
-                console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-            }
+            const res = await handleAsyncRequest(() => axios.post('/api/option'));
+            
+            setOptionList([...res.option]);
         });
 
         optionList();

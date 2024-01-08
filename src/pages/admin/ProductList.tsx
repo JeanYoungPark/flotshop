@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, {useEffect, useState, useCallback} from 'react'
 import { useNavigate, useParams } from 'react-router'
+import { handleAsyncRequest } from 'api/api'
 
 const people = [
     {
@@ -39,30 +40,16 @@ export const ProductList = () => {
 
     useEffect(() => {
         const categoryInfoApi = async() => {
-            try {
-                const res = await axios.post(`http://localhost:3001/api/category/info/${categoryId}`);
-                
-                if(res.status === 200){
-                    setCategory(res.data.title);
-                }
-            } catch (error) {
-                console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-            }
+            const res = await handleAsyncRequest(() => axios.post(`/api/category/info/${categoryId}`));
+            setCategory(res.title);
         }
 
         /**
          * 서브 카테고리 리스트 호출
          */
         const categoryDetailListApi = async() => {
-            try {
-                const res = await axios.post(`http://localhost:3001/api/category/${categoryId}/detail`);
-                
-                if(res.status === 200){
-                    setCategoryDetailList([...res.data.categoryDetail]);
-                }
-            } catch (error) {
-                console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-            }
+            const res = await handleAsyncRequest(() => axios.post(`/api/category/${categoryId}/detail`));
+            setCategoryDetailList([...res.categoryDetail]);
         };
 
         categoryInfoApi();

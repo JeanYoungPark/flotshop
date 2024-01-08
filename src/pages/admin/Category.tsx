@@ -1,6 +1,7 @@
 import React, {useState, useCallback, SyntheticEvent, useEffect} from 'react'
 import { Dialog } from '@headlessui/react'
-import axios from 'axios';
+import axios from 'axios'
+import { handleAsyncRequest } from 'api/api'
 
 type categoryListType = {
     id: number,
@@ -20,34 +21,23 @@ export const Category = () => {
      */
     const onSubmit = useCallback(async(e: SyntheticEvent) => {
         e.preventDefault();
-        try {
-            const res = await axios.post('http://localhost:3001/api/category/add', {title: categoryValue});
-            
-            if(res.status === 200){
-                setCategoryList([
-                    ...categoryList,
-                    res.data.result
-                ]);
-                setCategoryValue('');
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post('/api/category/add', {title: categoryValue}));
+        
+        setCategoryList([
+            ...categoryList,
+            res.result
+        ]);
+
+        setCategoryValue('');
     }, [categoryList, categoryValue]);
 
     /**
      * 카테고리 리스트 호출
      */
     const categoryListApi = useCallback(async() => {
-        try {
-            const res = await axios.post('http://localhost:3001/api/category');
-            
-            if(res.status === 200){
-                setCategoryList([...res.data.category]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post('/api/category'));
+        
+        setCategoryList([...res.category]);
     }, []);
 
 
@@ -58,19 +48,12 @@ export const Category = () => {
         const confirm = window.confirm('소분류 및 관련 상품이 모두 삭제 됩니다.\n삭제하시겠습니까?');
 
         if(confirm){
-            const res = await axios.post(`http://localhost:3001/api/category/${id}/detail`);
+            const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
             
             if(res.status === 200){
-                if(res.data.categoryDetail.length === 0){
-                    try {
-                        const res = await axios.delete(`http://localhost:3001/api/category/${id}`);
-                        
-                        if(res.status === 200){
-                            categoryListApi();
-                        }
-                    } catch (error) {
-                        console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-                    }
+                if(res.categoryDetail.length === 0){
+                    await handleAsyncRequest(() => axios.delete(`/api/category/${id}`));
+                    categoryListApi();
                 }
             }
         }
@@ -81,17 +64,11 @@ export const Category = () => {
      * 서브 카테고리 리스트 호출
      */
     const categoryDetailListApi = useCallback(async(id: number) => {
-        try {
-            const res = await axios.post(`http://localhost:3001/api/category/${id}/detail`);
-            
-            if(res.status === 200){
-                setIsOpen(true);
-                setCategorySelected(id);
-                setCategoryDetailList([...res.data.categoryDetail]);
-            }
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }
+        const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
+        
+        setIsOpen(true);
+        setCategorySelected(id);
+        setCategoryDetailList([...res.categoryDetail]);
     },[]);
 
     /**
@@ -100,20 +77,13 @@ export const Category = () => {
     const onSubmitDetail = useCallback(async(e: SyntheticEvent) => {
         e.preventDefault();
 
-        try {
-            const res = await axios.post(`http://localhost:3001/api/category/${categorySelected}/detail/add`, {title: categoryDetailValue});
-            
-            if(res.status === 200){
-                setCategoryDetailValue('');
-                setCategoryDetailList([
-                    ...categoryDetailList,
-                    res.data.result
-                ]);
-            }
-
-        } catch (error) {
-            console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
-        }        
+        const res = await handleAsyncRequest(() => axios.post(`/api/category/${categorySelected}/detail/add`, {title: categoryDetailValue}));
+        
+        setCategoryDetailValue('');
+        setCategoryDetailList([
+            ...categoryDetailList,
+            res.result
+        ]);     
     }, [categoryDetailList, categoryDetailValue, categorySelected]);
 
     /**
