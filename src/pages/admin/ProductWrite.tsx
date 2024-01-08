@@ -11,15 +11,15 @@ function classNames(...classes: [string, string]) {
 }
 
 type categoryListType = {
-    id: number,
-    title: string
+    id: number | undefined,
+    title: string | undefined
 }
 
 export const ProductWrite = () => {
     const { id } = useParams();
-    const [selectedCategory, setSelectedCategory] = useState<string>('선택해주세요.');
-    const [selectedCategoryDetail, setSelectedCategoryDetail] = useState<string>('선택해주세요.');
-    const [selectedOption, setSelectedOption] = useState<string>('선택해주세요.');
+    const [selectedCategory, setSelectedCategory] = useState<categoryListType>({id: undefined, title: undefined});
+    const [selectedCategoryDetail, setSelectedCategoryDetail] = useState<categoryListType>({id: undefined, title: undefined});
+    const [selectedOption, setSelectedOption] = useState<categoryListType>({id: undefined, title: undefined});
     const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
     const [categoryDetailList, setCategoryDetailList] = useState<categoryListType[]>([]);
     const [optionList, setOptionList] = useState<categoryListType[]>([]);
@@ -48,32 +48,35 @@ export const ProductWrite = () => {
 
     const handleFile = useCallback(async () => {
         const formData = new FormData();
-        formData.append('categoryId', selectedCategory);
-
-        for(let file of files){
-            formData.append('data', file);
+        if(selectedCategory.id){
+            formData.append('categoryId', selectedCategory.id.toString());
+    
+            for(let file of files){
+                formData.append('data', file);
+            }
+    
+            await handleAsyncRequest(() => axios.post("/api/admin/product/upload", formData, {
+                headers: {'Content-type': 'multipart/form-data'}
+            }));
         }
-
-        const response = await handleAsyncRequest(() => axios.post("/api/admin/product/upload", formData, {
-            headers: {'Content-type': 'multipart/form-data'}
-        }));
-
-        console.log(response);
     }, [files, selectedCategory]);
     
+    const handleImage = useCallback(async(imgs: string[]) => {
+        const res = await handleAsyncRequest(() => axios.post('/api/board/upload', imgs));
+    }, []);
+
     /**
      * 카테고리 리스트 호출
      */
     const categoryListApi = useCallback(async() => {
         const res = await handleAsyncRequest(() => axios.post('/api/category'));
-        
         setCategoryList([...res.category]);
     }, []);
 
     /**
      * 서브 카테고리 리스트 호출
      */
-     const categoryDetailListApi = useCallback(async(id: number) => {
+     const categoryDetailListApi = useCallback(async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
         setCategoryDetailList([...res.categoryDetail]);
     }, []);
@@ -87,14 +90,15 @@ export const ProductWrite = () => {
     /**
      * 서브 옵션 리스트 호출
      */
-    const optionDetailListApi = useCallback(async(id: number) => {
+    const optionDetailListApi = useCallback(async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
         setOptionDetailList([...res.optionDetail]);
     }, []);
     
     const onSubmit = useCallback(async (e:SyntheticEvent) => {
         e.preventDefault();
-
+        const matches = [];
+        
         if(!selectedCategory){
             alert('카테고리를 선택해주세요.');
             return false;
@@ -118,20 +122,30 @@ export const ProductWrite = () => {
         if(!productDes){
             alert('상품 설명을 입력해주세요.');
             return false;
+        }else{
+            const regex = /data-id="(\d+)"/g;
+            let match;
+
+            while ((match = regex.exec(productDes)) !== null) {
+                matches.push(match[1]);
+            }
         }
 
         const data = {
-            category_id: selectedCategoryDetail,
+            category_id: selectedCategoryDetail.id,
             name: productName,
             price: productPrice,
+            option_id: selectedOption.id,
+            description: productDes
         }
 
-        const res = await handleAsyncRequest(() => axios.post('/api/product/add'));
+        const res = await handleAsyncRequest(() => axios.post('/api/admin/product/add', data));
         handleFile();
+        handleImage(matches);
 
 
-    }, [handleFile, productDes, productName, productPrice, selectedCategory, selectedCategoryDetail]);
-
+    }, [handleFile, handleImage, productDes, productName, productPrice, selectedCategory, selectedCategoryDetail, selectedOption.id]);
+    
     useEffect(() => {
         categoryListApi();
         optionListApi();
@@ -164,7 +178,7 @@ export const ProductWrite = () => {
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selectedCategory}</span>
+                                    <span className="ml-3 block truncate">{selectedCategory.id ? selectedCategory.title: '선택해주세요.'}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -186,7 +200,7 @@ export const ProductWrite = () => {
                                                 active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                                 'relative cursor-default select-none py-2 pl-1 pr-9'
                                             )}
-                                            value={data.title}
+                                            value={data}
                                         >
                                             {({ selected, active }) => (
                                             <>
@@ -226,7 +240,7 @@ export const ProductWrite = () => {
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selectedCategoryDetail}</span>
+                                    <span className="ml-3 block truncate">{selectedCategoryDetail.title ? selectedCategoryDetail.title : '선택해주세요.'}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -249,7 +263,7 @@ export const ProductWrite = () => {
                                                     active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                                     'relative cursor-default select-none py-2 pl-1 pr-9'
                                                 )}
-                                                value={data.title}
+                                                value={data}
                                             >
                                                 {({ selected, active }) => (
                                                 <>
@@ -289,7 +303,7 @@ export const ProductWrite = () => {
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selectedOption}</span>
+                                    <span className="ml-3 block truncate">{selectedOption.title ? selectedOption.title : '선택해주세요.'}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -311,7 +325,7 @@ export const ProductWrite = () => {
                                                 active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                                                 'relative cursor-default select-none py-2 pl-1 pr-9'
                                             )}
-                                            value={data.title}
+                                            value={data}
                                         >
                                             {({ selected, active }) => (
                                             <>

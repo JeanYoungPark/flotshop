@@ -19,7 +19,7 @@ export class CustomUploadAdapter {
                 }));
                 
                 // 아래 코드는 Blob URL을 생성하며 이를 사용하여 이미지를 삽입합니다.
-                resolve({ default: `http://localhost:3001${response.data.result.img_path}/${response.data.result.image_hash}` });
+                resolve({ default: `http://localhost:3001${response.result.img_path}/${response.result.image_hash}`, dataId: response.result.id });
             });
         });
     }

@@ -19,7 +19,6 @@ axios.interceptors.request.use(
 export const handleAsyncRequest = async (asyncFunction: any) => {
     try {
         const response = await asyncFunction();
-        console.log(response);
         return response.data;
     } catch (error) {
         console.error('Error:', error);
