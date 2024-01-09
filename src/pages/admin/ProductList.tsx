@@ -84,7 +84,7 @@ export const ProductList = () => {
                                 </div>
                             </div>
                             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                <button onClick={() => navigate(`/admin/products/${category}/1/modify`)} className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>수정</button>
+                                <button onClick={() => navigate(`/admin/products/${categoryId}/modify/${data.id}`)} className='rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>수정</button>
                             </div>
                         </li>
                     ))}
