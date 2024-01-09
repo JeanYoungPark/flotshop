@@ -48,8 +48,8 @@ export const ProductWrite = () => {
 
     const handleFile = useCallback(async () => {
         const formData = new FormData();
-        if(selectedCategory.id){
-            formData.append('categoryId', selectedCategory.id.toString());
+        if(selectedCategoryDetail.id){
+            formData.append('categoryId', selectedCategoryDetail.id.toString());
     
             for(let file of files){
                 formData.append('data', file);
@@ -59,7 +59,7 @@ export const ProductWrite = () => {
                 headers: {'Content-type': 'multipart/form-data'}
             }));
         }
-    }, [files, selectedCategory]);
+    }, [files, selectedCategoryDetail]);
     
     const handleImage = useCallback(async(imgs: string[]) => {
         const res = await handleAsyncRequest(() => axios.post('/api/board/upload', imgs));
@@ -142,6 +142,8 @@ export const ProductWrite = () => {
         const res = await handleAsyncRequest(() => axios.post('/api/admin/product/add', data));
         handleFile();
         handleImage(matches);
+
+        // 상품 상세로 이동
 
 
     }, [handleFile, handleImage, productDes, productName, productPrice, selectedCategory, selectedCategoryDetail, selectedOption.id]);
