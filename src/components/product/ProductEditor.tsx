@@ -6,7 +6,7 @@ import { FileLoader } from '@ckeditor/ckeditor5-upload'
 
 type ProductEditorProps = {
     value: string | undefined;
-    setValue: Dispatch<SetStateAction<string | undefined>>;
+    setValue: (value: string) => void;
   }
 
 export const ProductEditor = ({ value, setValue } : ProductEditorProps) => {

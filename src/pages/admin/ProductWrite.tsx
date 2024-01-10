@@ -16,7 +16,7 @@ type categoryListType = {
 }
 
 export const ProductWrite = () => {
-    const { id } = useParams();
+    const { categoryId, id } = useParams();
     const [selectedCategory, setSelectedCategory] = useState<categoryListType>({id: undefined, title: undefined});
     const [selectedCategoryDetail, setSelectedCategoryDetail] = useState<categoryListType>({id: undefined, title: undefined});
     const [selectedOption, setSelectedOption] = useState<categoryListType>({id: undefined, title: undefined});

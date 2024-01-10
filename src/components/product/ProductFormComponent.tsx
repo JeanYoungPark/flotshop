@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState, Fragment, Dispatch, SetStateAction } from 'react'
+import React, { useState, useCallback, Fragment } from 'react'
 import axios from 'axios'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
-import { ProductEditor } from 'components/product/ProductEditor'
 import { handleAsyncRequest } from 'api/api'
+import { ProductEditor } from 'components/product/ProductEditor'
 
 const classNames = (...classes: [string, string]) => {
     return classes.filter(Boolean).join(' ')
@@ -14,63 +14,86 @@ type categoryType = {
     title: string | undefined
 }
 
-
-type categoryListType = {
+type optionType = {
     id: number | undefined,
     title: string | undefined
 }
 
 type formType = {
-    category_id: string,
+    id: number,
     onSubmit: () => void,
-    categoryState: {value: categoryType, set: (value: categoryType) => void},
-    categoryDetailState: {value: categoryType, set: (value: categoryType) => void}
+    newProduct: {value: string, setValue: (value: string) => void},
+    selectedCategory: {value: categoryType, setValue: (value: categoryType) => void},
+    selectedCategoryDetail: {value: categoryType, setValue: (value: categoryType) => void},
+    selectedOption: {value: optionType, setValue: (value: optionType) => void},
+    productName: {value: string, setValue: (value: string) => void},
+    productPrice: {value: string, setValue: (value: string) => void},
+    productDiscount: {value: string, setValue: (value: string) => void},
+    productDes: {value: string, setValue: (value: string) => void},
 }
 
-export const ProductForm = ({ category_id, onSubmit, categoryState } : formType) => {
-    const [newProduct, setNewProduct] = useState<string>('');
+export const ProductFormComponent = (props: formType) => {
+    const { id, onSubmit, newProduct, selectedCategory, selectedCategoryDetail, selectedOption, productName, productPrice, productDiscount, productDes } = props;
+    
+    const [categoryList, setCategoryList] = useState<categoryType[]>([]);
+    const [categoryDetailList, setCategoryDetailList] = useState<categoryType[]>([]);
+    const [optionList, setOptionList] = useState<optionType[]>([]);
+    const [optionDetailList, setOptionDetailList] = useState<optionType[]>([]);
 
-    // 큰 카테고리 리스트
-    const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
+    const [files, setFiles] = useState<File[]>([]);
+    const [prevImg, setPrevImg] = useState<string[]>([]);
 
-    //카테고리 리스트 호출
-    const categoryListApi = useCallback(async() => {
-        const res = await handleAsyncRequest(() => axios.post('/api/category'));
-        setCategoryList([...res.category]);
-    }, []);
-
-    //서브 카테고리 리스트 호출
     const categoryDetailListApi = useCallback(async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
-        categoryDetailState.set([...res.categoryDetail]);
+        setCategoryDetailList([...res.categoryDetail]);
     }, []);
 
-    useEffect(() => {
-        categoryListApi();
-    }, [])
+    const optionDetailListApi = useCallback(async(id: number | undefined) => {
+        const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
+        setOptionDetailList([...res.optionDetail]);
+    }, []);
+
+    const onChangeFiles = useCallback((e: any) => {
+        const newFiles = e.target.files;
+        const FileList = [];
+        const urlList = [];
+
+        for(let i = 0; i < newFiles.length; i++) {
+            FileList.push(newFiles[i]);
+            urlList.push(URL.createObjectURL(newFiles[i]));
+        }
+        
+        setFiles(FileList);
+        setPrevImg(urlList);
+    }, []);
 
     return (
         <form className='space-y-6 min-w-1/2 max-w-1/2' onSubmit={onSubmit}>
-            <h1 className="text-xl font-semibold leading-10 text-gray-900">{category_id ? '상품 수정' : '상품 등록'}</h1>
+            <h1 className="text-xl font-semibold leading-10 text-gray-900">{id ? '상품 수정' : '상품 등록'}</h1>
             <div>
                 <div className='flex'>
                     <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900 mr-2">새상품</label>
                     <div className="flex h-6 items-center">
-                        <input id="new" onChange={(e) => setNewProduct(e.target.value)} type="checkbox" className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"/>
+                        <input
+                        id="new"
+                        onChange={(e) => newProduct.setValue(e.target.value)}
+                        type="checkbox"
+                        className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        />
                     </div>
                 </div>
                 <p className="mt-1 text-sm leading-6 text-gray-600">새상품 체크 시 상품 타이틀 우측의 'new'아이콘이 노출됩니다.</p>
             </div>
 
             <div>
-                <Listbox value={categoryState.value} onChange={categoryState.set}>
+                <Listbox value={selectedCategory.value} onChange={selectedCategory.setValue}>
                     {({ open }) => (
                         <>
                         <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">카테고리</Listbox.Label>
                         <div className="relative mt-2">
                             <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                             <span className="flex items-center">
-                                <span className="ml-3 block truncate">{categoryState.value.id ? categoryState.value.title: '선택해주세요.'}</span>
+                                <span className="ml-3 block truncate">{selectedCategory.value.id ? selectedCategory.value.title: '선택해주세요.'}</span>
                             </span>
                             <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -125,14 +148,14 @@ export const ProductForm = ({ category_id, onSubmit, categoryState } : formType)
             </div>
 
             <div>
-                <Listbox value={selectedCategoryDetail} onChange={setSelectedCategoryDetail}>
+                <Listbox value={selectedCategoryDetail.value} onChange={selectedCategoryDetail.setValue}>
                     {({ open }) => (
                         <>
                         <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">세부 카테고리</Listbox.Label>
                         <div className="relative mt-2">
                             <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                             <span className="flex items-center">
-                                <span className="ml-3 block truncate">{selectedCategoryDetail.title ? selectedCategoryDetail.title : '선택해주세요.'}</span>
+                                <span className="ml-3 block truncate">{selectedCategoryDetail.value.title ? selectedCategoryDetail.value.title : '선택해주세요.'}</span>
                             </span>
                             <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -188,14 +211,14 @@ export const ProductForm = ({ category_id, onSubmit, categoryState } : formType)
             </div>
 
             <div>
-                <Listbox value={selectedOption} onChange={setSelectedOption}>
+                <Listbox value={selectedOption.value} onChange={selectedOption.setValue}>
                     {({ open }) => (
                         <>
                         <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">옵션</Listbox.Label>
                         <div className="relative mt-2">
                             <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                             <span className="flex items-center">
-                                <span className="ml-3 block truncate">{selectedOption.title ? selectedOption.title : '선택해주세요.'}</span>
+                                <span className="ml-3 block truncate">{selectedOption.value.title ? selectedOption.value.title : '선택해주세요.'}</span>
                             </span>
                             <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -259,21 +282,21 @@ export const ProductForm = ({ category_id, onSubmit, categoryState } : formType)
             <div>
                 <label className="block text-sm font-medium leading-6 text-gray-900">상품명</label>
                 <div className="mt-2">
-                    <input id="name" type="text" required value={productName} onChange={(e) => setProductName(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                    <input id="name" type="text" required value={productName.value} onChange={(e) => productName.setValue(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                 </div>
             </div>
 
             <div>
                 <label className="block text-sm font-medium leading-6 text-gray-900">금액</label>
                 <div className="mt-2">
-                    <input id="price" type="text" required value={productPrice} onChange={(e) => setProductPrice(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                    <input id="price" type="text" required value={productPrice.value} onChange={(e) => productPrice.setValue(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                 </div>
             </div>
 
             <div>
                 <label className="block text-sm font-medium leading-6 text-gray-900">할인률</label>
                 <div className="mt-2">
-                    <input id="discount" type="text" required value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                    <input id="discount" type="text" required value={productDiscount.value} onChange={(e) => productDiscount.setValue(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                 </div>
             </div>
 
@@ -308,7 +331,7 @@ export const ProductForm = ({ category_id, onSubmit, categoryState } : formType)
                     상픔 설명
                 </label>
                 <div className="mt-2">
-                    <ProductEditor value={productDes} setValue={setProductDes}/>
+                    <ProductEditor value={productDes.value} setValue={productDes.setValue}/>
                 </div>
             </div>
 
