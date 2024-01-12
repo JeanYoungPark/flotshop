@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, SyntheticEvent, useContext } from 'react'
+import React, { useState, useEffect, SyntheticEvent, useContext } from 'react'
 import { adminFormContext } from 'pages/admin/AdminRegister'
 import { useNavigate } from 'react-router'
 import axios from 'axios'
@@ -22,7 +22,7 @@ export const AdminForm = () => {
         navigate(-1);
     };
 
-    const onSubmit = useCallback(async () => {
+    const onSubmit = async () => {
         const data = {
             user_id: userId,
             password: password,
@@ -33,9 +33,9 @@ export const AdminForm = () => {
         await handleAsyncRequest(() => axios.post('/api/admin/user/join', data));
         alert('등록되었습니다.');
         navigate('/admin/user/list');
-    }, [email, name, navigate, password, userId])
+    }
 
-    const onUpdateSubmit = useCallback(async() => {
+    const onUpdateSubmit = async() => {
         const data = {
             id: id,
             user_id: userId,
@@ -48,9 +48,9 @@ export const AdminForm = () => {
         await handleAsyncRequest(() => axios.post('/api/user/update', data));
         alert('수정되었습니다.');
         navigate(`/admin/user/modify/${id}`);
-    }, [email, id, name, navigate, newPassword, password, userId])
+    }
 
-    const chkUser = useCallback(async() => {
+    const chkUser = async() => {
         const res = await handleAsyncRequest(() => axios.post('/api/find/user', {user_id: userId}));
         
         if(res.data.user !== null){
@@ -59,9 +59,9 @@ export const AdminForm = () => {
         }
 
         return true;
-    }, [userId]);
+    }
     
-    const onValidate = useCallback(async(e: SyntheticEvent) => {
+    const onValidate = async(e: SyntheticEvent) => {
         e.preventDefault();
 
         const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -101,7 +101,7 @@ export const AdminForm = () => {
             
             if(existUser) onSubmit();
         }
-    }, [chkUser, email, id, name?.length, newPassword, newPassword2, newPasswordBtn, onSubmit, onUpdateSubmit, password?.length, userId?.length]);
+    }
 
     useEffect(() => {
         if(emailId && emailDomain){

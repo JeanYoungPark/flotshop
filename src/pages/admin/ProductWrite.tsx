@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, SyntheticEvent, Fragment, useState } from 'react'
+import React, { useEffect, SyntheticEvent, Fragment, useState } from 'react'
 import axios from 'axios'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
@@ -32,7 +32,7 @@ export const ProductWrite = () => {
     const [prevImg, setPrevImg] = useState<string[]>([]);
     const [productDes, setProductDes] = useState<string | undefined>(undefined);
     
-    const onChangeFiles = useCallback((e: any) => {
+    const onChangeFiles = (e: any) => {
         const newFiles = e.target.files;
         const FileList = [];
         const urlList = [];
@@ -44,9 +44,9 @@ export const ProductWrite = () => {
         
         setFiles(FileList);
         setPrevImg(urlList);
-    }, []);
+    }
 
-    const handleFile = useCallback(async () => {
+    const handleFile = async () => {
         const formData = new FormData();
         if(selectedCategoryDetail.id){
             formData.append('categoryId', selectedCategoryDetail.id.toString());
@@ -59,43 +59,43 @@ export const ProductWrite = () => {
                 headers: {'Content-type': 'multipart/form-data'}
             }));
         }
-    }, [files, selectedCategoryDetail]);
+    }
     
-    const handleImage = useCallback(async(imgs: string[]) => {
+    const handleImage = async(imgs: string[]) => {
         const res = await handleAsyncRequest(() => axios.post('/api/board/upload', imgs));
-    }, []);
+    }
 
     /**
      * 카테고리 리스트 호출
      */
-    const categoryListApi = useCallback(async() => {
+    const categoryListApi = async() => {
         const res = await handleAsyncRequest(() => axios.post('/api/category'));
         setCategoryList([...res.category]);
-    }, []);
+    }
 
     /**
      * 서브 카테고리 리스트 호출
      */
-     const categoryDetailListApi = useCallback(async(id: number | undefined) => {
+     const categoryDetailListApi = async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
         setCategoryDetailList([...res.categoryDetail]);
-    }, []);
+    }
 
 
-    const optionListApi = useCallback(async() => {
+    const optionListApi = async() => {
         const res = await handleAsyncRequest(() => axios.post('/api/option'));
         setOptionList([...res.option]);
-    }, []);
+    }
 
     /**
      * 서브 옵션 리스트 호출
      */
-    const optionDetailListApi = useCallback(async(id: number | undefined) => {
+    const optionDetailListApi = async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
         setOptionDetailList([...res.optionDetail]);
-    }, []);
+    }
     
-    const onSubmit = useCallback(async (e:SyntheticEvent) => {
+    const onSubmit = async (e:SyntheticEvent) => {
         e.preventDefault();
         const matches = [];
         
@@ -146,7 +146,7 @@ export const ProductWrite = () => {
         // 상품 상세로 이동
 
 
-    }, [handleFile, handleImage, productDes, productName, productPrice, selectedCategory, selectedCategoryDetail, selectedOption.id]);
+    }
     
     useEffect(() => {
         categoryListApi();

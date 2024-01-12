@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, {useEffect, useState, useCallback} from 'react'
+import React, {useEffect, useState} from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { handleAsyncRequest } from 'api/api'
   
@@ -25,7 +25,7 @@ export const ProductList = () => {
     const [categoryDetailList, setCategoryDetailList] = useState<categoryListType[]>([]);
     const [productList, setProductList] = useState<productListType[]>([]);
 
-    const productListApi = useCallback(async(id: number) => {
+    const productListApi = async(id: number) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/admin/product/list`, {id: id}));
         const arr : productListType[] = [];
         
@@ -42,7 +42,7 @@ export const ProductList = () => {
         
         setProductList([...arr]);
         setSelectedCategoryDetail(id);
-    }, []);
+    }
     
     useEffect(() => {
         const categoryInfoApi = async() => {

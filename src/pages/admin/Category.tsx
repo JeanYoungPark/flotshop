@@ -1,4 +1,4 @@
-import React, {useState, useCallback, SyntheticEvent, useEffect} from 'react'
+import React, {useState, SyntheticEvent, useEffect} from 'react'
 import { Dialog } from '@headlessui/react'
 import axios from 'axios'
 import { handleAsyncRequest } from 'api/api'
@@ -19,7 +19,7 @@ export const Category = () => {
     /**
      * 카테고리 등록
      */
-    const onSubmit = useCallback(async(e: SyntheticEvent) => {
+    const onSubmit = async(e: SyntheticEvent) => {
         e.preventDefault();
         const res = await handleAsyncRequest(() => axios.post('/api/category/add', {title: categoryValue}));
         
@@ -29,22 +29,22 @@ export const Category = () => {
         ]);
 
         setCategoryValue('');
-    }, [categoryList, categoryValue]);
+    }
 
     /**
      * 카테고리 리스트 호출
      */
-    const categoryListApi = useCallback(async() => {
+    const categoryListApi = async() => {
         const res = await handleAsyncRequest(() => axios.post('/api/category'));
         
         setCategoryList([...res.category]);
-    }, []);
+    };
 
 
     /**
      * 카테고리 삭제
      */
-    const categoryDeleteApi = useCallback(async(id: number) => {
+    const categoryDeleteApi = async(id: number) => {
         const confirm = window.confirm('소분류 및 관련 상품이 모두 삭제 됩니다.\n삭제하시겠습니까?');
 
         if(confirm){
@@ -58,23 +58,23 @@ export const Category = () => {
             }
         }
 
-    }, [categoryListApi]);
+    }
 
     /**
      * 서브 카테고리 리스트 호출
      */
-    const categoryDetailListApi = useCallback(async(id: number) => {
+    const categoryDetailListApi = async(id: number) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
         
         setIsOpen(true);
         setCategorySelected(id);
         setCategoryDetailList([...res.categoryDetail]);
-    },[]);
+    }
 
     /**
      * 서브 카테고리 등록
      */
-    const onSubmitDetail = useCallback(async(e: SyntheticEvent) => {
+    const onSubmitDetail = async(e: SyntheticEvent) => {
         e.preventDefault();
 
         const res = await handleAsyncRequest(() => axios.post(`/api/category/${categorySelected}/detail/add`, {title: categoryDetailValue}));
@@ -84,12 +84,12 @@ export const Category = () => {
             ...categoryDetailList,
             res.result
         ]);     
-    }, [categoryDetailList, categoryDetailValue, categorySelected]);
+    }
 
     /**
      * 서브 카테고리 삭제
      */
-    const categoryDetailDeleteApi = useCallback(async(id: number) => {
+    const categoryDetailDeleteApi = async(id: number) => {
         // 상품이 있으면 물어보고 모두 삭제하고 카테고리 삭제
         try {
             // const res = await axios.delete(`http://localhost:3001/api/category/detail/${id}`);
@@ -100,7 +100,7 @@ export const Category = () => {
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
-    }, []);
+    }
 
     useEffect(() => {
         categoryListApi();

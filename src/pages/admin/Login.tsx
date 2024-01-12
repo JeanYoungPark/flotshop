@@ -1,4 +1,4 @@
-import React, {useCallback, useState, SyntheticEvent} from 'react'
+import React, { useState, SyntheticEvent} from 'react'
 import { Header } from 'components/admin/Header'
 import axios from 'axios'
 import { useCookies  } from 'react-cookie'
@@ -13,7 +13,7 @@ export const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onSubmit = useCallback(async(e: SyntheticEvent) => {
+    const onSubmit = async(e: SyntheticEvent) => {
         e.preventDefault();
 
         const res = await handleAsyncRequest(() => axios.post('/api/login', {user_id: userId, password: password}));
@@ -41,7 +41,7 @@ export const Login = () => {
         }else {
             alert(res.message);
         }
-    }, [dispatch, navigate, password, setCookies, userId]);
+    }
 
     return (
         <div>

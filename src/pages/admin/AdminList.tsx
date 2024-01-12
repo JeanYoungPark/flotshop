@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router'
 import { handleAsyncRequest } from 'api/api'
@@ -7,10 +7,10 @@ export const AdminList = () => {
     const [users, setUsers] = useState([]);
     const navigate = useNavigate();
 
-    const onDelete = useCallback(async(userId : Number) => {
+    const onDelete = async(userId : Number) => {
         await handleAsyncRequest(() => axios.delete('/api/user/delete'));
         alert('삭제되었습니다.');
-    }, []);
+    }
 
     useEffect(() => {
         const getAdmin = async() => {

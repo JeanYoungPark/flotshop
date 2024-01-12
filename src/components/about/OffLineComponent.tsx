@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import redArrow from 'assets/images/about/marker_red.png'
 import blueArrow from 'assets/images/about/marker_blue.png'
 import mintArrow from 'assets/images/about/marker_mint.png'
@@ -39,9 +39,9 @@ export const OffLineComponent = () => {
     const [staticInfo, setStaticInfo] = useState<JSX.Element[] | undefined>();
     const navigate = useNavigate();
 
-    const onClickHome = useCallback(() => {
+    const onClickHome = () => {
         navigate('/');
-    }, [navigate])
+    }
 
     useEffect(() => {
         const contentString = (markerInfo: InfoType) => {

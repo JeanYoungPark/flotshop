@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, SyntheticEvent } from 'react'
+import React, { useState, useEffect, SyntheticEvent } from 'react'
 import { Dialog } from '@headlessui/react'
 import axios from 'axios'
 import { handleAsyncRequest } from 'api/api'
@@ -16,7 +16,7 @@ export const Option = () => {
     const [optionDetailList, setOptionDetailList] = useState<optionListType[]>([]);
     const [optionSelected, setOptionSelected] = useState<number>();
 
-    const onSubmit = useCallback(async(e: SyntheticEvent) => {
+    const onSubmit = async(e: SyntheticEvent) => {
         e.preventDefault();
         
         const res = await handleAsyncRequest(() => axios.post('/api/option/add', {title: optionValue}));
@@ -26,12 +26,12 @@ export const Option = () => {
             res.result
         ]);
         setOptionValue('');
-    }, []);
+    }
     
     /**
      * 옵션 삭제
      */
-    const optionDeleteApi = useCallback(async(id: number) => {
+    const optionDeleteApi = async(id: number) => {
         // const confirm = window.confirm('소분류 및 관련 상품의 옵션이 모두 삭제 됩니다.\n삭제하시겠습니까?');
 
         // if(confirm){
@@ -52,24 +52,24 @@ export const Option = () => {
         //     }
         // }
 
-    }, []);
+    }
 
      /**
      * 서브 옵션 리스트 호출
      */
-     const optionDetailListApi = useCallback(async(id: number) => {
+     const optionDetailListApi = async(id: number) => {
         
          const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
          
          setIsOpen(true);
          setOptionSelected(id);
          setOptionDetailList([...res.optionDetail]);
-    },[]);
+    }
 
     /**
      * 서브 옵션 등록
      */
-    const onSubmitDetail = useCallback(async(e: SyntheticEvent) => {
+    const onSubmitDetail = async(e: SyntheticEvent) => {
         e.preventDefault();
 
         const res = await handleAsyncRequest(() => axios.post(`/api/option/${optionSelected}/detail/add`, {title: optionDetailValue}));
@@ -79,12 +79,12 @@ export const Option = () => {
             ...optionDetailList,
             res.result
         ]);      
-    }, [optionDetailList, optionDetailValue, optionSelected]);
+    }
 
     /**
      * 서브 옵션 삭제
      */
-    const optionDetailDeleteApi = useCallback(async(id: number) => {
+    const optionDetailDeleteApi = async(id: number) => {
         // 상품이 있으면 물어보고 모두 삭제하고 카테고리 삭제
         try {
             // const res = await axios.delete(`http://localhost:3001/api/category/detail/${id}`);
@@ -95,7 +95,7 @@ export const Option = () => {
         } catch (error) {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
-    }, []);
+    }
 
     useEffect(() => {
         const optionList = (async() => {

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, Fragment } from 'react'
+import React, { useState, Fragment } from 'react'
 import axios from 'axios'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
@@ -43,17 +43,17 @@ export const ProductFormComponent = (props: formType) => {
     const [files, setFiles] = useState<File[]>([]);
     const [prevImg, setPrevImg] = useState<string[]>([]);
 
-    const categoryDetailListApi = useCallback(async(id: number | undefined) => {
+    const categoryDetailListApi = async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
         setCategoryDetailList([...res.categoryDetail]);
-    }, []);
+    }
 
-    const optionDetailListApi = useCallback(async(id: number | undefined) => {
+    const optionDetailListApi = async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
         setOptionDetailList([...res.optionDetail]);
-    }, []);
+    }
 
-    const onChangeFiles = useCallback((e: any) => {
+    const onChangeFiles = (e: any) => {
         const newFiles = e.target.files;
         const FileList = [];
         const urlList = [];
@@ -65,7 +65,7 @@ export const ProductFormComponent = (props: formType) => {
         
         setFiles(FileList);
         setPrevImg(urlList);
-    }, []);
+    }
 
     return (
         <form className='space-y-6 min-w-1/2 max-w-1/2' onSubmit={onSubmit}>

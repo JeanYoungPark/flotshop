@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { RiListCheck, RiLoginBoxLine, RiPencilLine, RiPriceTag3Line } from 'react-icons/ri'
 import { useSelector, useDispatch } from "react-redux"
@@ -20,21 +20,21 @@ export const Header = () => {
     const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
     const [cookie, , removeCookie] = useCookies(['flotshopUserSession']);
 
-    const handleClickMenu = useCallback((menu: string, url:string) => {
+    const handleClickMenu = (menu: string, url:string) => {
         dispatch({type: 'setName', name: menu});
         navigate(url);
-    }, [dispatch, navigate])
+    }
 
-    const categoryListApi = useCallback(async () => {
+    const categoryListApi = async () => {
         const res = await handleAsyncRequest(() => axios.post('/api/category'));
         setCategoryList([...res.category]);
-    }, []);
+    }
 
-    const onLogout = useCallback(async() => {
+    const onLogout = async() => {
         await handleAsyncRequest(() => axios.post('/api/logout', {id: userInfo.id}));
         removeCookie('flotshopUserSession', {path: '/'});
         navigate('/admin/login');
-    }, [navigate, removeCookie, userInfo.id]);
+    }
 
     useEffect(() => {
         categoryListApi();
