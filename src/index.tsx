@@ -8,19 +8,25 @@ import { Provider } from 'react-redux';
 import { persistor, store } from 'store';
 import { PersistGate } from 'redux-persist/integration/react';
 import { CookiesProvider } from 'react-cookie';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
+
+const queryClient = new QueryClient();
+
 root.render(
     <Provider store={store}>
         <CookiesProvider>
             <PersistGate loading={null} persistor={persistor}>
-                <BrowserRouter>
-                {/* <React.StrictMode> */}
-                    <App />
-                {/* </React.StrictMode> */}
-                </BrowserRouter>
+                <QueryClientProvider client={queryClient}>
+                    <BrowserRouter>
+                    {/* <React.StrictMode> */}
+                        <App />
+                    {/* </React.StrictMode> */}
+                    </BrowserRouter>
+                </QueryClientProvider>
             </PersistGate>
         </CookiesProvider>
     </Provider>

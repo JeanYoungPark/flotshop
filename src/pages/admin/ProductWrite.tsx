@@ -5,25 +5,45 @@ import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/sol
 import { useParams } from 'react-router'
 import { ProductEditor } from 'components/product/ProductEditor'
 import { handleAsyncRequest } from 'api/api'
+import { useQuery } from 'react-query'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
 }
 
-type categoryListType = {
+type categoryType = {
     id: number | undefined,
     title: string | undefined
 }
 
+type optionType = {
+    id: number | undefined,
+    title: string | undefined
+}
+
+/**
+ * 카테고리 리스트 호출
+ */
+const categoryListApi = async() => {
+    const res = await handleAsyncRequest(() => axios.post('/api/category'));
+    return res.category;
+}
+
+/**
+ * 옵션 리스트 호출
+ */
+const optionListApi = async() => {
+    const res = await handleAsyncRequest(() => axios.post('/api/option'));
+    return res.option;
+}
+
 export const ProductWrite = () => {
     const { categoryId, id } = useParams();
-    const [selectedCategory, setSelectedCategory] = useState<categoryListType>({id: undefined, title: undefined});
-    const [selectedCategoryDetail, setSelectedCategoryDetail] = useState<categoryListType>({id: undefined, title: undefined});
-    const [selectedOption, setSelectedOption] = useState<categoryListType>({id: undefined, title: undefined});
-    const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
-    const [categoryDetailList, setCategoryDetailList] = useState<categoryListType[]>([]);
-    const [optionList, setOptionList] = useState<categoryListType[]>([]);
-    const [optionDetailList, setOptionDetailList] = useState<categoryListType[]>([]);
+    const [selectedCategory, setSelectedCategory] = useState<categoryType>({id: undefined, title: undefined});
+    const [selectedCategoryDetail, setSelectedCategoryDetail] = useState<categoryType>({id: undefined, title: undefined});
+    const [selectedOption, setSelectedOption] = useState<optionType>({id: undefined, title: undefined});
+    const [categoryDetailList, setCategoryDetailList] = useState<categoryType[]>([]);
+    const [optionDetailList, setOptionDetailList] = useState<optionType[]>([]);
     const [newProduct, setNewProduct] = useState<string>('');
     const [productName, setProductName] = useState<string>('');
     const [productPrice, setProductPrice] = useState<string>('');
@@ -32,6 +52,87 @@ export const ProductWrite = () => {
     const [prevImg, setPrevImg] = useState<string[]>([]);
     const [productDes, setProductDes] = useState<string | undefined>(undefined);
     
+
+    /**
+     * 카테고리 리스트 호출
+     */
+    const { data: categoryData, isLoading: categoryIdLoading, error: categoryError} = useQuery<categoryType[]>('categoryList', () => categoryListApi(), {
+        initialData: []
+    })
+
+    const renderCategory = (categoryData || []).map((data, i) => (
+        <Listbox.Option
+            key={i}
+            className={({ active }) =>
+            classNames(
+                active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                'relative cursor-default select-none py-2 pl-1 pr-9'
+            )}
+            value={data}
+        >
+            {({ selected, active }) => (
+            <>
+                <div className="flex items-center" onClick={() => categoryDetailListApi(data.id)}>
+                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
+                        {data.title}
+                    </span>
+                </div>
+
+                {selected ? (
+                <span
+                    className={classNames(
+                    active ? 'text-white' : 'text-indigo-600',
+                    'absolute inset-y-0 right-0 flex items-center pr-4'
+                    )}
+                >
+                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                ) : null}
+            </>
+            )}
+        </Listbox.Option>
+    ))
+    
+    /**
+     * 옵션 리스트 호출
+     */
+    const { data: optionData, isLoading: optionIsLoading, error: optionError } = useQuery<optionType[] | []>('optionList', () => optionListApi(), {
+        initialData: []
+    })
+
+    const renderOption = (optionData || []).map((data, i) => (
+        <Listbox.Option
+            key={i}
+            className={({ active }) =>
+            classNames(
+                active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                'relative cursor-default select-none py-2 pl-1 pr-9'
+            )}
+            value={data}
+        >
+            {({ selected, active }) => (
+            <>
+                <div className="flex items-center" onClick={() => optionDetailListApi(data.id)}>
+                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
+                        {data.title}
+                    </span>
+                </div>
+
+                {selected ? (
+                <span
+                    className={classNames(
+                    active ? 'text-white' : 'text-indigo-600',
+                    'absolute inset-y-0 right-0 flex items-center pr-4'
+                    )}
+                >
+                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                ) : null}
+            </>
+            )}
+        </Listbox.Option>
+    ))
+
     const onChangeFiles = (e: any) => {
         const newFiles = e.target.files;
         const FileList = [];
@@ -61,16 +162,8 @@ export const ProductWrite = () => {
         }
     }
     
-    const handleImage = async(imgs: string[]) => {
-        const res = await handleAsyncRequest(() => axios.post('/api/board/upload', imgs));
-    }
-
-    /**
-     * 카테고리 리스트 호출
-     */
-    const categoryListApi = async() => {
-        const res = await handleAsyncRequest(() => axios.post('/api/category'));
-        setCategoryList([...res.category]);
+    const handleImage = async(images: string[]) => {
+        const res = await handleAsyncRequest(() => axios.post('/api/board/upload', images));
     }
 
     /**
@@ -79,12 +172,6 @@ export const ProductWrite = () => {
      const categoryDetailListApi = async(id: number | undefined) => {
         const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
         setCategoryDetailList([...res.categoryDetail]);
-    }
-
-
-    const optionListApi = async() => {
-        const res = await handleAsyncRequest(() => axios.post('/api/option'));
-        setOptionList([...res.option]);
     }
 
     /**
@@ -147,11 +234,7 @@ export const ProductWrite = () => {
 
 
     }
-    
-    useEffect(() => {
-        categoryListApi();
-        optionListApi();
-    }, [categoryListApi, optionListApi]);
+
     
     return (
         <div className='pt-10 pb-10 flex w-full h-full justify-center items-center'>
@@ -194,38 +277,7 @@ export const ProductWrite = () => {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0">
                                     <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {categoryList.map((data, i) => (
-                                        <Listbox.Option
-                                            key={i}
-                                            className={({ active }) =>
-                                            classNames(
-                                                active ? 'bg-indigo-600 text-white' : 'text-gray-900',
-                                                'relative cursor-default select-none py-2 pl-1 pr-9'
-                                            )}
-                                            value={data}
-                                        >
-                                            {({ selected, active }) => (
-                                            <>
-                                                <div className="flex items-center" onClick={() => categoryDetailListApi(data.id)}>
-                                                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
-                                                        {data.title}
-                                                    </span>
-                                                </div>
-
-                                                {selected ? (
-                                                <span
-                                                    className={classNames(
-                                                    active ? 'text-white' : 'text-indigo-600',
-                                                    'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                    )}
-                                                >
-                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                </span>
-                                                ) : null}
-                                            </>
-                                            )}
-                                        </Listbox.Option>
-                                        ))}
+                                        {renderCategory}
                                     </Listbox.Options>
                                 </Transition>
                             </div>
@@ -319,38 +371,7 @@ export const ProductWrite = () => {
                                 leaveFrom="opacity-100"
                                 leaveTo="opacity-0">
                                     <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {optionList.map((data, i) => (
-                                        <Listbox.Option
-                                            key={i}
-                                            className={({ active }) =>
-                                            classNames(
-                                                active ? 'bg-indigo-600 text-white' : 'text-gray-900',
-                                                'relative cursor-default select-none py-2 pl-1 pr-9'
-                                            )}
-                                            value={data}
-                                        >
-                                            {({ selected, active }) => (
-                                            <>
-                                                <div className="flex items-center" onClick={() => optionDetailListApi(data.id)}>
-                                                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
-                                                        {data.title}
-                                                    </span>
-                                                </div>
-
-                                                {selected ? (
-                                                <span
-                                                    className={classNames(
-                                                    active ? 'text-white' : 'text-indigo-600',
-                                                    'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                    )}
-                                                >
-                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                </span>
-                                                ) : null}
-                                            </>
-                                            )}
-                                        </Listbox.Option>
-                                        ))}
+                                        {renderOption}
                                     </Listbox.Options>
                                 </Transition>
                             </div>
