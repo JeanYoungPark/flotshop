@@ -7,6 +7,15 @@ export const categoryListApi = async() => {
 }
 
 export const subCategoryListApi = async(categoryId?: string) => {
-    const res = await handleAsyncRequest(() => axios.post(`/api/category/${categoryId}/detail`));
-    return res.categoryDetail;
+    if(categoryId){
+        const res = await handleAsyncRequest(() => axios.post(`/api/category/${categoryId}/detail`));
+        return res.categoryDetail;
+    }
+}
+
+export const categoryInfoApi = async(categoryId?: string) => {
+    if(categoryId){
+        const res = await handleAsyncRequest(() => axios.post(`/api/category/info/${categoryId}`));
+        return res;
+    }
 }

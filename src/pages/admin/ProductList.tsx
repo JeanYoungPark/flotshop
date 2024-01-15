@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import { useNavigate, useParams } from 'react-router'
-import { useQuery } from 'react-query'
+import { useMutation, useQuery } from 'react-query'
 import { productListApi } from 'api/admin/product'
-import { subCategoryListApi } from 'api/admin/category'
+import { categoryInfoApi, subCategoryListApi } from 'api/admin/category'
   
 type categoryType = {
     id: number,
@@ -15,32 +15,38 @@ type productType = {
     price: number,
     discount: number,
     discountPrice: number,
-    imageUrl: string
+    imageUrl: string,
+    productImg: {
+        img_path: string
+    }
 }
 
 export const ProductList = () => {
     const { categoryId } = useParams()
     const navigate = useNavigate()
-    const [category, setCategory] = useState<string>('');
-    const [subCategory, setSubCategory] = useState<number | null>(null);
+    const [subCategory, setSubCategory] = useState<number>();
 
-    const { data: subCategoryList } = useQuery<categoryType[]>('subCategoryList', () => subCategoryListApi(categoryId), {
-        initialData: []
+    const { data: category } = useQuery('category', () => categoryInfoApi(categoryId));
+    const { mutate: productMutate, data: productList } = useMutation((id: number) => productListApi(id), {
+        onSuccess: (data) => {
+            console.log(data);
+        }
+    });
+    
+    const { data: subCategoryList } = useQuery('subCategoryList', async() => {
+        const res = await subCategoryListApi(categoryId);
+        setSubCategory(res[0].id);
+        return res;
     })
 
-    const renderSubCategoryList = (subCategoryList || []).map((data, i) => (
+    const renderSubCategoryList = (subCategoryList || []).map((data: categoryType, i: number) => (
         <li key={i} className={`p-4 text-sm border-r border-b ${subCategory ? (subCategory === data.id && 'bg-indigo-500 text-white') : (i === 0 && 'bg-indigo-500 text-white')} hover:bg-indigo-500 hover:text-white`} onClick={() => productListApi(data.id)}>{data.title}</li>
     ))
 
-    // 여기에 mutate 사용해야할 듯
-    const { data: productList } = useQuery<productType[]>('productList', () => productListApi(id), {
-        initialData: []
-    })
-
-    const renderProductList = (productList || []).map((data, i) => (
+    const renderProductList = (productList || []).map((data: productType, i: number) => (
         <li key={i} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
-                <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={`http://localhost:3001${data.productImg[0].img_path}/${data.productImg[0].image_hash}`} alt="" />
+                {/* <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={`http://localhost:3001${data.productImg[0].img_path}/${data.productImg[0].image_hash}`} alt="" /> */}
                 <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900">{data.name} ( 할인률 {data.discount}% )</p>
                 <p className="mt-1 truncate text-xs leading-5 text-gray-500">{data.price}원 ( {data.discountPrice}원 )</p>
@@ -52,49 +58,14 @@ export const ProductList = () => {
         </li>
     ))
 
-    // const productListApi = async(id: number) => {
-    //     const res = await productListApi(id);
-    //     const arr : productListType[] = [];
-        
-    //     res.map((data: any) => (
-    //         arr.push({
-    //             id: data.id,
-    //             name: data.name,
-    //             price: data.price,
-    //             discountPrice: data.price*((100-10)/100),
-    //             discount: 10,
-    //             imageUrl: `http://localhost:3001${data.productImg[0].img_path}/${data.productImg[0].image_hash}`
-    //         })
-    //     ));
-        
-    //     setProductList([...arr]);
-    //     setSelectedCategoryDetail(id);
-    // }
-    
-    // useEffect(() => {
-    //     const categoryInfoApi = async() => {
-    //         const res = await handleAsyncRequest(() => axios.post(`/api/category/info/${categoryId}`));
-    //         setCategory(res.title);
-    //     }
-
-    //     /**
-    //      * 서브 카테고리 리스트 호출
-    //      */
-    //     const categoryDetailListApi = async() => {
-    //         const res = await handleAsyncRequest(() => axios.post(`/api/category/${categoryId}/detail`));
-    //         setCategoryDetailList([...res.categoryDetail]);
-    //         setSelectedCategoryDetail(res.categoryDetail[0].id);
-    //         productListApi(res.categoryDetail[0].id);
-    //     };
-
-    //     categoryInfoApi();
-    //     categoryDetailListApi();
-    // }, [categoryId, productListApi])
+    useEffect(() => {
+        subCategory && productMutate(subCategory);
+    }, [subCategory])
 
     return (
         <div className="flex justify-center items-center w-full">
             <div className='min-w-1/2'>
-                <h1 className='text-2xl py-10'>{category}</h1>
+                <h1 className='text-2xl py-10'>{category?.title}</h1>
                 <ul className='grid grid-cols-5 rounded-lg border-slate-200 border-solid border-l border-t text-center bg-white overflow-hidden cursor-pointer mb-8'>
                     {renderSubCategoryList}
                 </ul>
