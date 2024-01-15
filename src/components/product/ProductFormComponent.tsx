@@ -10,13 +10,13 @@ const classNames = (...classes: [string, string]) => {
 }
 
 type categoryType = {
-    id: number | undefined,
-    title: string | undefined
+    id?: number,
+    title?: string
 }
 
 type optionType = {
-    id: number | undefined,
-    title: string | undefined
+    id?: number,
+    title?: string
 }
 
 type formType = {

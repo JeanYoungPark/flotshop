@@ -20,7 +20,7 @@ export const Header = () => {
     const userInfo = useSelector((state: RootState) => state.userInfo);
     const [cookie, , removeCookie] = useCookies(['flotshopUserSession']);
 
-    const { data: categoryList, isLoading, error } = useQuery<categoryType[]>('categoryList', categoryListApi, {
+    const { data: categoryList } = useQuery<categoryType[]>('categoryList', categoryListApi, {
         initialData: []
     });
 

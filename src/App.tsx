@@ -19,10 +19,11 @@ import { Qna } from 'pages/user/Qna';
 import { Video } from 'pages/user/Video';
 import { OffLine } from 'pages/user/OffLine';
 import { AdminList } from 'pages/admin/AdminList';
-import { AdminRegister } from 'pages/admin/AdminRegister';
+import { AdminModify } from 'pages/admin/AdminModify';
 import { Category } from 'pages/admin/Category';
 import { Introduce } from 'pages/user/Introduce';
 import { AdminLayout } from 'components/admin/AdminLayout';
+import { AdminJoin } from 'pages/admin/AdminJoin';
 
 function App() {
     return (
@@ -54,10 +55,10 @@ function App() {
 
             <Route path="/admin" element={<AdminLayout/>}>
                 <Route path="login" element={<Login/>}/>
-                <Route path="join" element={<AdminRegister/>} />
+                <Route path="join" element={<AdminJoin/>} />
                 <Route path="user">
                     <Route path="list" element={<AdminList/>} />
-                    <Route path="modify/:id" element={<AdminRegister/>} />
+                    <Route path="modify/:id" element={<AdminModify/>} />
                 </Route>
                 <Route path="products">
                     <Route path=":categoryId" >
