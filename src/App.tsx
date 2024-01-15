@@ -1,28 +1,28 @@
 import { Routes, Route } from 'react-router-dom';
-import { Main } from 'pages/Main';
-import { ProductList } from 'pages/ProductList';
+import { Main } from 'pages/user/Main';
+import { ProductList } from 'pages/user/ProductList';
 import { ProductWrite } from 'pages/admin/ProductWrite';
-import { ProductView } from 'pages/ProductView';
+import { ProductView } from 'pages/user/ProductView';
 import { Login } from 'pages/admin/Login';
 import { ProductList as AdminProductList } from 'pages/admin/ProductList';
 import { Option } from 'pages/admin/Option';
-import { AdminLayout } from 'components/admin/AdminLayout';
 import { QnAList } from 'pages/admin/QnAList';
 import { ReviewList } from 'pages/admin/ReviewList';
 import { QnAView } from 'pages/admin/QnAView';
 import { ReviewView } from 'pages/admin/ReviewView';
-import { EventList } from 'pages/EventList';
-import { CollectionList } from 'pages/CollectionList';
-import { Review } from 'pages/Review';
-import { Notice } from 'pages/Notice';
-import { FAQ } from 'pages/FAQ';
-import { Qna } from 'pages/Qna';
-import { Introduce } from 'pages/Introduce';
-import { Video } from 'pages/Video';
-import { OffLine } from 'pages/OffLine';
+import { EventList } from 'pages/user/EventList';
+import { CollectionList } from 'pages/user/CollectionList';
+import { Review } from 'pages/user/Review';
+import { Notice } from 'pages/user/Notice';
+import { FAQ } from 'pages/user/FAQ';
+import { Qna } from 'pages/user/Qna';
+import { Video } from 'pages/user/Video';
+import { OffLine } from 'pages/user/OffLine';
 import { AdminList } from 'pages/admin/AdminList';
 import { AdminRegister } from 'pages/admin/AdminRegister';
 import { Category } from 'pages/admin/Category';
+import { Introduce } from 'pages/user/Introduce';
+import { AdminLayout } from 'components/admin/AdminLayout';
 
 function App() {
     return (

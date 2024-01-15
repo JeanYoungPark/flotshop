@@ -1,10 +1,9 @@
 import React, { useState, SyntheticEvent} from 'react'
 import { Header } from 'components/admin/Header'
-import axios from 'axios'
 import { useCookies  } from 'react-cookie'
 import { useNavigate } from 'react-router'
 import { useDispatch } from 'react-redux'
-import { handleAsyncRequest } from 'api/api'
+import { loginApi } from 'api/admin/auth'
 
 export const Login = () => {
     const [userId, setUserId] = useState<string>('');
@@ -16,7 +15,7 @@ export const Login = () => {
     const onSubmit = async(e: SyntheticEvent) => {
         e.preventDefault();
 
-        const res = await handleAsyncRequest(() => axios.post('/api/login', {user_id: userId, password: password}));
+        const res = await loginApi(userId, password);
         
         if(res.result) {
             const session = res.result.session_id;
@@ -39,7 +38,7 @@ export const Login = () => {
             dispatch({type: 'setName', name: 'admin'});
             navigate('/admin/user/list');
         }else {
-            alert(res.message);
+            alert('잘못된 접근입니다.');
         }
     }
 

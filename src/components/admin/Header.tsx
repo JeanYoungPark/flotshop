@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React from 'react'
 import { RiListCheck, RiLoginBoxLine, RiPencilLine, RiPriceTag3Line } from 'react-icons/ri'
 import { useSelector, useDispatch } from "react-redux"
 import { useNavigate } from 'react-router-dom'
 import { RootState } from 'store'
 import { useCookies } from 'react-cookie'
-import { handleAsyncRequest } from 'api/api'
+import { useQuery } from 'react-query'
+import { categoryListApi } from 'api/admin/category'
+import { logoutApi } from 'api/commonAuth'
 
-type categoryListType = {
+type categoryType = {
     id: number,
     title: string
 }
@@ -17,28 +18,31 @@ export const Header = () => {
     const dispatch = useDispatch();
     const adminMenu = useSelector((state: RootState) => state.adminMenu);
     const userInfo = useSelector((state: RootState) => state.userInfo);
-    const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
     const [cookie, , removeCookie] = useCookies(['flotshopUserSession']);
+
+    const { data: categoryList, isLoading, error } = useQuery<categoryType[]>('categoryList', categoryListApi, {
+        initialData: []
+    });
+
+    const renderCategoryList = (categoryList || []).map((data, i) => (
+        <li key={i} className={`flex p-3 pl-10 hover:bg-indigo-700 cursor-pointer ${adminMenu.name === `list/${data.title}` && 'bg-indigo-700'}`} onClick={() => handleClickMenu(`list/${data.title}`, `/admin/products/${data.id}`)}>
+            {data.title}
+        </li>
+    ))
 
     const handleClickMenu = (menu: string, url:string) => {
         dispatch({type: 'setName', name: menu});
         navigate(url);
     }
 
-    const categoryListApi = async () => {
-        const res = await handleAsyncRequest(() => axios.post('/api/category'));
-        setCategoryList([...res.category]);
-    }
-
     const onLogout = async() => {
-        await handleAsyncRequest(() => axios.post('/api/logout', {id: userInfo.id}));
-        removeCookie('flotshopUserSession', {path: '/'});
-        navigate('/admin/login');
+        const res = await logoutApi(userInfo.id);
+            
+        if(res){
+            removeCookie('flotshopUserSession', {path: '/'});
+            navigate('/admin/login');
+        }
     }
-
-    useEffect(() => {
-        categoryListApi();
-    }, []);
 
     return (
         <div className='fixed min-w-1/6 h-full p-5 drop-shadow bg-indigo-600 z-10'>
@@ -48,11 +52,7 @@ export const Header = () => {
                 <li className='relative'>
                     <div className='flex p-3 mb-1 rounded-lg hover:bg-indigo-700 cursor-pointer'><RiListCheck className='mr-2'/>상품 리스트</div>
                     <ul className='relative flex flex-col rounded-lg bg-indigo-500 text-white text-base overflow-hidden'>
-                        {categoryList.map((data, i) => (
-                            <li key={i} className={`flex p-3 pl-10 hover:bg-indigo-700 cursor-pointer ${adminMenu.name === `list/${data.title}` && 'bg-indigo-700'}`} onClick={() => handleClickMenu(`list/${data.title}`, `/admin/products/${data.id}`)}>
-                                {data.title}
-                            </li>
-                        ))}
+                        {renderCategoryList}
                     </ul>
                 </li>
                 <li className={`flex p-3 mb-1 hover:bg-indigo-700 rounded-lg cursor-pointer ${adminMenu.name === 'category' && 'bg-indigo-700'}`} onClick={() => handleClickMenu('category', '/admin/category')}>
@@ -75,7 +75,7 @@ export const Header = () => {
                 {cookie.flotshopUserSession ? (
                     <span onClick={onLogout} className='flex items-center cursor-pointer'><RiLoginBoxLine className='mr-2'/>로그아웃</span>
                     ) : (
-                    <a href="/admin/login" className='flex items-center'><RiLoginBoxLine className='mr-2'/>로그인</a>
+                    <span className='flex items-center cursor-pointer'><RiLoginBoxLine className='mr-2'/>로그인</span>
                 )}
             </span>
         </div>
