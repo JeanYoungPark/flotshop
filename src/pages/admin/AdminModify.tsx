@@ -24,22 +24,28 @@ export const AdminModify = () => {
     const validUserId = () => {
         if(userId?.length < 4) {
             alert('아이디는 4~10자 사이로 입력해주세요.');
-            return false;
+            return true;
         }
+
+        return false;
     }
 
     const validPassword = () => {
         if(password?.length < 6){
             alert('비밀번호는 6~15자 사이로 입력해주세요.');
-            return false;
+            return true;
         }
+
+        return false;
     }
 
     const validName = () => {
         if(name?.length < 2){
             alert('이름은 2~10자 사이로 입력해주세요.');
-            return false;
+            return true;
         }
+
+        return false;
     }
 
     const validEmail = () => {
@@ -47,27 +53,27 @@ export const AdminModify = () => {
 
         if(!emailPattern.test(email)){
             alert('올바른 이메일 형식을 입력해주세요.');
-            return false;
+            return true;
         }
+
+        return false;
     }
 
     const valideNewPassword = (newPassword: string, newPassword2: string) => {
-        if(newPassword && newPassword2){
-            if(newPassword?.length < 6){
-                alert('비밀번호는 6~15자 사이로 입력해주세요.');
-                return false;
-            }
-    
-            if(newPassword === newPassword2){
-                return true;
-            }else{
-                alert('새 비밀번호를 확인해주세요.');
-                return false;
-            }
+        if(newPassword?.length < 6){
+            alert('비밀번호는 6~15자 사이로 입력해주세요.');
+            return true;
         }
+
+        if(newPassword !== newPassword2){
+            alert('새 비밀번호를 확인해주세요.');
+            return true;
+        }
+
+        return false;
     }
 
-    const onSubmit = async (userId: string, password: string, name: string, email:string, newPassword: string, newPassword2: string) => {
+    const onSubmit = async (userId: string, password: string, name: string, email:string, newPassword: string) => {
         const data = {
             id: id,
             user_id: userId,
@@ -87,13 +93,11 @@ export const AdminModify = () => {
     const onValidate = async(e: SyntheticEvent) => {
         e.preventDefault();
 
-        validUserId();
-        validPassword();
-        validName();
-        validEmail();
-        valideNewPassword(newPassword, newPassword2);
+        if(validUserId() || validPassword() || validName() || validEmail() || valideNewPassword(newPassword, newPassword2)){
+            return false;
+        }
 
-        onSubmit(userId, password, name, email, newPassword, newPassword2);
+        onSubmit(userId, password, name, email, newPassword);
     }
 
     useEffect(() => {

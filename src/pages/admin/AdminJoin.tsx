@@ -71,7 +71,7 @@ export const AdminJoin = () => {
 
         const existUser = await checkUserApi(userId);
 
-        if(existUser.user === null){
+        if(existUser === null){
             onSubmit(userId, password, name, email);
         }else{
             alert('존재하는 회원입니다.')
