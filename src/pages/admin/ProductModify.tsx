@@ -1,7 +1,9 @@
 import React, { useEffect, SyntheticEvent, Fragment, useState, useReducer } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
+import { useParams } from 'react-router'
 import { ProductEditor } from 'components/product/ProductEditor'
+import { handleAsyncRequest } from 'api/api'
 import { useMutation, useQuery } from 'react-query'
 import { categoryListApi, subCategoryListApi } from 'api/admin/category'
 import { optionListApi, subOptionListApi } from 'api/admin/option'
@@ -32,17 +34,17 @@ const reducer = (state: { desc: string }, action: { type: string, payload: strin
 }
 
 export const ProductModify = () => {
-    const [newProduct, setNewProduct] = useState<string>('')
+    const [newProduct, setNewProduct] = useState<string>('');
 
-    const [selectedCategory, setSelectedCategory] = useState<categoryType | null>(null)
-    const [selectedSubCategory, setSelectedSubCategory] = useState<categoryType | null>(null)
-    const [selectedOption, setSelectedOption] = useState<optionType | null>(null)
+    const [selectedCategory, setSelectedCategory] = useState<categoryType | null>(null);
+    const [selectedSubCategory, setSelectedSubCategory] = useState<categoryType | null>(null);
+    const [selectedOption, setSelectedOption] = useState<optionType | null>(null);
 
-    const [productName, setProductName] = useState<string>('')
-    const [productPrice, setProductPrice] = useState<string>('')
-    const [productDiscount, setProductDiscount] = useState<string>('0')
-    const [files, setFiles] = useState<File[]>([])
-    const [prevImg, setPrevImg] = useState<string[]>([])
+    const [productName, setProductName] = useState<string>('');
+    const [productPrice, setProductPrice] = useState<string>('');
+    const [productDiscount, setProductDiscount] = useState<number>(0);
+    const [files, setFiles] = useState<File[]>([]);
+    const [prevImg, setPrevImg] = useState<string[]>([]);
 	const [productDes, setProductDes] = useReducer(reducer, { desc: '' })
     
     /**
@@ -217,6 +219,7 @@ export const ProductModify = () => {
             category_id: selectedSubCategory?.id,
             name: productName,
             price: productPrice,
+            discount: productDiscount,
             option_id: selectedOption?.id,
             description: productDes.desc
         }
@@ -366,7 +369,7 @@ export const ProductModify = () => {
                 <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">할인률</label>
                     <div className="mt-2">
-                        <input id="discount" type="text" required value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                        <input id="discount" type="text" required value={productDiscount} onChange={(e) => setProductDiscount(parseInt(e.target.value))} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                     </div>
                 </div>
 

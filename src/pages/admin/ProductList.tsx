@@ -13,7 +13,7 @@ type productType = {
     id: number,
     name: string,
     price: number,
-    discount: string,
+    discount: number,
     imageUrl: string,
     productImg: {
         image_hash: string,
@@ -46,7 +46,7 @@ export const ProductList = () => {
                 <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={`http://localhost:3001${data.productImg[0].img_path}/${data.productImg[0].image_hash}`} alt="" />
                 <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900">{data.name} ( 할인률 {data.discount}% )</p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{data.price}원 ( {(data.price - (data.price/100*10))}원 )</p>
+                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{data.price}원 ( {(data.price - (data.price/100*data.discount))}원 )</p>
                 </div>
             </div>
             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
