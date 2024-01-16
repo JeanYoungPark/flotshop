@@ -219,6 +219,7 @@ export const ProductAdd = () => {
             category_id: selectedSubCategory?.id,
             name: productName,
             price: productPrice,
+            discount: parseInt(productDiscount),
             option_id: selectedOption?.id,
             description: productDes.desc
         }
