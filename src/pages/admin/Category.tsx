@@ -1,9 +1,9 @@
 import React, {useState, SyntheticEvent, useEffect} from 'react'
 import { Dialog } from '@headlessui/react'
-import axios from 'axios'
-import { handleAsyncRequest } from 'api/api'
+import { useMutation, useQuery } from 'react-query'
+import { categoryAddApi, categoryListApi, subCategoryAddApi, subCategoryListApi } from 'api/admin/category'
 
-type categoryListType = {
+type categoryType = {
     id: number,
     title: string
 }
@@ -11,64 +11,55 @@ type categoryListType = {
 export const Category = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [categoryValue, setCategoryValue] = useState<string>('');
-    const [categoryDetailValue, setCategoryDetailValue] = useState<string>('');
-    const [categoryList, setCategoryList] = useState<categoryListType[]>([]);
-    const [categoryDetailList, setCategoryDetailList] = useState<categoryListType[]>([]);
     const [categorySelected, setCategorySelected] = useState<number>();
+    const [subCategoryValue, setSubCategoryValue] = useState<string>('');
+    const [categoryDetailList, setCategoryDetailList] = useState<categoryType[]>([]);
+
+    /**
+     * 카테고리 리스트
+     */
+    const { data: categoryData, refetch: categoryRefetch } = useQuery('categoryList', categoryListApi, { initialData: [] })
+    
+    const renderCategoryList = (categoryData || []).map((data: categoryType, i: number) => (
+        <li key={i} className='flex justify-between mb-3'>
+            <span className='text-base text-slate-500'>{data.title}</span>
+            <p className='flex'>
+                <span className="block"><button onClick={() => openPopUp(data.id)} className='bg-indigo-600 text-white px-3 py-2 rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 mr-2'>세부 옵션</button></span>
+                {/* <span className="block"><button onClick={() => categoryDeleteApi(data.id)} className='bg-slate-300 px-3 py-2 rounded-md text-sm font-semibold shadow-sm hover:bg-slate-200'>삭제</button></span> */}
+            </p>
+        </li>
+    ))
+
+    /**
+     * 서브 카테고리 리스트
+     */
+    const { mutate: subCategoryMutate, data: subCategoryData } = useMutation((id?: number) => subCategoryListApi(id))
+
+    const openPopUp = (id: number) => {
+        subCategoryMutate(id)
+        setCategorySelected(id)
+        setIsOpen(true)
+    }
+
+    const renderSubCategory = (subCategoryData || []).map((data: categoryType, i: number) => (
+        <li key={i} className='flex justify-between mb-3'>
+            <span className='text-base text-slate-500'>{data.title}</span>
+            <p className='flex'>
+                <span className="block"><button onClick={() => categoryDetailDeleteApi(data.id)} className='bg-slate-300 px-3 py-2 rounded-md text-sm font-semibold shadow-sm hover:bg-slate-200'>삭제</button></span>
+            </p>
+        </li>
+    ))
 
     /**
      * 카테고리 등록
      */
     const onSubmit = async(e: SyntheticEvent) => {
         e.preventDefault();
-        const res = await handleAsyncRequest(() => axios.post('/api/category/add', {title: categoryValue}));
-        
-        setCategoryList([
-            ...categoryList,
-            res.result
-        ]);
-
-        setCategoryValue('');
-    }
-
-    /**
-     * 카테고리 리스트 호출
-     */
-    const categoryListApi = async() => {
-        const res = await handleAsyncRequest(() => axios.post('/api/category'));
-        
-        setCategoryList([...res.category]);
-    };
-
-
-    /**
-     * 카테고리 삭제
-     */
-    const categoryDeleteApi = async(id: number) => {
-        const confirm = window.confirm('소분류 및 관련 상품이 모두 삭제 됩니다.\n삭제하시겠습니까?');
-
-        if(confirm){
-            const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
-            
-            if(res.status === 200){
-                if(res.categoryDetail.length === 0){
-                    await handleAsyncRequest(() => axios.delete(`/api/category/${id}`));
-                    categoryListApi();
-                }
-            }
+        const res = await categoryAddApi(categoryValue);
+        if(res){
+            categoryRefetch();
+            setCategoryValue('');
         }
-
-    }
-
-    /**
-     * 서브 카테고리 리스트 호출
-     */
-    const categoryDetailListApi = async(id: number) => {
-        const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
-        
-        setIsOpen(true);
-        setCategorySelected(id);
-        setCategoryDetailList([...res.categoryDetail]);
     }
 
     /**
@@ -77,14 +68,31 @@ export const Category = () => {
     const onSubmitDetail = async(e: SyntheticEvent) => {
         e.preventDefault();
 
-        const res = await handleAsyncRequest(() => axios.post(`/api/category/${categorySelected}/detail/add`, {title: categoryDetailValue}));
-        
-        setCategoryDetailValue('');
-        setCategoryDetailList([
-            ...categoryDetailList,
-            res.result
-        ]);     
+        const res = await subCategoryAddApi(categorySelected, subCategoryValue)
+        if(res){
+            setSubCategoryValue('')
+            subCategoryMutate(categorySelected) 
+        }
     }
+    
+    /**
+     * 카테고리 삭제
+     */
+    // const categoryDeleteApi = async(id: number) => {
+    //     const confirm = window.confirm('소분류 및 관련 상품이 모두 삭제 됩니다.\n삭제하시겠습니까?');
+
+    //     if(confirm){
+    //         const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
+            
+    //         if(res.status === 200){
+    //             if(res.categoryDetail.length === 0){
+    //                 await handleAsyncRequest(() => axios.delete(`/api/category/${id}`));
+    //                 categoryListApi();
+    //             }
+    //         }
+    //     }
+
+    // }
 
     /**
      * 서브 카테고리 삭제
@@ -101,10 +109,6 @@ export const Category = () => {
             console.log('문제가 발생하였습니다. 고객센터로 문의주세요.');
         }
     }
-
-    useEffect(() => {
-        categoryListApi();
-    }, [categoryListApi]);
 
     return (
         <>
@@ -124,7 +128,7 @@ export const Category = () => {
                             <form onSubmit={onSubmitDetail}>
                                 <div className='flex'>
                                     <div className='grow mr-2'>
-                                        <input id="name" type="text" required value={categoryDetailValue} onChange={(e) => setCategoryDetailValue(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                                        <input id="name" type="text" required value={subCategoryValue} onChange={(e) => setSubCategoryValue(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                                     </div>
                                     <div className="flex items-center justify-end gap-x-6">
                                         <button
@@ -138,14 +142,7 @@ export const Category = () => {
                             </form>
 
                             <ul>
-                                {categoryDetailList.map((data, i) => (
-                                    <li key={i} className='flex justify-between mb-3'>
-                                        <span className='text-base text-slate-500'>{data.title}</span>
-                                        <p className='flex'>
-                                            <span className="block"><button onClick={() => categoryDetailDeleteApi(data.id)} className='bg-slate-300 px-3 py-2 rounded-md text-sm font-semibold shadow-sm hover:bg-slate-200'>삭제</button></span>
-                                        </p>
-                                    </li>
-                                ))}
+                                {renderSubCategory}
                             </ul>
                         </div>
                     </Dialog.Panel>
@@ -171,15 +168,7 @@ export const Category = () => {
                         </div>
                     </form>
                     <ul>
-                        {categoryList.map((data, i) => (
-                            <li key={i} className='flex justify-between mb-3'>
-                                <span className='text-base text-slate-500'>{data.title}</span>
-                                <p className='flex'>
-                                    <span className="block"><button onClick={() => categoryDetailListApi(data.id)} className='bg-indigo-600 text-white px-3 py-2 rounded-md text-sm font-semibold shadow-sm hover:bg-indigo-500 mr-2'>세부 옵션</button></span>
-                                    <span className="block"><button onClick={() => categoryDeleteApi(data.id)} className='bg-slate-300 px-3 py-2 rounded-md text-sm font-semibold shadow-sm hover:bg-slate-200'>삭제</button></span>
-                                </p>
-                            </li>
-                        ))}
+                        {renderCategoryList}
                     </ul>
                 </div>
             </div>

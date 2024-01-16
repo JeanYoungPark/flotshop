@@ -19,3 +19,18 @@ export const categoryInfoApi = async(categoryId?: number) => {
         return res;
     }
 }
+
+export const categoryAddApi = async(categoryValue: string) => {
+    const res = await handleAsyncRequest(() => axios.post('/api/category/add', {title: categoryValue}));
+    return res.result;
+}
+
+export const subCategoryAddApi = async(categoryId?: number, value?: string) => {
+    const res = await handleAsyncRequest(() => axios.post(`/api/category/${categoryId}/detail/add`, {title: value}));
+    return res;
+}
+
+export const categoryDeleteApi = async(id: number) => {
+    const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
+    return res;
+}
