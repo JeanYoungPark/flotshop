@@ -24,6 +24,7 @@ import { Category } from 'pages/admin/Category';
 import { Introduce } from 'pages/user/Introduce';
 import { AdminLayout } from 'components/admin/AdminLayout';
 import { AdminJoin } from 'pages/admin/AdminJoin';
+import { ProductAdd } from 'pages/admin/ProductAdd';
 
 function App() {
     return (
@@ -65,7 +66,7 @@ function App() {
                         <Route path="" element={<AdminProductList/>}/>
                         <Route path="modify/:id" element={<ProductWrite/>} />
                     </Route>
-                    <Route path="write" element={<ProductWrite/>} />
+                    <Route path="add" element={<ProductAdd/>} />
                 </Route>
                 <Route path="option" element={<Option/>} />
                 <Route path="category" element={<Category/>} />

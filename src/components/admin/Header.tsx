@@ -20,11 +20,9 @@ export const Header = () => {
     const userInfo = useSelector((state: RootState) => state.userInfo);
     const [cookie, , removeCookie] = useCookies(['flotshopUserSession']);
 
-    const { data: categoryList } = useQuery<categoryType[]>('categoryList', categoryListApi, {
-        initialData: []
-    });
+    const { data: categoryList } = useQuery('categoryList', categoryListApi, { initialData: [] });
 
-    const renderCategoryList = (categoryList || []).map((data, i) => (
+    const renderCategoryList = (categoryList || []).map((data: categoryType, i: number) => (
         <li key={i} className={`flex p-3 pl-10 hover:bg-indigo-700 cursor-pointer ${adminMenu.name === `list/${data.title}` && 'bg-indigo-700'}`} onClick={() => handleClickMenu(`list/${data.title}`, `/admin/products/${data.id}`)}>
             {data.title}
         </li>

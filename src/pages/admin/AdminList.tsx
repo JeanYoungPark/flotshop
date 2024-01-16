@@ -13,11 +13,9 @@ type userType = {
 export const AdminList = () => {
     const navigate = useNavigate();
 
-    const { data: userList } = useQuery<userType[]>('userList', adminListApi, {
-        initialData: []
-    });
+    const { data: userList } = useQuery('userList', adminListApi, { initialData: [] });
 
-    const renderUserList = (userList || []).map((data, i) => (
+    const renderUserList = (userList || []).map((data: userType, i: number) => (
         <li key={i} className="flex justify-between gap-x-6 py-5 ">
             <div className="flex min-w-0 gap-x-4">
                 <p className="text-sm font-semibold leading-6 text-gray-900">{data.user_id}</p>

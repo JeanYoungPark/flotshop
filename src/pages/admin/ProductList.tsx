@@ -23,17 +23,18 @@ type productType = {
 
 export const ProductList = () => {
     const { categoryId } = useParams()
+    const numericCategoryId = categoryId ? parseInt(categoryId) : undefined
     const navigate = useNavigate()
-    const [subCategory, setSubCategory] = useState<number>();
+    const [subCategory, setSubCategory] = useState<number>()
 
-    const { data: category } = useQuery('category', () => categoryInfoApi(categoryId));
-    const { mutate: productMutate, data: productList } = useMutation((id: number) => productListApi(id));
+    const { data: category } = useQuery('category', () => categoryInfoApi(numericCategoryId), { initialData: [] })
+    const { mutate: productMutate, data: productList } = useMutation((id: number) => productListApi(id))
     
     const { data: subCategoryList } = useQuery('subCategoryList', async() => {
-        const res = await subCategoryListApi(categoryId);
+        const res = await subCategoryListApi(numericCategoryId);
         setSubCategory(res[0].id);
         return res;
-    })
+    }, { initialData: [] })
 
     const renderSubCategoryList = (subCategoryList || []).map((data: categoryType, i: number) => (
         <li key={i} className={`p-4 text-sm border-r border-b ${subCategory ? (subCategory === data.id && 'bg-indigo-500 text-white') : (i === 0 && 'bg-indigo-500 text-white')} hover:bg-indigo-500 hover:text-white`} onClick={() => setSubCategory(data.id)}>{data.title}</li>
@@ -69,7 +70,7 @@ export const ProductList = () => {
                     {renderProductList}
                 </ul>
                 <div className='text-right'>
-                    <button onClick={() => navigate('/admin/products/write')} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>상품 등록</button>
+                    <button onClick={() => navigate('/admin/products/add')} className='rounded-md bg-gray-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-300'>상품 등록</button>
                 </div>
             </div>
         </div>

@@ -331,7 +331,7 @@ export const ProductFormComponent = (props: formType) => {
                     상픔 설명
                 </label>
                 <div className="mt-2">
-                    <ProductEditor value={productDes.value} setValue={productDes.setValue}/>
+                    {/* <ProductEditor value={productDes.value} setValue={productDes.setValue}/> */}
                 </div>
             </div>
 

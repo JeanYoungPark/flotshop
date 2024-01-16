@@ -6,6 +6,8 @@ import { useParams } from 'react-router'
 import { ProductEditor } from 'components/product/ProductEditor'
 import { handleAsyncRequest } from 'api/api'
 import { useQuery } from 'react-query'
+import { categoryListApi } from 'api/admin/category'
+import { optionListApi } from 'api/admin/option'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
@@ -19,22 +21,6 @@ type categoryType = {
 type optionType = {
     id: number | undefined,
     title: string | undefined
-}
-
-/**
- * 카테고리 리스트 호출
- */
-const categoryListApi = async() => {
-    const res = await handleAsyncRequest(() => axios.post('/api/category'));
-    return res.category;
-}
-
-/**
- * 옵션 리스트 호출
- */
-const optionListApi = async() => {
-    const res = await handleAsyncRequest(() => axios.post('/api/option'));
-    return res.option;
 }
 
 export const ProductWrite = () => {
@@ -56,11 +42,9 @@ export const ProductWrite = () => {
     /**
      * 카테고리 리스트 호출
      */
-    const { data: categoryData, isLoading: categoryIdLoading, error: categoryError} = useQuery<categoryType[]>('categoryList', () => categoryListApi(), {
-        initialData: []
-    })
+    const { data: categoryData } = useQuery('categoryList', () => categoryListApi(), { initialData: [] })
 
-    const renderCategory = (categoryData || []).map((data, i) => (
+    const renderCategory = (categoryData || []).map((data: categoryType, i: number) => (
         <Listbox.Option
             key={i}
             className={({ active }) =>
@@ -96,11 +80,9 @@ export const ProductWrite = () => {
     /**
      * 옵션 리스트 호출
      */
-    const { data: optionData, isLoading: optionIsLoading, error: optionError } = useQuery<optionType[] | []>('optionList', () => optionListApi(), {
-        initialData: []
-    })
+    const { data: optionData } = useQuery('optionList', optionListApi, { initialData: [] })
 
-    const renderOption = (optionData || []).map((data, i) => (
+    const renderOption = (optionData || []).map((data: optionType, i: number) => (
         <Listbox.Option
             key={i}
             className={({ active }) =>
@@ -439,7 +421,7 @@ export const ProductWrite = () => {
                         상픔 설명
                     </label>
                     <div className="mt-2">
-                        <ProductEditor value={productDes} setValue={setProductDes}/>
+                        {/* <ProductEditor value={productDes} setValue={setProductDes}/> */}
                     </div>
                 </div>
 

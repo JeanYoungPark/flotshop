@@ -5,11 +5,11 @@ import { CustomUploadAdapter } from 'components/ckeditor/CustomUploadAdapter'
 import { FileLoader } from '@ckeditor/ckeditor5-upload'
 
 type ProductEditorProps = {
-    value: string | undefined;
-    setValue: (value: string) => void;
+    state: { desc: string };
+    dispatch: (action: {type: string, payload: string}) => void;
   }
 
-export const ProductEditor = ({ value, setValue } : ProductEditorProps) => {
+export const ProductEditor = ({ state, dispatch } : ProductEditorProps) => {
     const uploadPlugin = (editor: any) => {
         editor.plugins.get("FileRepository").createUploadAdapter = (loader:FileLoader) => {
             return new CustomUploadAdapter(loader);
@@ -84,14 +84,14 @@ export const ProductEditor = ({ value, setValue } : ProductEditorProps) => {
         <>
             <CKEditor
                 editor={ ClassicEditor }
-                data={ value }
+                data={ state.desc }
                 onReady={ ( editor ) => {
                     // You can store the "editor" and use when it is needed.
                     uploadPlugin(editor);
                     attrPlugin(editor);
                 }}
                 onChange={ ( event, editor ) => {
-                    setValue( editor.getData() );
+                    dispatch({ type: "UPDATE" , payload: editor.getData() });
                 }}
                 onBlur={ ( event, editor ) => {
                 }}
