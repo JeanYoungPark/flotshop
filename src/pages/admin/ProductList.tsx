@@ -13,12 +13,12 @@ type productType = {
     id: number,
     name: string,
     price: number,
-    discount: number,
-    discountPrice: number,
+    discount: string,
     imageUrl: string,
     productImg: {
+        image_hash: string,
         img_path: string
-    }
+    }[]
 }
 
 export const ProductList = () => {
@@ -27,11 +27,7 @@ export const ProductList = () => {
     const [subCategory, setSubCategory] = useState<number>();
 
     const { data: category } = useQuery('category', () => categoryInfoApi(categoryId));
-    const { mutate: productMutate, data: productList } = useMutation((id: number) => productListApi(id), {
-        onSuccess: (data) => {
-            console.log(data);
-        }
-    });
+    const { mutate: productMutate, data: productList } = useMutation((id: number) => productListApi(id));
     
     const { data: subCategoryList } = useQuery('subCategoryList', async() => {
         const res = await subCategoryListApi(categoryId);
@@ -40,16 +36,16 @@ export const ProductList = () => {
     })
 
     const renderSubCategoryList = (subCategoryList || []).map((data: categoryType, i: number) => (
-        <li key={i} className={`p-4 text-sm border-r border-b ${subCategory ? (subCategory === data.id && 'bg-indigo-500 text-white') : (i === 0 && 'bg-indigo-500 text-white')} hover:bg-indigo-500 hover:text-white`} onClick={() => productListApi(data.id)}>{data.title}</li>
+        <li key={i} className={`p-4 text-sm border-r border-b ${subCategory ? (subCategory === data.id && 'bg-indigo-500 text-white') : (i === 0 && 'bg-indigo-500 text-white')} hover:bg-indigo-500 hover:text-white`} onClick={() => setSubCategory(data.id)}>{data.title}</li>
     ))
 
     const renderProductList = (productList || []).map((data: productType, i: number) => (
         <li key={i} className="flex justify-between gap-x-6 py-5">
             <div className="flex min-w-0 gap-x-4">
-                {/* <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={`http://localhost:3001${data.productImg[0].img_path}/${data.productImg[0].image_hash}`} alt="" /> */}
+                <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={`http://localhost:3001${data.productImg[0].img_path}/${data.productImg[0].image_hash}`} alt="" />
                 <div className="min-w-0 flex-auto">
                 <p className="text-sm font-semibold leading-6 text-gray-900">{data.name} ( 할인률 {data.discount}% )</p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{data.price}원 ( {data.discountPrice}원 )</p>
+                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{data.price}원 ( {(data.price - (data.price/100*10))}원 )</p>
                 </div>
             </div>
             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
@@ -60,7 +56,7 @@ export const ProductList = () => {
 
     useEffect(() => {
         subCategory && productMutate(subCategory);
-    }, [subCategory])
+    }, [productMutate, subCategory])
 
     return (
         <div className="flex justify-center items-center w-full">
