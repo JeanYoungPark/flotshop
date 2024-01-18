@@ -2,7 +2,7 @@ import React from 'react'
 import { PaperClipIcon } from '@heroicons/react/20/solid'
 import review1 from 'assets/images/mainBg04_1.jpg'
 
-export const QnAView = () => {
+export const QnaView = () => {
     return (
         <div className='pt-10 flex w-full h-full justify-center items-center'>
             <div className="min-w-1/2 max-w-1/2">
