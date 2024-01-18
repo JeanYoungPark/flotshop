@@ -1,48 +1,56 @@
-import React, { useEffect, SyntheticEvent, Fragment, useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, SyntheticEvent, Fragment, useState, useReducer } from 'react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon, PhotoIcon } from '@heroicons/react/20/solid'
 import { useParams } from 'react-router'
 import { ProductEditor } from 'components/product/ProductEditor'
 import { handleAsyncRequest } from 'api/api'
-import { useQuery } from 'react-query'
-import { categoryListApi } from 'api/admin/category'
-import { optionListApi } from 'api/admin/option'
+import { useMutation, useQuery } from 'react-query'
+import { categoryListApi, subCategoryListApi } from 'api/admin/category'
+import { optionListApi, subOptionListApi } from 'api/admin/option'
+import { boardImageUploadApi, productImageUploadApi } from 'api/admin/file'
+import { productAddApi } from 'api/admin/product'
 
 function classNames(...classes: [string, string]) {
     return classes.filter(Boolean).join(' ')
 }
 
 type categoryType = {
-    id: number | undefined,
-    title: string | undefined
+    id?: number,
+    title?: string
 }
 
 type optionType = {
-    id: number | undefined,
-    title: string | undefined
+    id?: number,
+    title?: string
 }
 
-export const ProductWrite = () => {
-    const { categoryId, id } = useParams();
-    const [selectedCategory, setSelectedCategory] = useState<categoryType>({id: undefined, title: undefined});
-    const [selectedCategoryDetail, setSelectedCategoryDetail] = useState<categoryType>({id: undefined, title: undefined});
-    const [selectedOption, setSelectedOption] = useState<optionType>({id: undefined, title: undefined});
-    const [categoryDetailList, setCategoryDetailList] = useState<categoryType[]>([]);
-    const [optionDetailList, setOptionDetailList] = useState<optionType[]>([]);
+const reducer = (state: { desc: string }, action: { type: string, payload: string }) => {
+	switch (action.type) {
+		case 'UPDATE':
+			return { desc: action.payload }
+		default:
+			return state;
+	}
+}
+
+export const ProductModify = () => {
     const [newProduct, setNewProduct] = useState<string>('');
+
+    const [selectedCategory, setSelectedCategory] = useState<categoryType | null>(null);
+    const [selectedSubCategory, setSelectedSubCategory] = useState<categoryType | null>(null);
+    const [selectedOption, setSelectedOption] = useState<optionType | null>(null);
+
     const [productName, setProductName] = useState<string>('');
     const [productPrice, setProductPrice] = useState<string>('');
-    const [productDiscount, setProductDiscount] = useState<string>('0');
+    const [productDiscount, setProductDiscount] = useState<number>(0);
     const [files, setFiles] = useState<File[]>([]);
     const [prevImg, setPrevImg] = useState<string[]>([]);
-    const [productDes, setProductDes] = useState<string | undefined>(undefined);
+	const [productDes, setProductDes] = useReducer(reducer, { desc: '' })
     
-
     /**
      * 카테고리 리스트 호출
      */
-    const { data: categoryData } = useQuery('categoryList', () => categoryListApi(), { initialData: [] })
+    const { data: categoryData } = useQuery('categoryList', categoryListApi, { initialData: [] })
 
     const renderCategory = (categoryData || []).map((data: categoryType, i: number) => (
         <Listbox.Option
@@ -56,7 +64,7 @@ export const ProductWrite = () => {
         >
             {({ selected, active }) => (
             <>
-                <div className="flex items-center" onClick={() => categoryDetailListApi(data.id)}>
+                <div className="flex items-center">
                     <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
                         {data.title}
                     </span>
@@ -77,6 +85,48 @@ export const ProductWrite = () => {
         </Listbox.Option>
     ))
     
+	/**
+     * 서브 카테고리 리스트 호출
+     */
+	const { mutate: subCategoryMutate, data: subCategoryList } = useMutation((id: number) => subCategoryListApi(id))
+
+	const renderSubCategory = (subCategoryList || []).map((data: categoryType, i:number) => (
+		<Listbox.Option
+			key={i}
+			className={({ active }) =>
+			classNames(
+				active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+				'relative cursor-default select-none py-2 pl-1 pr-9'
+			)}
+			value={data}
+		>
+			{({ selected, active }) => (
+			<>
+				<div className="flex items-center">
+				<span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
+					{data.title}
+				</span>
+				</div>
+
+				{selected ? (
+				<span
+					className={classNames(
+					active ? 'text-white' : 'text-indigo-600',
+					'absolute inset-y-0 right-0 flex items-center pr-4'
+					)}
+				>
+					<CheckIcon className="h-5 w-5" aria-hidden="true" />
+				</span>
+				) : null}
+			</>
+			)}
+		</Listbox.Option>
+	))
+
+	useEffect(() => {
+		selectedCategory?.id && subCategoryMutate(selectedCategory.id);
+	}, [selectedCategory])
+
     /**
      * 옵션 리스트 호출
      */
@@ -94,7 +144,7 @@ export const ProductWrite = () => {
         >
             {({ selected, active }) => (
             <>
-                <div className="flex items-center" onClick={() => optionDetailListApi(data.id)}>
+                <div className="flex items-center">
                     <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
                         {data.title}
                     </span>
@@ -115,6 +165,19 @@ export const ProductWrite = () => {
         </Listbox.Option>
     ))
 
+	/**
+     * 서브 옵션 리스트 호출
+     */
+	const { mutate: subOptionMutate, data: subOptionList } = useMutation((id: number) => subOptionListApi(id))
+
+	const renderSubOption = (subOptionList || []).map((data: optionType, i:number) => (
+		<span key={i} className='ml-1 p-1 rounded inline-block bg-gray-200'>{data.title}</span>
+	))
+
+	useEffect(() => {
+		selectedOption?.id && subOptionMutate(selectedOption.id)
+	}, [selectedOption])
+
     const onChangeFiles = (e: any) => {
         const newFiles = e.target.files;
         const FileList = [];
@@ -131,89 +194,43 @@ export const ProductWrite = () => {
 
     const handleFile = async () => {
         const formData = new FormData();
-        if(selectedCategoryDetail.id){
-            formData.append('categoryId', selectedCategoryDetail.id.toString());
+        if(selectedSubCategory?.id){
+            formData.append('categoryId', selectedSubCategory.id.toString());
     
             for(let file of files){
                 formData.append('data', file);
             }
     
-            await handleAsyncRequest(() => axios.post("/api/admin/product/upload", formData, {
-                headers: {'Content-type': 'multipart/form-data'}
-            }));
+			productImageUploadApi(formData);
         }
-    }
-    
-    const handleImage = async(images: string[]) => {
-        const res = await handleAsyncRequest(() => axios.post('/api/board/upload', images));
-    }
-
-    /**
-     * 서브 카테고리 리스트 호출
-     */
-     const categoryDetailListApi = async(id: number | undefined) => {
-        const res = await handleAsyncRequest(() => axios.post(`/api/category/${id}/detail`));
-        setCategoryDetailList([...res.categoryDetail]);
-    }
-
-    /**
-     * 서브 옵션 리스트 호출
-     */
-    const optionDetailListApi = async(id: number | undefined) => {
-        const res = await handleAsyncRequest(() => axios.post(`/api/option/${id}/detail`));
-        setOptionDetailList([...res.optionDetail]);
     }
     
     const onSubmit = async (e:SyntheticEvent) => {
         e.preventDefault();
         const matches = [];
-        
-        if(!selectedCategory){
-            alert('카테고리를 선택해주세요.');
-            return false;
-        }
+        const regex = /data-id="(\d+)"/g;
+		let match;
 
-        if(!selectedCategoryDetail){
-            alert('세부 카테고리를 선택해주세요.');
-            return false;
-        }
-        
-        if(!productName){
-            alert('상품 이름을 입력해주세요.');
-            return false;
-        }
-
-        if(!productPrice){
-            alert('상품 가격을 입력해주세요.');
-            return false;
-        }
-
-        if(!productDes){
-            alert('상품 설명을 입력해주세요.');
-            return false;
-        }else{
-            const regex = /data-id="(\d+)"/g;
-            let match;
-
-            while ((match = regex.exec(productDes)) !== null) {
-                matches.push(match[1]);
-            }
-        }
+		while ((match = regex.exec(productDes.desc)) !== null) {
+			matches.push(match[1]);
+		}
 
         const data = {
-            category_id: selectedCategoryDetail.id,
+            category_id: selectedSubCategory?.id,
             name: productName,
             price: productPrice,
-            option_id: selectedOption.id,
-            description: productDes
+            discount: productDiscount,
+            option_id: selectedOption?.id,
+            description: productDes.desc
         }
 
-        const res = await handleAsyncRequest(() => axios.post('/api/admin/product/add', data));
+		productAddApi(data);
+		// 상품이미지 업로드
         handleFile();
-        handleImage(matches);
+		// 상품 상세 글쓰기 이미지 업로드
+        boardImageUploadApi(matches);
 
         // 상품 상세로 이동
-
 
     }
 
@@ -221,7 +238,7 @@ export const ProductWrite = () => {
     return (
         <div className='pt-10 pb-10 flex w-full h-full justify-center items-center'>
             <form className='space-y-6 min-w-1/2 max-w-1/2' onSubmit={onSubmit}>
-                <h1 className="text-xl font-semibold leading-10 text-gray-900">{id ? '상품 수정' : '상품 등록'}</h1>
+                <h1 className="text-xl font-semibold leading-10 text-gray-900">상품 등록</h1>
                 <div>
                     <div className='flex'>
                         <label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900 mr-2">새상품</label>
@@ -245,7 +262,7 @@ export const ProductWrite = () => {
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selectedCategory.id ? selectedCategory.title: '선택해주세요.'}</span>
+                                    <span className="ml-3 block truncate">{selectedCategory?.title ? selectedCategory?.title : '선택해주세요.'}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -269,14 +286,14 @@ export const ProductWrite = () => {
                 </div>
 
                 <div>
-                    <Listbox value={selectedCategoryDetail} onChange={setSelectedCategoryDetail}>
+                    <Listbox value={selectedSubCategory} onChange={setSelectedSubCategory}>
                         {({ open }) => (
                             <>
                             <Listbox.Label className="block text-sm font-medium leading-6 text-gray-900">세부 카테고리</Listbox.Label>
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selectedCategoryDetail.title ? selectedCategoryDetail.title : '선택해주세요.'}</span>
+                                    <span className="ml-3 block truncate">{selectedSubCategory?.title ? selectedSubCategory?.title : '선택해주세요.'}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -291,38 +308,7 @@ export const ProductWrite = () => {
                                 leaveTo="opacity-0"
                                 >
                                     <Listbox.Options className="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                                        {categoryDetailList.map((data, i) => (
-                                            <Listbox.Option
-                                                key={i}
-                                                className={({ active }) =>
-                                                classNames(
-                                                    active ? 'bg-indigo-600 text-white' : 'text-gray-900',
-                                                    'relative cursor-default select-none py-2 pl-1 pr-9'
-                                                )}
-                                                value={data}
-                                            >
-                                                {({ selected, active }) => (
-                                                <>
-                                                    <div className="flex items-center">
-                                                    <span className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')} >
-                                                        {data.title}
-                                                    </span>
-                                                    </div>
-
-                                                    {selected ? (
-                                                    <span
-                                                        className={classNames(
-                                                        active ? 'text-white' : 'text-indigo-600',
-                                                        'absolute inset-y-0 right-0 flex items-center pr-4'
-                                                        )}
-                                                    >
-                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
-                                                    </span>
-                                                    ) : null}
-                                                </>
-                                                )}
-                                            </Listbox.Option>
-                                        ))}
+                                        {renderSubCategory}
                                     </Listbox.Options>
                                 </Transition>
                             </div>
@@ -339,7 +325,7 @@ export const ProductWrite = () => {
                             <div className="relative mt-2">
                                 <Listbox.Button className="relative w-full cursor-default rounded-md bg-white py-1.5 pl-1 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 sm:text-sm sm:leading-6">
                                 <span className="flex items-center">
-                                    <span className="ml-3 block truncate">{selectedOption.title ? selectedOption.title : '선택해주세요.'}</span>
+                                    <span className="ml-3 block truncate">{selectedOption?.title ? selectedOption?.title : '선택해주세요.'}</span>
                                 </span>
                                 <span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -361,10 +347,7 @@ export const ProductWrite = () => {
                         )}
                     </Listbox>
                     <div className='pt-2'>
-                        <p>항목: 
-                        {optionDetailList.map((data, i) => (
-                            <span key={i} className='ml-1 p-1 rounded inline-block bg-gray-200'>{data.title}</span>
-                        ))}
+                        <p>항목: {renderSubOption}
                         </p>
                     </div>
                 </div>
@@ -386,7 +369,7 @@ export const ProductWrite = () => {
                 <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">할인률</label>
                     <div className="mt-2">
-                        <input id="discount" type="text" required value={productDiscount} onChange={(e) => setProductDiscount(e.target.value)} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
+                        <input id="discount" type="text" required value={productDiscount} onChange={(e) => setProductDiscount(parseInt(e.target.value))} className="block w-full rounded-md border-0 py-1.5 pl-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 outline-0" />
                     </div>
                 </div>
 
@@ -421,7 +404,7 @@ export const ProductWrite = () => {
                         상픔 설명
                     </label>
                     <div className="mt-2">
-                        {/* <ProductEditor value={productDes} setValue={setProductDes}/> */}
+                        <ProductEditor state={productDes} dispatch={setProductDes}/>
                     </div>
                 </div>
 
