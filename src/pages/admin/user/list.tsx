@@ -10,7 +10,7 @@ type userType = {
     reg_date: string
 }
 
-export const AdminList = () => {
+export const List = () => {
     const navigate = useNavigate();
 
     const { data: userList } = useQuery('userList', adminListApi, { initialData: [] });
