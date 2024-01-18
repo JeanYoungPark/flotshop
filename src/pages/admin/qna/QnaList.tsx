@@ -18,7 +18,7 @@ const qna = [
     },
 ]
 
-export const QnAList = () => {
+export const QnaList = () => {
     const navigate = useNavigate();
 
     return (
