@@ -1,4 +1,4 @@
-import React, { useContext, useCallback, useRef } from 'react';
+import React, { useContext, useRef } from 'react';
 import ReactFullpage from "@fullpage/react-fullpage";
 import Slider  from "react-slick";
 import { BsArrowLeft, BsArrowRight, BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs";
@@ -34,13 +34,13 @@ export const MainComponent = () => {
     const sliderRef3 = useRef<Slider>(null);
     const sliderRef4 = useRef<Slider>(null);
 
-    const leaveSection = useCallback((origin: any, destination: any, direction: any) => {
+    const leaveSection = (origin: any, destination: any, direction: any) => {
         if(destination.index === 0) {
             commonData?.handleHeaderColor(true);
         }else{
             commonData?.handleHeaderColor(false);
         }
-    }, [commonData]);
+    }
 
   return (
     <>

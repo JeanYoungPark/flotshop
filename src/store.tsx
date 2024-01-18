@@ -1,17 +1,19 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { adminMenuReducer } from "reducers/adminMenuReducer";
+import { userReducer } from "reducers/userReducer";
 import { persistStore } from "redux-persist";
 import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
-    adminMenu: adminMenuReducer
+    adminMenu: adminMenuReducer,
+    userInfo: userReducer
 });
 
 const persistConfig = {
     key: "root",
     storage, // 로컬 스토리지에 저장
-    whitelist: ["adminMenu"],
+    whitelist: ["adminMenu", "userInfo"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
