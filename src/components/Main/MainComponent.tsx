@@ -2,7 +2,6 @@ import React, { useContext, useRef } from 'react';
 import ReactFullpage from "@fullpage/react-fullpage";
 import Slider  from "react-slick";
 import { BsArrowLeft, BsArrowRight, BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs";
-import { CommonContext } from 'contexts/CommonProvider';
 import { MainContext } from 'contexts/MainProvider';
 import pd01 from 'assets/images/mainBg02_1.jpg'; 
 import pd02 from 'assets/images/mainBg02_2.jpg';
@@ -12,6 +11,8 @@ import pt05 from 'assets/images/point5.gif';
 import pd06 from 'assets/images/mainBg06_1.jpg';
 import pd07 from 'assets/images/mainBg07.png';
 import { Footer } from 'components/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 type Credits = {
     enabled?: boolean;
@@ -24,8 +25,8 @@ const credits: Credits = {
 };
 
 export const MainComponent = () => {
-
-    const commonData = useContext(CommonContext);
+    const popup = useSelector((state: RootState) => state.userHeader.popup)
+    const dispatch = useDispatch();
     const mainData = useContext(MainContext);
 
     const sliderRef = useRef<Slider>(null);
@@ -36,9 +37,9 @@ export const MainComponent = () => {
 
     const leaveSection = (origin: any, destination: any, direction: any) => {
         if(destination.index === 0) {
-            commonData?.handleHeaderColor(true);
+            dispatch({type: 'setColor', color: true})
         }else{
-            commonData?.handleHeaderColor(false);
+            dispatch({type: 'setColor', color: false})
         }
     }
 
@@ -47,7 +48,7 @@ export const MainComponent = () => {
         <ReactFullpage
             licenseKey = {'YOUR_KEY_HERE'}
             credits={credits}
-            navigation={commonData?.commonPopup === ""}
+            navigation={popup === ""}
             onLeave={leaveSection}
             render={({ state, fullpageApi }) => {
                 return (
