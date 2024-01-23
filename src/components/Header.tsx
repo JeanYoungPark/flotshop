@@ -5,33 +5,37 @@ import { CommonContext } from 'contexts/CommonProvider';
 import { Link } from 'react-router-dom';
 import { handleAsyncRequest } from 'api/api';
 import axios from 'axios';
+import { categoryApi, categoryMenuApi, subcategoryApi } from 'api/common';
+import { useQuery } from 'react-query';
 
+type categoryType = {
+    id: number;
+    title: string;
+    subCategory: { category_id: number, title: string, id: number }[]
+}
 
 export const Header = (props: { headerType : string }) => {
     const CommonData = useContext(CommonContext);
-    useEffect(() => {
-        const categoryApi = async() => {
-            const res = await handleAsyncRequest(() => axios.get('/category'));   
-        }
-        categoryApi();
-    }, [])
+    const { data: categoryData } = useQuery('category', categoryMenuApi,{ initialData: [] });
+    
+    const renderCategoryList = (categoryData || []).map((data: categoryType, index: number) => (
+        <li key={index}>
+            <span><Link to="">{data.title}</Link></span>
+            { data.subCategory.length > 0 && (
+                <dl className="subMenu">
+                    {data.subCategory.map((subData, subIndex) => (
+                        <dt key={subIndex}><span><Link to="">{subData.title}</Link></span></dt>
+                    ))}
+                </dl>
+            )}
+        </li>
+    ))
 
     return (
         <nav id="header" className={`${props.headerType} ${CommonData?.headerColor && 'active'}`}>
             <h1 className="logo"><Link to="/">logo</Link></h1>
             <ul className="menu">
-                <li>
-                    <span><Link to="/products">의류</Link></span>
-                    <dl className="subMenu">
-                        <dt><span><Link to="">민소매/나시</Link></span></dt>
-                        <dt><span><Link to="">티셔츠</Link></span></dt>
-                        <dt><span><Link to="">후드</Link></span></dt>
-                        <dt><span><Link to="">아우터</Link></span></dt>
-                        <dt><span><Link to="">악세사리</Link></span></dt>
-                    </dl>
-                </li>
-                <li><span><Link to="">산책</Link></span></li>
-                <li><span><Link to="">리빙</Link></span></li>
+                {renderCategoryList}
                 <li><span><Link to="/events">EVENT</Link></span></li>
                 <li><span><Link to="/collections">COLLECTION</Link></span></li>
                 <li>
