@@ -25,7 +25,7 @@
 ## 개발 환경
 ### frontend
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-### backend ([https://github.com/JeanYoungPark/flotshop-backend](https://github.com/JeanYoungPark/flotshop-backend))
+### ~~backend ([https://github.com/JeanYoungPark/flotshop-backend](https://github.com/JeanYoungPark/flotshop-backend)) 추가 개발중입니다.~~
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) ![MongoDB](https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white)
 
 ### 서버 환경 (미정)
