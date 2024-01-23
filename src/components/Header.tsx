@@ -1,12 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { BsBag } from "react-icons/bs";
 import { RiSearch2Line, RiMenuFill } from "react-icons/ri";
-import { CommonContext } from 'contexts/CommonProvider';
 import { Link } from 'react-router-dom';
-import { handleAsyncRequest } from 'api/api';
-import axios from 'axios';
-import { categoryApi, categoryMenuApi, subcategoryApi } from 'api/common';
+import { categoryMenuApi } from 'api/common';
 import { useQuery } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 type categoryType = {
     id: number;
@@ -15,7 +14,8 @@ type categoryType = {
 }
 
 export const Header = (props: { headerType : string }) => {
-    const CommonData = useContext(CommonContext);
+    const color = useSelector((state: RootState) => state.userHeader.color);
+    const dispatch = useDispatch();
     const { data: categoryData } = useQuery('category', categoryMenuApi,{ initialData: [] });
     
     const renderCategoryList = (categoryData || []).map((data: categoryType, index: number) => (
@@ -31,8 +31,12 @@ export const Header = (props: { headerType : string }) => {
         </li>
     ))
 
+    const handlePopup = (txt: string) => {
+        dispatch({type: 'setPopup', popup: txt});
+    }
+
     return (
-        <nav id="header" className={`${props.headerType} ${CommonData?.headerColor && 'active'}`}>
+        <nav id="header" className={`${props.headerType} ${color && 'active'}`}>
             <h1 className="logo"><Link to="/">logo</Link></h1>
             <ul className="menu">
                 {renderCategoryList}
@@ -57,9 +61,9 @@ export const Header = (props: { headerType : string }) => {
                 </li>
             </ul>
             <div className="icons">
-                <span onClick={() => CommonData?.handleCommonPopup("search")}><RiSearch2Line/></span>
+                <span onClick={() => handlePopup("search")}><RiSearch2Line/></span>
                 <span><BsBag/></span>
-                <span onClick={() => CommonData?.handleCommonPopup("menu")}><RiMenuFill/></span>
+                <span onClick={() => handlePopup("menu")}><RiMenuFill/></span>
             </div>
         </nav>
     )
