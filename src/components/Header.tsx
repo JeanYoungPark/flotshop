@@ -1,13 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BsBag } from "react-icons/bs";
 import { RiSearch2Line, RiMenuFill } from "react-icons/ri";
 import { CommonContext } from 'contexts/CommonProvider';
 import { Link } from 'react-router-dom';
+import { handleAsyncRequest } from 'api/api';
+import axios from 'axios';
 
 
 export const Header = (props: { headerType : string }) => {
     const CommonData = useContext(CommonContext);
-    
+    useEffect(() => {
+        const categoryApi = async() => {
+            const res = await handleAsyncRequest(() => axios.get('/category'));   
+        }
+        categoryApi();
+    }, [])
+
     return (
         <nav id="header" className={`${props.headerType} ${CommonData?.headerColor && 'active'}`}>
             <h1 className="logo"><Link to="/">logo</Link></h1>
