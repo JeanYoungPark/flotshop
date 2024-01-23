@@ -1,29 +1,45 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { BsBag } from "react-icons/bs";
 import { RiSearch2Line, RiMenuFill } from "react-icons/ri";
-import { CommonContext } from 'contexts/CommonProvider';
 import { Link } from 'react-router-dom';
+import { categoryMenuApi } from 'api/common';
+import { useQuery } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from 'store';
 
+type categoryType = {
+    id: number;
+    title: string;
+    subCategory: { category_id: number, title: string, id: number }[]
+}
 
 export const Header = (props: { headerType : string }) => {
-    const CommonData = useContext(CommonContext);
+    const color = useSelector((state: RootState) => state.userHeader.color);
+    const dispatch = useDispatch();
+    const { data: categoryData } = useQuery('category', categoryMenuApi,{ initialData: [] });
     
+    const renderCategoryList = (categoryData || []).map((data: categoryType, index: number) => (
+        <li key={index}>
+            <span><Link to="">{data.title}</Link></span>
+            { data.subCategory.length > 0 && (
+                <dl className="subMenu">
+                    {data.subCategory.map((subData, subIndex) => (
+                        <dt key={subIndex}><span><Link to="">{subData.title}</Link></span></dt>
+                    ))}
+                </dl>
+            )}
+        </li>
+    ))
+
+    const handlePopup = (txt: string) => {
+        dispatch({type: 'setPopup', popup: txt});
+    }
+
     return (
-        <nav id="header" className={`${props.headerType} ${CommonData?.headerColor && 'active'}`}>
+        <nav id="header" className={`${props.headerType} ${color && 'active'}`}>
             <h1 className="logo"><Link to="/">logo</Link></h1>
             <ul className="menu">
-                <li>
-                    <span><Link to="/products">의류</Link></span>
-                    <dl className="subMenu">
-                        <dt><span><Link to="">민소매/나시</Link></span></dt>
-                        <dt><span><Link to="">티셔츠</Link></span></dt>
-                        <dt><span><Link to="">후드</Link></span></dt>
-                        <dt><span><Link to="">아우터</Link></span></dt>
-                        <dt><span><Link to="">악세사리</Link></span></dt>
-                    </dl>
-                </li>
-                <li><span><Link to="">산책</Link></span></li>
-                <li><span><Link to="">리빙</Link></span></li>
+                {renderCategoryList}
                 <li><span><Link to="/events">EVENT</Link></span></li>
                 <li><span><Link to="/collections">COLLECTION</Link></span></li>
                 <li>
@@ -45,9 +61,9 @@ export const Header = (props: { headerType : string }) => {
                 </li>
             </ul>
             <div className="icons">
-                <span onClick={() => CommonData?.handleCommonPopup("search")}><RiSearch2Line/></span>
+                <span onClick={() => handlePopup("search")}><RiSearch2Line/></span>
                 <span><BsBag/></span>
-                <span onClick={() => CommonData?.handleCommonPopup("menu")}><RiMenuFill/></span>
+                <span onClick={() => handlePopup("menu")}><RiMenuFill/></span>
             </div>
         </nav>
     )

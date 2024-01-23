@@ -1,5 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { adminMenuReducer } from "reducers/adminMenuReducer";
+import { headerReducer } from "reducers/headerReducer";
 import { userReducer } from "reducers/userReducer";
 import { persistStore } from "redux-persist";
 import persistReducer from "redux-persist/es/persistReducer";
@@ -7,7 +8,8 @@ import storage from "redux-persist/lib/storage";
 
 const rootReducer = combineReducers({
     adminMenu: adminMenuReducer,
-    userInfo: userReducer
+    userInfo: userReducer,
+    userHeader: headerReducer
 });
 
 const persistConfig = {

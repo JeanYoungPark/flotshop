@@ -6,7 +6,7 @@ axios.interceptors.request.use(
             config.headers.common = {};
         }
 
-        config.baseURL = "http://localhost:3001";
+        config.baseURL = "http://localhost:3001/api";
         return config;
     },
     (error) => {
