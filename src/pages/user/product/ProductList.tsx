@@ -8,10 +8,12 @@ import { Search } from 'components/Search'
 import { Menu } from 'components/Menu'
 import { CommonProvider } from 'contexts/CommonProvider'
 import { Footer } from 'components/Footer'
+import { useParams } from 'react-router-dom'
 
 export const ProductList = () => {
+    const { categoryId } = useParams();
     const [scrollClass, setScrollClass] = useState<string>("");
-
+    console.log(categoryId)
     useEffect(() => {
         const handleScroll = () => {         
             if(window.scrollY === 0) {

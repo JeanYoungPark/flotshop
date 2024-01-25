@@ -6,6 +6,7 @@ import { Paging } from 'components/Paging'
 import { fromTopIn20, fromBottomIn40 } from 'utils'
 
 export const ProductComponent = () => {
+    console.log(111111);
     const [grid, setGrid] = useState(2);
 
     useEffect(() => {

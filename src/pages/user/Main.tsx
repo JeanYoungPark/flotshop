@@ -15,7 +15,7 @@ export const Main = () => {
             <Header headerType='fixedTypeA'/>
             <Search/>
             <Menu/>
-            <MainComponent />=
+            <MainComponent />
         </>
     )
 }

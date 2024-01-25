@@ -20,9 +20,9 @@ root.render(
         <CookiesProvider>
             <PersistGate loading={null} persistor={persistor}>
                 <QueryClientProvider client={queryClient}>
-                    {/* <React.StrictMode> */}
+                    <React.StrictMode>
                         <App />
-                    {/* </React.StrictMode> */}
+                    </React.StrictMode>
                 </QueryClientProvider>
             </PersistGate>
         </CookiesProvider>
