@@ -7,7 +7,10 @@ export const ProductRoutes = () => {
         <Routes>
             <Route path=":categoryId">
                 <Route path="" element={<ProductList/>} />
-                <Route path=":num" element={<ProductView/>} />
+                <Route path="view/productId" element={<ProductView/>} />
+                <Route path=":subCategoryId" element={<ProductList/>}>
+                    <Route path="view/productId" element={<ProductView/>} />
+                </Route>
             </Route>
         </Routes>
     )

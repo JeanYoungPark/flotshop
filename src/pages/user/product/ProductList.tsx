@@ -11,9 +11,9 @@ import { Footer } from 'components/Footer'
 import { useParams } from 'react-router-dom'
 
 export const ProductList = () => {
-    const { categoryId } = useParams();
+    const { categoryId, subCategoryId } = useParams();
     const [scrollClass, setScrollClass] = useState<string>("");
-    console.log(categoryId)
+
     useEffect(() => {
         const handleScroll = () => {         
             if(window.scrollY === 0) {
@@ -34,7 +34,7 @@ export const ProductList = () => {
             <Menu/>
             <div id='productList' className='container'>
                 <BannerComponent/>
-                <ProductComponent/>
+                <ProductComponent props={{categoryId: categoryId, subCategoryId: subCategoryId}}/>
             </div>
             <Footer/>
         </CommonProvider>

@@ -1,13 +1,61 @@
 import React,  { useState, useEffect } from 'react'
-import img01 from 'assets/images/product/list/img01.jpg'
+import noImage from 'assets/images/noImages.png'
 import { BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs"
 import { CiGrid2H, CiGrid41 } from "react-icons/ci"
 import { Paging } from 'components/Paging'
 import { fromTopIn20, fromBottomIn40 } from 'utils'
+import { useQuery } from 'react-query'
+import { productApi } from 'api/product'
 
-export const ProductComponent = () => {
-    console.log(111111);
+type componentType = {
+    props: {
+        categoryId?: string,
+        subCategoryId?: string
+    }
+}
+
+type productType = {
+    id: number;
+    category_id: number;
+    title: string;
+    price: number;
+    discount: number;
+    description: string;
+    sub_category_id?: number;
+    images?: {id: number, url: string, product_id: number}[];
+    new_price?: string;
+    final_price?: string;
+}
+
+export const ProductComponent: React.FC<componentType> = ({props: {categoryId, subCategoryId}}) => {
     const [grid, setGrid] = useState(2);
+    const { data: productData } = useQuery('product', () => productApi(categoryId), { initialData: [] });
+    
+    for(let data of productData) {
+        data.new_price = Math.floor(data.price).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+        data.final_price = Math.floor(data.price * ((100 - data.discount) / 100)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+    }
+
+    const renderProductList = (productData || []).map((data: productType, i: number) => (
+        <li className='product' key={i}>
+            <div className="img">
+                <div><img src={data.images?.length ? data.images[0]?.url : noImage} alt="product 1"/></div>
+                <div className="likes"><button><strong>Like</strong> <span className="count">0</span></button></div>
+                <div className="icons">
+                    <span><BsSuitHeart/></span>
+                    <span><BsHandbag /></span>
+                    <span><BsWindowSplit /></span>
+                </div>
+            </div>
+            <div className="description">
+                <strong className="name">{data.title}</strong>
+                <div className="reviewCount">리뷰 0</div>
+                <div className="price line">{data.new_price}원</div>
+                <div className="discountPrice">{data.final_price}원 <span className="discount">({data.discount}%)</span></div>
+            </div>
+        </li>
+    ));
+            
 
     useEffect(() => {
         fromTopIn20();
@@ -30,28 +78,7 @@ export const ProductComponent = () => {
                     <span className={`${grid === 2 && 'grid'}`} onClick={() => setGrid(2)}><CiGrid41 /></span>
                 </div>
                 <ul className='products fromBottomIn40'>
-                    {[1,2,3,4,5,6].map(() => {
-                        return (
-                            <li className='product'>
-                                <div className="img">
-                                    <div className="likes"><button><strong>Like</strong> <span className="count">0</span></button></div>
-                                    <div className="icons">
-                                        <span><BsSuitHeart/></span>
-                                        <span><BsHandbag /></span>
-                                        <span><BsWindowSplit /></span>
-                                    </div>
-                                    <img src={img01} alt="product 1"/>
-                                </div>
-                                <div className="description">
-                                    <strong className="name">플로트 캔디패딩조끼 강아지옷 2컬러</strong>
-                                    <div className="reviewCount">리뷰 0</div>
-                                    <div className="price line">30,000원</div>
-                                    <div className="discountPrice">22,500원 <span className="discount">(25%)</span></div>
-                                </div>
-                            </li>
-                        )
-                    })
-                    }
+                    {renderProductList}
                 </ul>
             </div>
             <Paging />
