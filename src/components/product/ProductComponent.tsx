@@ -1,5 +1,5 @@
 import React,  { useState, useEffect } from 'react'
-import noImage from 'assets/images/noImages.png'
+import noImage from 'assets/images/noImage.avif'
 import { BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs"
 import { CiGrid2H, CiGrid41 } from "react-icons/ci"
 import { Paging } from 'components/Paging'
