@@ -4,8 +4,9 @@ import { BsSuitHeart, BsHandbag, BsWindowSplit } from "react-icons/bs"
 import { CiGrid2H, CiGrid41 } from "react-icons/ci"
 import { Paging } from 'components/Paging'
 import { fromTopIn20, fromBottomIn40 } from 'utils'
-import { useQuery } from 'react-query'
+import { useMutation } from 'react-query'
 import { productApi } from 'api/product'
+import { Link } from 'react-router-dom'
 
 type componentType = {
     props: {
@@ -22,6 +23,7 @@ type productType = {
     discount: number;
     description: string;
     sub_category_id?: number;
+    likes: number;
     images?: {id: number, url: string, product_id: number}[];
     new_price?: string;
     final_price?: string;
@@ -29,30 +31,36 @@ type productType = {
 
 export const ProductComponent: React.FC<componentType> = ({props: {categoryId, subCategoryId}}) => {
     const [grid, setGrid] = useState(2);
-    const { data: productData } = useQuery('product', () => productApi(categoryId), { initialData: [] });
+    const { mutate: productMutate, data: productData} = useMutation<productType[], any, { categoryId?: string, subCategoryId?: string }>(({categoryId, subCategoryId}) => productApi(categoryId, subCategoryId));
+
+    useEffect(() => {
+        productMutate({categoryId, subCategoryId});
+    }, [productMutate, categoryId, subCategoryId]);
     
-    for(let data of productData) {
+    for(let data of productData || []) {
         data.new_price = Math.floor(data.price).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         data.final_price = Math.floor(data.price * ((100 - data.discount) / 100)).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
     }
 
     const renderProductList = (productData || []).map((data: productType, i: number) => (
         <li className='product' key={i}>
-            <div className="img">
-                <div><img src={data.images?.length ? data.images[0]?.url : noImage} alt="product 1"/></div>
-                <div className="likes"><button><strong>Like</strong> <span className="count">0</span></button></div>
-                <div className="icons">
-                    <span><BsSuitHeart/></span>
-                    <span><BsHandbag /></span>
-                    <span><BsWindowSplit /></span>
+            <Link to={subCategoryId ? `/products/${categoryId}/${subCategoryId}/view/${data.id}` : `/products/${categoryId}/view/${data.id}`}>
+                <div className="img">
+                    <div><img src={data.images?.length ? data.images[0]?.url : noImage} alt="product 1"/></div>
+                    <div className="likes"><button><strong>Like</strong> <span className="count">{data.likes}</span></button></div>
+                    <div className="icons">
+                        <span><BsSuitHeart/></span>
+                        <span><BsHandbag /></span>
+                        <span><BsWindowSplit /></span>
+                    </div>
                 </div>
-            </div>
-            <div className="description">
-                <strong className="name">{data.title}</strong>
-                <div className="reviewCount">리뷰 0</div>
-                <div className="price line">{data.new_price}원</div>
-                <div className="discountPrice">{data.final_price}원 <span className="discount">({data.discount}%)</span></div>
-            </div>
+                <div className="description">
+                    <strong className="name">{data.title}</strong>
+                    <div className="reviewCount">리뷰 0</div>
+                    <div className="price line">{data.new_price}원</div>
+                    <div className="discountPrice">{data.final_price}원 <span className="discount">({data.discount}%)</span></div>
+                </div>
+            </Link>
         </li>
     ));
             
