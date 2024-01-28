@@ -50,6 +50,7 @@
   overflow: hidden;
   margin-bottom: 10px;
   cursor: pointer;
+  background: #c9c9c9;
 }
 #productList .wrapper .content .products .product .img:hover .likes {
   opacity: 1;
