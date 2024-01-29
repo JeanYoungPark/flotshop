@@ -11,6 +11,7 @@ type componentType = {
 export const DetailComponent: React.FC<componentType> = ({productId}) => {
     const [mainThumb, setMainThumb] = useState("");
     const [guideType, setGuideType] = useState<string>("");
+    const [review, setReview] = useState<string>("");
     const [elPosition, setElPosition] = useState<'static'| 'fixed'>('static');
 
     const { data } = useQuery('product', () => productApi(productId), {
@@ -77,7 +78,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                         <span>배송/교환/반품</span>
                     </div>
                     <ul>
-                        <li onClick={() => setGuideType('payment')}>
+                        <li className='payment' onClick={() => setGuideType('payment')}>
                             <h3>결제 안내</h3>
                             <div className={`${guideType === 'payment' && 'on'}`}>
                             고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다. <br/><br/>
@@ -85,7 +86,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                             주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.
                             </div>
                         </li>
-                        <li onClick={() => setGuideType('shipping')}>
+                        <li className='shipping' onClick={() => setGuideType('shipping')}>
                             <h3>배송 안내</h3>
                             <div className={`${guideType === 'shipping' && 'on'}`}>
                             배송 방법 : 택배<br/>
@@ -100,7 +101,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                             - 예약 / 수입 / 맞춤 상품의 경우 배송기간이 다소 지연될 수 있으며 배송지가 지방일 경우 예정된 시일보다 조금 더 소요될 수 있는 점 양해 부탁드립니다.
                             </div>
                         </li>
-                        <li onClick={() => setGuideType('exchange')}>
+                        <li className='exchange' onClick={() => setGuideType('exchange')}>
                             <h3>교환 및 반품 안내</h3>
                             <div className={`${guideType === 'exchange' && 'on'}`}>
                             교환 및 반품이 불가능한 경우<br/><br/>
@@ -116,12 +117,32 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                         <span>상품후기</span>
                     </div>
                     <table>
-                        <tr>
+                        <colgroup>
+                            <col style={{width: "70px"}}></col>
+                            <col style={{width: "auto"}}></col>
+                            <col style={{width: "140px"}}></col>
+                            <col style={{width: "120px"}}></col>
+                            <col style={{width: "80px"}}></col>
+                        </colgroup>
+                        <tr className='record' onClick={() => setReview('review1')}>
                             <td>4</td>
-                            <td>이것만 품절이여서 내내 기다리다 간신히 샀어요ㅎㅎ</td>
+                            <td className='subject'>이것만 품절이여서 내내 기다리다 간신히 샀어요ㅎㅎ</td>
                             <td>image</td>
                             <td>네****</td>
                             <td>2023-11-25</td>
+                        </tr>
+                        <tr className={`read ${review === 'review1' && 'on'}`}>
+                            <td colSpan={5}>애기들 내복스타일로 사주고싶어서 샀는데 사진하고 동일해요 너무너무 귀여워용 ㅠㅠㅠ 때탈까봐 조금 걱정되긴 하지만 현재까지는 괜찮습니다 사이즈도 잘맞아요</td>
+                        </tr>
+                        <tr className='record' onClick={() => setReview('review2')}>
+                            <td>4</td>
+                            <td className='subject'>이것만 품절이여서 내내 기다리다 간신히 샀어요ㅎㅎ</td>
+                            <td>image</td>
+                            <td>네****</td>
+                            <td>2023-11-25</td>
+                        </tr>
+                        <tr className={`read ${review === 'review2' && 'on'}`}>
+                            <td colSpan={5}>애기들 내복스타일로 사주고싶어서 샀는데 사진하고 동일해요 너무너무 귀여워용 ㅠㅠㅠ 때탈까봐 조금 걱정되긴 하지만 현재까지는 괜찮습니다 사이즈도 잘맞아요</td>
                         </tr>
                     </table>
                 </div>

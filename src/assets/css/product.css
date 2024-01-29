@@ -250,15 +250,76 @@
   padding: 15px 0;
 }
 #productDetail .wrapper .left .guide ul li div {
-  font-size: 18px;
-  transition: all 0.7s ease;
-  height: 0;
+  transition: all 0.3s linear;
+  max-height: 0;
   overflow: hidden;
 }
 #productDetail .wrapper .left .guide ul li div.on {
   padding-bottom: 30px;
   height: auto;
   max-height: 500px;
+}
+#productDetail .wrapper .left .guide ul li.payment div {
+  font-size: 18px;
+}
+#productDetail .wrapper .left .guide ul li.shipping div {
+  color: #999;
+  font-size: 18px;
+  line-height: 1.8;
+}
+#productDetail .wrapper .left .guide ul li.exchange div {
+  color: #999;
+  font-size: 18px;
+  line-height: 1.8;
+}
+#productDetail .wrapper .left .reviews {
+  padding: 110px 0;
+}
+#productDetail .wrapper .left .reviews .title {
+  position: relative;
+  margin: 5px 0 30px 0;
+}
+#productDetail .wrapper .left .reviews .title h2 {
+  font-size: 65px;
+  font-family: "GmarketSans";
+  font-weight: 700;
+}
+#productDetail .wrapper .left .reviews .title span {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  font-size: 25px;
+  color: #999;
+}
+#productDetail .wrapper .left .reviews table {
+  width: 100%;
+}
+#productDetail .wrapper .left .reviews table .record td {
+  font-size: 15px;
+  padding: 25px 0;
+  border-top: 1px solid #eee;
+}
+#productDetail .wrapper .left .reviews table .record td.subject {
+  font-size: 19px;
+}
+#productDetail .wrapper .left .reviews table .read {
+  visibility: collapse;
+}
+#productDetail .wrapper .left .reviews table .read td {
+  transition: all 0.3s linear;
+  height: 0;
+  overflow: hidden;
+  padding: 0 40px;
+  font-size: 18px;
+}
+#productDetail .wrapper .left .reviews table .read.on {
+  visibility: visible;
+}
+#productDetail .wrapper .left .reviews table .read.on td {
+  padding: 80px 40px;
+  border-top: 1px solid #eee;
+  height: auto;
+  max-height: 1000px;
 }
 #productDetail .wrapper .right {
   width: 38%;

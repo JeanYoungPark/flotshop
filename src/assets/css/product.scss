@@ -302,15 +302,98 @@
                         }
 
                         div {
-                            font-size: 18px;
-                            transition: all 0.7s ease;
-                            height: 0;
+                            transition: all .3s linear;
+                            max-height: 0;
                             overflow: hidden;
-                            
+
                             &.on {
                                 padding-bottom: 30px;
                                 height: auto;
                                 max-height: 500px;
+                            }
+                        }
+
+                        &.payment {
+                            div {
+                                font-size: 18px;
+                            }
+                        }
+                        
+                        &.shipping {
+                            div {
+                                color: #999;
+                                font-size: 18px;
+                                line-height: 1.8;;
+                            }
+                        }
+
+                        &.exchange {
+                            div {
+                                color: #999;
+                                font-size: 18px;
+                                line-height: 1.8;;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .reviews {
+                padding: 110px 0;
+
+                .title {
+                    position: relative;
+                    margin: 5px 0 30px 0;
+
+                    h2 {
+                        font-size: 65px;
+                        font-family: "GmarketSans";
+                        font-weight: 700;
+                    }
+
+                    span{
+                        position:absolute;
+                        right:0;
+                        bottom:10px;
+                        font-size: 25px;
+                        color: #999;
+                    }
+                }
+
+                table {
+                    width: 100%;
+
+                    .record {
+                        td {
+                            font-size: 15px;
+                            padding: 25px 0;
+                            border-top: 1px solid #eee;
+
+                            &.subject {
+                                font-size: 19px;
+                            }
+                        }
+                    }
+
+                    .read {
+                        visibility: collapse;
+
+                        td {
+                            transition: all .3s linear;
+                            height: 0;
+                            overflow: hidden;
+                            padding: 0 40px;
+                            font-size: 18px;
+                        }
+
+                        &.on {
+                            visibility: visible;
+
+                            td {
+                                padding: 80px 40px;
+                                border-top: 1px solid #eee;
+                                height: auto;
+                                max-height:1000px;
                             }
                         }
                     }
