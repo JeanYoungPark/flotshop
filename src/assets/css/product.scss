@@ -258,8 +258,63 @@
             }
 
             .content {
-                padding-top: 250px;
+                padding-top: 200px;
                 color: #222;
+                font-size: 16px;
+                line-height: 1.8;
+
+                hr {
+                    margin-bottom: 50px;
+                }
+            }
+
+            .guide {
+                padding: 110px 0;
+
+                .title {
+                    position: relative;
+                    margin: 5px 0 30px 0;
+
+                    h2 {
+                        font-size: 65px;
+                        font-family: "GmarketSans";
+                        font-weight: 700;
+                    }
+
+                    span{
+                        position:absolute;
+                        right:0;
+                        bottom:10px;
+                        font-size: 25px;
+                        color: #999;
+                    }
+                }
+
+                ul {
+                    li {
+                        border-top: 2px dashed #eee;
+                        cursor: pointer;
+
+                        h3 {
+                            font-size: 23px;
+                            font-weight: 700;
+                            padding: 15px 0;
+                        }
+
+                        div {
+                            font-size: 18px;
+                            transition: all 0.7s ease;
+                            height: 0;
+                            overflow: hidden;
+                            
+                            &.on {
+                                padding-bottom: 30px;
+                                height: auto;
+                                max-height: 500px;
+                            }
+                        }
+                    }
+                }
             }
         }
     
@@ -269,7 +324,7 @@
             .container {
                 position: relative;
                 max-width: 405px;
-                padding-top: 10px;
+                padding-top: 0;
 
                 .head {
                     padding-bottom: 15px;

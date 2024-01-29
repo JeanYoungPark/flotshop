@@ -8,7 +8,8 @@ export const ProductRoutes = () => {
             <Route path=":categoryId">
                 <Route path="" element={<ProductList/>} />
                 <Route path="view/:productId" element={<ProductView/>} />
-                <Route path=":subCategoryId" element={<ProductList/>}>
+                <Route path=":subCategoryId">
+                    <Route path="" element={<ProductList/>} />
                     <Route path="view/:productId" element={<ProductView/>} />
                 </Route>
             </Route>

@@ -213,8 +213,52 @@
   overflow: hidden;
 }
 #productDetail .wrapper .left .content {
-  padding-top: 250px;
+  padding-top: 200px;
   color: #222;
+  font-size: 16px;
+  line-height: 1.8;
+}
+#productDetail .wrapper .left .content hr {
+  margin-bottom: 50px;
+}
+#productDetail .wrapper .left .guide {
+  padding: 110px 0;
+}
+#productDetail .wrapper .left .guide .title {
+  position: relative;
+  margin: 5px 0 30px 0;
+}
+#productDetail .wrapper .left .guide .title h2 {
+  font-size: 65px;
+  font-family: "GmarketSans";
+  font-weight: 700;
+}
+#productDetail .wrapper .left .guide .title span {
+  position: absolute;
+  right: 0;
+  bottom: 10px;
+  font-size: 25px;
+  color: #999;
+}
+#productDetail .wrapper .left .guide ul li {
+  border-top: 2px dashed #eee;
+  cursor: pointer;
+}
+#productDetail .wrapper .left .guide ul li h3 {
+  font-size: 23px;
+  font-weight: 700;
+  padding: 15px 0;
+}
+#productDetail .wrapper .left .guide ul li div {
+  font-size: 18px;
+  transition: all 0.7s ease;
+  height: 0;
+  overflow: hidden;
+}
+#productDetail .wrapper .left .guide ul li div.on {
+  padding-bottom: 30px;
+  height: auto;
+  max-height: 500px;
 }
 #productDetail .wrapper .right {
   width: 38%;
@@ -222,7 +266,7 @@
 #productDetail .wrapper .right .container {
   position: relative;
   max-width: 405px;
-  padding-top: 10px;
+  padding-top: 0;
 }
 #productDetail .wrapper .right .container .head {
   padding-bottom: 15px;

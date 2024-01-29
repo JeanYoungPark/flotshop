@@ -5,7 +5,7 @@ import { CiGrid2H, CiGrid41 } from "react-icons/ci"
 import { Paging } from 'components/Paging'
 import { fromTopIn20, fromBottomIn40 } from 'utils'
 import { useMutation } from 'react-query'
-import { productApi } from 'api/product'
+import { productListApi } from 'api/product'
 import { Link } from 'react-router-dom'
 
 type componentType = {
@@ -31,7 +31,7 @@ type productType = {
 
 export const ProductComponent: React.FC<componentType> = ({props: {categoryId, subCategoryId}}) => {
     const [grid, setGrid] = useState(2);
-    const { mutate: productMutate, data: productData} = useMutation<productType[], any, { categoryId?: string, subCategoryId?: string }>(({categoryId, subCategoryId}) => productApi(categoryId, subCategoryId));
+    const { mutate: productMutate, data: productData} = useMutation<productType[], any, { categoryId?: string, subCategoryId?: string }>(({categoryId, subCategoryId}) => productListApi(categoryId, subCategoryId));
 
     useEffect(() => {
         productMutate({categoryId, subCategoryId});
