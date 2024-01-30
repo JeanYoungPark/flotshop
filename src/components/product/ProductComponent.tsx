@@ -23,6 +23,7 @@ type productType = {
     discount: number;
     description: string;
     sub_category_id?: number;
+    review_cnt: number;
     likes: number;
     images?: {id: number, url: string, product_id: number}[];
     new_price?: string;
@@ -56,7 +57,7 @@ export const ProductComponent: React.FC<componentType> = ({props: {categoryId, s
                 </div>
                 <div className="description">
                     <strong className="name">{data.title}</strong>
-                    <div className="reviewCount">리뷰 0</div>
+                    <div className="reviewCount">리뷰 {data.review_cnt}</div>
                     <div className="price line">{data.new_price}원</div>
                     <div className="discountPrice">{data.final_price}원 <span className="discount">({data.discount}%)</span></div>
                 </div>

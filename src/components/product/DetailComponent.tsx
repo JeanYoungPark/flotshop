@@ -8,11 +8,16 @@ type componentType = {
     productId?: string
 }
 
+type productValueType = {
+    s: number, m: number, l: number
+}
+
 export const DetailComponent: React.FC<componentType> = ({productId}) => {
     const [mainThumb, setMainThumb] = useState("");
     const [guideType, setGuideType] = useState<string>("");
     const [review, setReview] = useState<string>("");
     const [elPosition, setElPosition] = useState<'static'| 'fixed'>('static');
+    const [productValue, setProductValue] = useState<productValueType>({ s: 0, m: 0, l: 0 });
 
     const { data } = useQuery('product', () => productApi(productId), {
         onSuccess: (data) => {
@@ -25,15 +30,89 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
 
         for(let i = 0; i < 5; i++) {
             if(data?.images[i]?.url){
-                imagesHtml.push(<li onMouseOver={() => handleMouseOver(data.images[i].url)}><img src={data.images[i].url} alt={`product ${i}`}/></li>)
+                imagesHtml.push(<li key={i} onMouseOver={() => handleMouseOver(data.images[i].url)}><img src={data.images[i].url} alt={`product ${i}`}/></li>)
             }
         }
 
         return imagesHtml;
     }
 
+    const renderReviews = () => {
+        const reviewsHtml = [];
+        for(let i = 0; i < 5; i++) {
+            const date = new Date(data?.reviews[i]?.reg_date);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+
+            if(data?.reviews[i]?.content) {
+                reviewsHtml.push(
+                    <>
+                        <tr key={i} className='record' onClick={() => setReview(`review${i}`)}>
+                            <td>{i+1}</td>
+                            <td className='subject'>{data?.reviews[i]?.title}</td>
+                            <td className='image'><img src={data?.reviews[i]?.images} /></td>
+                            <td>{data?.reviews[i]?.user_id}***</td>
+                            <td>{`${year}-${month}-${day}`}</td>
+                        </tr>
+                        <tr className={`read ${review === `review${i}` && 'on'}`}>
+                            <td colSpan={5}>{data?.reviews[i]?.content}</td>
+                        </tr>
+                    </>
+                )
+            }
+        }
+
+        return reviewsHtml;
+    }
+
     const handleMouseOver = (url: string) => {
         setMainThumb(url)
+    }
+
+    const handleOnClick = (size: string) => {
+        setProductValue({
+            ...productValue,
+            [size]: (productValue as any)[size] + 1
+        })
+    }
+
+    const renderProductValue = () => {
+        const list = [];
+
+        const final_price = Math.floor(data?.price * ((100 - data?.discount) / 100));
+        console.log(productValue?.s);
+        if(productValue?.s) {
+            list.push(
+                <tr>
+                    <td>{data?.title}</td>
+                    <td><input value={productValue?.s} /></td>
+                    <td>{(final_price * productValue?.s).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+                </tr>
+            )
+        }
+
+        if(productValue?.m) {
+            list.push(
+                <tr>
+                    <td>{data?.title}</td>
+                    <td><input value={productValue?.m} /></td>
+                    <td>{(final_price * productValue?.m).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+                </tr>
+            )
+        }
+
+        if(productValue?.l) {
+            list.push(
+                <tr>
+                    <td>{data?.title}</td>
+                    <td><input value={productValue?.l} /></td>
+                    <td>{(final_price * productValue?.l).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+                </tr>
+            )
+        }
+
+        return list;
     }
 
     useEffect(() => {
@@ -120,30 +199,11 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                         <colgroup>
                             <col style={{width: "70px"}}></col>
                             <col style={{width: "auto"}}></col>
-                            <col style={{width: "140px"}}></col>
-                            <col style={{width: "120px"}}></col>
+                            <col style={{width: "70px"}}></col>
+                            <col style={{width: "100px"}}></col>
                             <col style={{width: "80px"}}></col>
                         </colgroup>
-                        <tr className='record' onClick={() => setReview('review1')}>
-                            <td>4</td>
-                            <td className='subject'>이것만 품절이여서 내내 기다리다 간신히 샀어요ㅎㅎ</td>
-                            <td>image</td>
-                            <td>네****</td>
-                            <td>2023-11-25</td>
-                        </tr>
-                        <tr className={`read ${review === 'review1' && 'on'}`}>
-                            <td colSpan={5}>애기들 내복스타일로 사주고싶어서 샀는데 사진하고 동일해요 너무너무 귀여워용 ㅠㅠㅠ 때탈까봐 조금 걱정되긴 하지만 현재까지는 괜찮습니다 사이즈도 잘맞아요</td>
-                        </tr>
-                        <tr className='record' onClick={() => setReview('review2')}>
-                            <td>4</td>
-                            <td className='subject'>이것만 품절이여서 내내 기다리다 간신히 샀어요ㅎㅎ</td>
-                            <td>image</td>
-                            <td>네****</td>
-                            <td>2023-11-25</td>
-                        </tr>
-                        <tr className={`read ${review === 'review2' && 'on'}`}>
-                            <td colSpan={5}>애기들 내복스타일로 사주고싶어서 샀는데 사진하고 동일해요 너무너무 귀여워용 ㅠㅠㅠ 때탈까봐 조금 걱정되긴 하지만 현재까지는 괜찮습니다 사이즈도 잘맞아요</td>
-                        </tr>
+                        {renderReviews()}
                     </table>
                 </div>
             </div>
@@ -170,12 +230,13 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                                         <td>
                                             <select>
                                                 <option>- [필수] 옵션을 선택해 주세요 -</option>
-                                                <option value="S">S</option>
-                                                <option value="M">M</option>
-                                                <option value="L">L</option>
+                                                <option value="S" onClick={() => handleOnClick('s')}>S</option>
+                                                <option value="M" onClick={() => handleOnClick('m')}>M</option>
+                                                <option value="L" onClick={() => handleOnClick('l')}>L</option>
                                             </select>
                                         </td>
                                     </tr>
+                                    {renderProductValue()}
                                 </tbody>
                             </table>
                         </div>
