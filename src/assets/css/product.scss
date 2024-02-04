@@ -302,7 +302,6 @@
                         }
 
                         div {
-                            transition: all .3s linear;
                             max-height: 0;
                             overflow: hidden;
 
@@ -360,50 +359,71 @@
                     }
                 }
 
-                table {
+                ul {
                     width: 100%;
-
+                    
                     .record {
-                        td {
+                        align-items: center;
+                        border-top: 1px solid #eee;
+                        height: 80px;
+                        line-height: 80px;
+                        cursor: pointer;
+                        
+                        &::after {
+                            content: '';
+                            display:block;
+                            clear: both;
+                        }
+                        
+                        span {
+                            float: left;
+                            height: 100%;
+                            display: block;
                             font-size: 15px;
-                            padding: 25px 0;
-                            border-top: 1px solid #eee;
+                            padding: 0 10px;
+
+                            &.float-right {
+                                float: right;
+                            }
+
+                            img {
+                                display: inline-block;
+                                width: 50px;
+                                height:50px;
+                                border-radius: 50%;
+                            }
 
                             &.subject {
                                 font-size: 19px;
-                                padding-right: 50px;
+                                max-width: 500px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
                             }
 
-                            &.image {
-                                img {
-                                    width: 50px;
-                                    height:50px;
-                                    border-radius: 50%;
-                                }
+                            &.date {
+                                min-width: 120px;
+                            }
+
+                            &.profile {
+                                min-width: 120px;
                             }
                         }
                     }
 
                     .read {
-                        visibility: collapse;
-
-                        td {
-                            transition: all .3s linear;
-                            height: 0;
-                            overflow: hidden;
-                            padding: 0 40px;
-                            font-size: 18px;
-                        }
+                        visibility: none;
+                        height: 0;
+                        padding: 0 40px;
+                        font-size: 18px;
+                        overflow: hidden;
+                        cursor: pointer;
 
                         &.on {
                             visibility: visible;
-
-                            td {
-                                padding: 80px 40px;
-                                border-top: 1px solid #eee;
-                                height: auto;
-                                max-height:1000px;
-                            }
+                            padding: 80px 40px;
+                            border-top: 1px solid #eee;
+                            height: auto;
                         }
                     }
                 }

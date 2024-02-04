@@ -250,7 +250,6 @@
   padding: 15px 0;
 }
 #productDetail .wrapper .left .guide ul li div {
-  transition: all 0.3s linear;
   max-height: 0;
   overflow: hidden;
 }
@@ -291,41 +290,63 @@
   font-size: 25px;
   color: #999;
 }
-#productDetail .wrapper .left .reviews table {
+#productDetail .wrapper .left .reviews ul {
   width: 100%;
 }
-#productDetail .wrapper .left .reviews table .record td {
-  font-size: 15px;
-  padding: 25px 0;
+#productDetail .wrapper .left .reviews ul .record {
+  align-items: center;
   border-top: 1px solid #eee;
+  height: 80px;
+  line-height: 80px;
+  cursor: pointer;
 }
-#productDetail .wrapper .left .reviews table .record td.subject {
-  font-size: 19px;
-  padding-right: 50px;
+#productDetail .wrapper .left .reviews ul .record::after {
+  content: "";
+  display: block;
+  clear: both;
 }
-#productDetail .wrapper .left .reviews table .record td.image img {
+#productDetail .wrapper .left .reviews ul .record span {
+  float: left;
+  height: 100%;
+  display: block;
+  font-size: 15px;
+  padding: 0 10px;
+}
+#productDetail .wrapper .left .reviews ul .record span.float-right {
+  float: right;
+}
+#productDetail .wrapper .left .reviews ul .record span img {
+  display: inline-block;
   width: 50px;
   height: 50px;
   border-radius: 50%;
 }
-#productDetail .wrapper .left .reviews table .read {
-  visibility: collapse;
-}
-#productDetail .wrapper .left .reviews table .read td {
-  transition: all 0.3s linear;
-  height: 0;
+#productDetail .wrapper .left .reviews ul .record span.subject {
+  font-size: 19px;
+  max-width: 500px;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
+}
+#productDetail .wrapper .left .reviews ul .record span.date {
+  min-width: 120px;
+}
+#productDetail .wrapper .left .reviews ul .record span.profile {
+  min-width: 120px;
+}
+#productDetail .wrapper .left .reviews ul .read {
+  visibility: none;
+  height: 0;
   padding: 0 40px;
   font-size: 18px;
+  overflow: hidden;
+  cursor: pointer;
 }
-#productDetail .wrapper .left .reviews table .read.on {
+#productDetail .wrapper .left .reviews ul .read.on {
   visibility: visible;
-}
-#productDetail .wrapper .left .reviews table .read.on td {
   padding: 80px 40px;
   border-top: 1px solid #eee;
   height: auto;
-  max-height: 1000px;
 }
 #productDetail .wrapper .right {
   width: 38%;

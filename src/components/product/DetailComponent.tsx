@@ -9,7 +9,8 @@ type componentType = {
 }
 
 type productValueType = {
-    s: number, m: number, l: number
+    s: number, m: number, l: number,
+    [key: string]: number
 }
 
 export const DetailComponent: React.FC<componentType> = ({productId}) => {
@@ -18,10 +19,11 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
     const [review, setReview] = useState<string>("");
     const [elPosition, setElPosition] = useState<'static'| 'fixed'>('static');
     const [productValue, setProductValue] = useState<productValueType>({ s: 0, m: 0, l: 0 });
-
+    
     const { data } = useQuery('product', () => productApi(productId), {
         onSuccess: (data) => {
             setMainThumb(data.images[0]?.url);
+            data.new_price = Math.floor(data.price).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
         }
     });
 
@@ -42,23 +44,22 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
         for(let i = 0; i < 5; i++) {
             const date = new Date(data?.reviews[i]?.reg_date);
             const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
+            const month = ('0'+(date.getMonth() + 1)).slice(-2);
+            const day = ('0'+date.getDate()).slice(-2);
 
             if(data?.reviews[i]?.content) {
                 reviewsHtml.push(
-                    <>
-                        <tr key={i} className='record' onClick={() => setReview(`review${i}`)}>
-                            <td>{i+1}</td>
-                            <td className='subject'>{data?.reviews[i]?.title}</td>
-                            <td className='image'><img src={data?.reviews[i]?.images} /></td>
-                            <td>{data?.reviews[i]?.user_id}***</td>
-                            <td>{`${year}-${month}-${day}`}</td>
-                        </tr>
-                        <tr className={`read ${review === `review${i}` && 'on'}`}>
-                            <td colSpan={5}>{data?.reviews[i]?.content}</td>
-                        </tr>
-                    </>
+                    <li key={i}>
+                        <div className='record' onClick={() => setReview(`review${i}`)}>
+                            <span>{i+1}</span>
+                            <span className='subject'>{data?.reviews[i]?.title}</span>
+                            <span className='date float-right'>{`${year}-${month}-${day}`}</span>
+                            <span className='profile float-right'><img src={data?.reviews[i]?.images} /> {data?.reviews[i]?.user_id}***</span>
+                        </div>
+                        <div className={`read ${review === `review${i}` && 'on'}`}>
+                            {data?.reviews[i]?.content}
+                        </div>
+                    </li>
                 )
             }
         }
@@ -70,48 +71,29 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
         setMainThumb(url)
     }
 
-    const handleOnClick = (size: string) => {
+    const handleOnClick = (e: any) => {
+        const size = e.target.value;
+        
         setProductValue({
             ...productValue,
             [size]: (productValue as any)[size] + 1
         })
     }
 
-    const renderProductValue = () => {
+    const renderProductValue = (size:string, key: number) => {
         const list = [];
-
         const final_price = Math.floor(data?.price * ((100 - data?.discount) / 100));
-        console.log(productValue?.s);
-        if(productValue?.s) {
+
+        if(productValue[size]) {
             list.push(
-                <tr>
+                <tr key={key}>
                     <td>{data?.title}</td>
-                    <td><input value={productValue?.s} /></td>
-                    <td>{(final_price * productValue?.s).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
+                    <td>{size}</td>
+                    <td><input value={productValue[size]} /></td>
+                    <td>{(final_price * productValue[size]).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
                 </tr>
             )
         }
-
-        if(productValue?.m) {
-            list.push(
-                <tr>
-                    <td>{data?.title}</td>
-                    <td><input value={productValue?.m} /></td>
-                    <td>{(final_price * productValue?.m).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
-                </tr>
-            )
-        }
-
-        if(productValue?.l) {
-            list.push(
-                <tr>
-                    <td>{data?.title}</td>
-                    <td><input value={productValue?.l} /></td>
-                    <td>{(final_price * productValue?.l).toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')}</td>
-                </tr>
-            )
-        }
-
         return list;
     }
 
@@ -136,7 +118,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                         <div className='thumb'>
                             <div className='img'><img src={mainThumb} alt="thumbnail"/></div>
                             <div className='review'>
-                                상품후기<span>1</span>
+                                상품후기<span>{data?.review_cnt}</span>
                             </div>
                             <div className='like'>
                                 LIKE <strong>{data?.likes}</strong>
@@ -157,7 +139,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                         <span>배송/교환/반품</span>
                     </div>
                     <ul>
-                        <li className='payment' onClick={() => setGuideType('payment')}>
+                        <li key={1} className='payment' onClick={() => setGuideType('payment')}>
                             <h3>결제 안내</h3>
                             <div className={`${guideType === 'payment' && 'on'}`}>
                             고액결제의 경우 안전을 위해 카드사에서 확인전화를 드릴 수도 있습니다. 확인과정에서 도난 카드의 사용이나 타인 명의의 주문등 정상적인 주문이 아니라고 판단될 경우 임의로 주문을 보류 또는 취소할 수 있습니다. <br/><br/>
@@ -165,7 +147,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                             주문시 입력한 입금자명과 실제입금자의 성명이 반드시 일치하여야 하며, 7일 이내로 입금을 하셔야 하며 입금되지 않은 주문은 자동취소 됩니다.
                             </div>
                         </li>
-                        <li className='shipping' onClick={() => setGuideType('shipping')}>
+                        <li key={2} className='shipping' onClick={() => setGuideType('shipping')}>
                             <h3>배송 안내</h3>
                             <div className={`${guideType === 'shipping' && 'on'}`}>
                             배송 방법 : 택배<br/>
@@ -180,7 +162,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                             - 예약 / 수입 / 맞춤 상품의 경우 배송기간이 다소 지연될 수 있으며 배송지가 지방일 경우 예정된 시일보다 조금 더 소요될 수 있는 점 양해 부탁드립니다.
                             </div>
                         </li>
-                        <li className='exchange' onClick={() => setGuideType('exchange')}>
+                        <li key={3} className='exchange' onClick={() => setGuideType('exchange')}>
                             <h3>교환 및 반품 안내</h3>
                             <div className={`${guideType === 'exchange' && 'on'}`}>
                             교환 및 반품이 불가능한 경우<br/><br/>
@@ -195,16 +177,9 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                         <h2>REVIEW</h2>
                         <span>상품후기</span>
                     </div>
-                    <table>
-                        <colgroup>
-                            <col style={{width: "70px"}}></col>
-                            <col style={{width: "auto"}}></col>
-                            <col style={{width: "70px"}}></col>
-                            <col style={{width: "100px"}}></col>
-                            <col style={{width: "80px"}}></col>
-                        </colgroup>
+                    <ul>
                         {renderReviews()}
-                    </table>
+                    </ul>
                 </div>
             </div>
             <div className='right'>
@@ -212,7 +187,7 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                     <div style={{position: `${elPosition}`}}>
                         <div className='head'>
                             <h2>{data?.title}</h2>
-                            <p>{data?.price}원</p>
+                            <p>{data?.new_price}원 ({data?.discount}%)</p>
                         </div>
                         <div className='info'>
                             <table>
@@ -221,22 +196,24 @@ export const DetailComponent: React.FC<componentType> = ({productId}) => {
                                     <col style={{width: 'auto'}} />
                                 </colgroup>
                                 <tbody>
-                                    <tr>
+                                    <tr key={1}>
                                         <td>배송비</td>
                                         <td>3,000원 (40,000원 이상 구매 시 무료)</td>
                                     </tr>
-                                    <tr>
+                                    <tr key={2}>
                                         <td>SIZE</td>
                                         <td>
-                                            <select>
+                                            <select onChange={(e) => handleOnClick(e)}>
                                                 <option>- [필수] 옵션을 선택해 주세요 -</option>
-                                                <option value="S" onClick={() => handleOnClick('s')}>S</option>
-                                                <option value="M" onClick={() => handleOnClick('m')}>M</option>
-                                                <option value="L" onClick={() => handleOnClick('l')}>L</option>
+                                                <option value="s">S</option>
+                                                <option value="m">M</option>
+                                                <option value="l">L</option>
                                             </select>
                                         </td>
                                     </tr>
-                                    {renderProductValue()}
+                                    {renderProductValue('s', 3)}
+                                    {renderProductValue('m', 4)}
+                                    {renderProductValue('l', 5)}
                                 </tbody>
                             </table>
                         </div>
