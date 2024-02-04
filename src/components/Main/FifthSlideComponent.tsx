@@ -33,7 +33,7 @@ export const FifthSlideComponent = () => {
                     }}
                     pagination={{
                         clickable: true,
-                        el: '.custom-pagination-2',
+                        el: '.fifth-page',
                         renderBullet: (i: number, className: string) => {
                             return `<span class=${className}>${i}</span>`; 
                         }
@@ -53,7 +53,7 @@ export const FifthSlideComponent = () => {
                         </SwiperSlide>
                     ))}
                 </Swiper>
-                <div className='custom-pagination-2'></div>
+                <div className='custom-pagination-2 fifth-page'></div>
                 <div className='button custom-button-prev'><BsArrowLeft/></div>
                 <div className='button custom-button-next'><BsArrowRight/></div>
             </div>

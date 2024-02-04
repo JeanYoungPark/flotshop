@@ -21,10 +21,9 @@ export const SecondSlideComponent = () => {
                             prevEl: '.custom-button-prev',
                         }}
                         pagination={{
-                            el: '.custom-pagination',
+                            el: '.first-page',
                             type: 'custom',
                             renderCustom: function (swiper: any, current: number, total:number) {
-                                console.log(current)
                                 return current + '/' + total; 
                             }
                         }}
@@ -50,7 +49,7 @@ export const SecondSlideComponent = () => {
                             </SwiperSlide>
                         ))}
                     </Swiper>
-                    <div className='custom-pagination'></div>
+                    <div className='custom-pagination first-page'></div>
                     <div className='button custom-button-prev'><BsArrowLeft/></div>
                     <div className='button custom-button-next'><BsArrowRight/></div>
                 </div>
