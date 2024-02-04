@@ -6,10 +6,11 @@ import { ProductComponent } from 'components/product/ProductComponent'
 import { Header } from 'components/Header'
 import { Search } from 'components/Search'
 import { Menu } from 'components/Menu'
-import { CommonProvider } from 'contexts/CommonProvider'
 import { Footer } from 'components/Footer'
+import { useParams } from 'react-router-dom'
 
 export const ProductList = () => {
+    const { categoryId, subCategoryId } = useParams();
     const [scrollClass, setScrollClass] = useState<string>("");
 
     useEffect(() => {
@@ -26,15 +27,15 @@ export const ProductList = () => {
     }, []);
 
     return (
-        <CommonProvider>
+        <>
             <Header headerType={scrollClass}/>
             <Search/>
             <Menu/>
             <div id='productList' className='container'>
                 <BannerComponent/>
-                <ProductComponent/>
+                <ProductComponent props={{categoryId: categoryId, subCategoryId: subCategoryId}}/>
             </div>
             <Footer/>
-        </CommonProvider>
+        </>
     )
 }

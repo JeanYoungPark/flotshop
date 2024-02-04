@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import { BsBag } from "react-icons/bs";
 import { RiSearch2Line, RiMenuFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
@@ -20,11 +20,11 @@ export const Header = (props: { headerType : string }) => {
     
     const renderCategoryList = (categoryData || []).map((data: categoryType, index: number) => (
         <li key={index}>
-            <span><Link to="">{data.title}</Link></span>
+            <span><Link to={data.subCategory.length > 0 ? '' : `/products/${data.id}`}>{data.title}</Link></span>
             { data.subCategory.length > 0 && (
                 <dl className="subMenu">
                     {data.subCategory.map((subData, subIndex) => (
-                        <dt key={subIndex}><span><Link to="">{subData.title}</Link></span></dt>
+                        <dt key={subIndex}><span><Link to={`/products/${data.id}/${subData.id}`}>{subData.title}</Link></span></dt>
                     ))}
                 </dl>
             )}

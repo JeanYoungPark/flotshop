@@ -63,6 +63,7 @@
                         overflow: hidden;
                         margin-bottom:10px;
                         cursor: pointer;
+                        background: #c9c9c9;
     
                         &:hover {
                             .likes  {
@@ -257,8 +258,175 @@
             }
 
             .content {
-                padding-top: 250px;
+                padding-top: 200px;
                 color: #222;
+                font-size: 16px;
+                line-height: 1.8;
+
+                hr {
+                    margin-bottom: 50px;
+                }
+            }
+
+            .guide {
+                padding: 110px 0;
+
+                .title {
+                    position: relative;
+                    margin: 5px 0 30px 0;
+
+                    h2 {
+                        font-size: 65px;
+                        font-family: "GmarketSans";
+                        font-weight: 700;
+                    }
+
+                    span{
+                        position:absolute;
+                        right:0;
+                        bottom:10px;
+                        font-size: 25px;
+                        color: #999;
+                    }
+                }
+
+                ul {
+                    li {
+                        border-top: 2px dashed #eee;
+                        cursor: pointer;
+
+                        h3 {
+                            font-size: 23px;
+                            font-weight: 700;
+                            padding: 15px 0;
+                        }
+
+                        div {
+                            max-height: 0;
+                            overflow: hidden;
+
+                            &.on {
+                                padding-bottom: 30px;
+                                height: auto;
+                                max-height: 500px;
+                            }
+                        }
+
+                        &.payment {
+                            div {
+                                font-size: 18px;
+                            }
+                        }
+                        
+                        &.shipping {
+                            div {
+                                color: #999;
+                                font-size: 18px;
+                                line-height: 1.8;;
+                            }
+                        }
+
+                        &.exchange {
+                            div {
+                                color: #999;
+                                font-size: 18px;
+                                line-height: 1.8;;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .reviews {
+                padding: 110px 0;
+
+                .title {
+                    position: relative;
+                    margin: 5px 0 30px 0;
+
+                    h2 {
+                        font-size: 65px;
+                        font-family: "GmarketSans";
+                        font-weight: 700;
+                    }
+
+                    span{
+                        position:absolute;
+                        right:0;
+                        bottom:10px;
+                        font-size: 25px;
+                        color: #999;
+                    }
+                }
+
+                ul {
+                    width: 100%;
+                    
+                    .record {
+                        align-items: center;
+                        border-top: 1px solid #eee;
+                        height: 80px;
+                        line-height: 80px;
+                        cursor: pointer;
+                        
+                        &::after {
+                            content: '';
+                            display:block;
+                            clear: both;
+                        }
+                        
+                        span {
+                            float: left;
+                            height: 100%;
+                            display: block;
+                            font-size: 15px;
+                            padding: 0 10px;
+
+                            &.float-right {
+                                float: right;
+                            }
+
+                            img {
+                                display: inline-block;
+                                width: 50px;
+                                height:50px;
+                                border-radius: 50%;
+                            }
+
+                            &.subject {
+                                font-size: 19px;
+                                max-width: 500px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                            }
+
+                            &.date {
+                                min-width: 120px;
+                            }
+
+                            &.profile {
+                                min-width: 120px;
+                            }
+                        }
+                    }
+
+                    .read {
+                        visibility: none;
+                        height: 0;
+                        padding: 0 40px;
+                        font-size: 18px;
+                        overflow: hidden;
+                        cursor: pointer;
+
+                        &.on {
+                            visibility: visible;
+                            padding: 80px 40px;
+                            border-top: 1px solid #eee;
+                            height: auto;
+                        }
+                    }
+                }
             }
         }
     
@@ -268,7 +436,7 @@
             .container {
                 position: relative;
                 max-width: 405px;
-                padding-top: 10px;
+                padding-top: 0;
 
                 .head {
                     padding-bottom: 15px;
