@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactFullpage from "@fullpage/react-fullpage";
+import ReactFullpage from "@fullpage/react-fullpage"
 import { Footer } from 'components/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'store'
@@ -33,48 +33,50 @@ export const MainComponent = () => {
             dispatch({type: 'setColor', color: false})
         }
     }
-
-  return (
-    <>
-        <ReactFullpage
-            licenseKey = {'YOUR_KEY_HERE'}
-            credits={credits}
-            navigation={popup === ""}
-            onLeave={leaveSection}
-            render={({ state, fullpageApi }) => {
-                return (
-                    <ReactFullpage.Wrapper>
-                        <div className="section first">
-                            <FirstSlideComponent />
-                        </div>
-                        <div className="section second">
-                          <SecondSlideComponent />  
-                        </div>
-                        <div className="section third">
-                            <ThirdSlideComponent />
-                        </div>
-                        <div className="section fourth">
-                            <FourthSlideComponent />
-                        </div>
-                        <div className="section fifth">
-                            <FifthSlideComponent />
-                        </div>
-                        <div className="section sixth">
-                            <SixthSlideComponent />
-                        </div>
-                        <div className="section seventh">
-                            <SeventhSlideComponent />
-                        </div>
-                        <div className="section eighth">
-                            <EighthSlideComponent />
-                        </div>
-                        <div className="section footer">
-                            <Footer />
-                        </div>
-                    </ReactFullpage.Wrapper>
-                )
-            }}
-        />
-    </>
-  )
+    
+    return (
+        <>
+            <ReactFullpage
+                licenseKey = {'YOUR_KEY_HERE'}
+                credits={credits}
+                navigation={popup === ""}
+                onLeave={leaveSection}
+                scrollOverflow = {false}
+                fitToSection={true}
+                render={({ state, fullpageApi }) => {
+                    return (
+                        <ReactFullpage.Wrapper>
+                            <div className="section first">
+                                <FirstSlideComponent />
+                            </div>
+                            <div className="section second">
+                            <SecondSlideComponent />  
+                            </div>
+                            <div className="section third">
+                                <ThirdSlideComponent />
+                            </div>
+                            <div className="section fourth">
+                                <FourthSlideComponent />
+                            </div>
+                            <div className="section fifth">
+                                <FifthSlideComponent />
+                            </div>
+                            <div className="section sixth">
+                                <SixthSlideComponent />
+                            </div>
+                            <div className="section seventh">
+                                <SeventhSlideComponent />
+                            </div>
+                            <div className="section eighth">
+                                <EighthSlideComponent />
+                            </div>
+                            <div className="section footer">
+                                <Footer />
+                            </div>
+                        </ReactFullpage.Wrapper>
+                    )
+                }}
+            />
+        </>
+    )
 }

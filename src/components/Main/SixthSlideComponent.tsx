@@ -4,6 +4,8 @@ import Slider from 'react-slick'
 import { nextSlide, prevSlide } from 'utils/slide/action';
 import { sixthSlickSetting } from 'utils/slide/settings';
 import pd06 from 'assets/images/mainBg06_1.jpg'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
 
 export const SixthSlideComponent = () => {
     const sliderRef = useRef<Slider>(null);
@@ -21,46 +23,37 @@ export const SixthSlideComponent = () => {
         <div className="box">
             <h2>이벤트 / 뉴스</h2>
             <div className="slides events">
-                <div className={`arrow prev ${slickCurrentPage === 1 && 'disable'}`} onClick={() => prevSlide(sliderRef, slickCurrentPage)}><BsArrowLeft/></div>
-                <div className={`arrow next ${slickCurrentPage === 3 && 'disable'}`} onClick={() => nextSlide(sliderRef, slickCurrentPage)}><BsArrowRight/></div>
-                <Slider ref={sliderRef} {...sixthSlickSetting}>
-                    <div className="product">
-                        <div className="wrap">
-                            <div><img src={pd06} alt="event"/></div>
-                            <div className="info">
-                                <strong>추석맞이 20% 쿠폰 </strong>
-                                <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
+                <Swiper
+                    slidesPerView={3}
+                    spaceBetween={15}
+                    navigation={{
+                        nextEl: '.custom-button-next',
+                        prevEl: '.custom-button-prev',
+                    }}
+                    pagination={{
+                        clickable: true,
+                        el: '.custom-pagination-2',
+                        renderBullet: (i: number, className: string) => {
+                            return `<span class=${className}>${i}</span>`; 
+                        }
+                    }}
+                    modules={[Navigation, Pagination]}
+                >
+                    {[1,1,1,1,1,1,1,1].map((data, i) => (
+                        <SwiperSlide key={i}>
+                             <div className="wrap">
+                                <div><img src={pd06} alt="event"/></div>
+                                <div className="info">
+                                    <strong>추석맞이 20% 쿠폰 </strong>
+                                    <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className="product">
-                        <div className="wrap">
-                            <div><img src={pd06} alt="event"/></div>
-                            <div className="info">
-                                <strong>추석맞이 20% 쿠폰 </strong>
-                                <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="product">
-                        <div className="wrap">
-                            <div><img src={pd06} alt="event"/></div>
-                            <div className="info">
-                                <strong>추석맞이 20% 쿠폰 </strong>
-                                <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="product">
-                        <div className="wrap">
-                            <div><img src={pd06} alt="event"/></div>
-                            <div className="info">
-                                <strong>추석맞이 20% 쿠폰 </strong>
-                                <p>추석맞이 전상품 20% 할인쿠폰<br/>09.20~25</p>
-                            </div>
-                        </div>
-                    </div>
-                </Slider>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+                <div className='custom-pagination-2'></div>
+                <div className='button custom-button-prev'><BsArrowLeft/></div>
+                <div className='button custom-button-next'><BsArrowRight/></div>
             </div>
             <div className="viewAll"><span>모두 보기</span></div>
         </div>

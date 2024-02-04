@@ -11,6 +11,8 @@ type settingTypes = {
     slidesToScroll?: number;
     adaptiveHeight?: boolean,
     dotsClass?: string;
+    variableWidth?: boolean;
+    centerMode?: boolean;
     customPaging?: (index: number) => ReactElement;
     beforeChange?: (currentSlide: number, nextSlide: number) => void;
 }
@@ -18,13 +20,6 @@ type settingTypes = {
 /**
  * main
  */
-export const firstSlickSetting: settingTypes = {
-    autoplay: true,
-    arrows: false,
-    fade: true,
-    speed: 1000
-}
-
 export const secondSlickSetting: settingTypes = {
     autoplay: true,
     arrows: false,
