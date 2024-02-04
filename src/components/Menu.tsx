@@ -1,13 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { RiCloseFill } from "react-icons/ri";
-import { CommonContext } from 'contexts/CommonProvider';
+import { RootState } from 'store';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const Menu = () => {
-    const CommonData = useContext(CommonContext);
+    const popup = useSelector((state: RootState) => state.userHeader.popup);
+    const dispatch = useDispatch();
 
     return (
-        <div id="menu" className={`${CommonData?.commonPopup === 'menu' && 'active'}`}>
-            <div className="close" onClick={() => CommonData?.handleCommonPopup("")}><RiCloseFill/></div>
+        <div id="menu" className={`${popup === 'menu' && 'active'}`}>
+            <div className="close" onClick={() => dispatch({type: 'setPopup', popup: ''})}><RiCloseFill/></div>
             <div className="right">
                 <div className="joinBenefit"><span> 회원 3,000P</span></div>
                 <div className="menuList">

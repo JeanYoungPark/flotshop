@@ -5,9 +5,13 @@ import { Route, Routes } from "react-router-dom"
 export const ProductRoutes = () => {
     return (
         <Routes>
-            <Route path=":category">
+            <Route path=":categoryId">
                 <Route path="" element={<ProductList/>} />
-                <Route path=":num" element={<ProductView/>} />
+                <Route path="view/:productId" element={<ProductView/>} />
+                <Route path=":subCategoryId">
+                    <Route path="" element={<ProductList/>} />
+                    <Route path="view/:productId" element={<ProductView/>} />
+                </Route>
             </Route>
         </Routes>
     )

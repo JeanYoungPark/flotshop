@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import "assets/css/common.css"
 import 'assets/css/product.css'
-import { CommonProvider } from 'contexts/CommonProvider'
 import { Header } from 'components/Header';
 import { Search } from 'components/Search';
 import { Menu } from 'components/Menu';
 import { DetailComponent } from 'components/product/DetailComponent';
 import { Footer } from 'components/Footer';
+import { useParams } from 'react-router-dom';
 
 export const ProductView = () => {
-
+    const { productId } = useParams();
     const [scrollClass, setScrollClass] = useState<string>("");
 
     useEffect(() => {
@@ -26,14 +26,14 @@ export const ProductView = () => {
     }, []);
 
     return (
-        <CommonProvider>
+        <>
             <Header headerType={scrollClass}/>
             <Search/>
             <Menu/>
             <div id='productDetail' className='container'>
-                <DetailComponent/>
+                <DetailComponent productId={productId}/>
             </div>
             <Footer/>
-        </CommonProvider>
+        </>
     )
 }
